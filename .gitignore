@@ -1,4 +1,5 @@
-sketch_*/*
+# Visual Studio Code files
+.vscode/*
 
-scripts/__pycache__/*
-scripts/downloads/*
+# Platformio files
+.pio/*
