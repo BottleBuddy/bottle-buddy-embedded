@@ -1,1 +1,4 @@
 sketch_*/*
+
+scripts/__pycache__/*
+scripts/downloads/*
