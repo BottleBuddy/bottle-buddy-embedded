@@ -1,7 +1,7 @@
 {
     "name": "Bottle Buddy Embedded",
     "description": "Bottle Buddy Embedded provides the source code for all the code that lives on the Bottle Buddy device.",
-    "os": "Linux",
+    "os": "Windows",
     "dependencies": [],
     "tools": [
         {
