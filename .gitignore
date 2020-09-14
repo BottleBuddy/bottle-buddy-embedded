@@ -1,1 +1,5 @@
-sketch_*/*
+# Visual Studio Code files
+.vscode/*
+
+# Platformio files
+.pio/*
