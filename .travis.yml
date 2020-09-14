@@ -13,4 +13,18 @@ install:
     - platformio update
 
 script:
-    - platformio run -e esp32dev
+    - |
+      if [[ "$FLASH" == "1" ]]; then
+        platformio run -e esp32dev || exit 1
+      fi
+    - |
+      if [[ "$SNIFF" == "1" ]]; then
+        platformio check -e esp32dev || exit 1
+      fi
+
+jobs:
+    include:
+        - name: Flash Arduino
+          env: FLASH=1
+        - name: Lint
+          env: SNIFF=1
