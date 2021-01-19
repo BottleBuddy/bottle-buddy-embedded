@@ -1,0 +1,8 @@
+# Visual Studio Code files
+.vscode/*
+
+# Platformio files
+.pio/*
+
+# Doxygen output
+docs/*
