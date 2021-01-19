@@ -3,3 +3,6 @@
 
 # Platformio files
 .pio/*
+
+# Doxygen output
+docs/*

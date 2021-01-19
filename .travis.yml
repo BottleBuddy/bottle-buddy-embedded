@@ -4,9 +4,23 @@ python:
 
 # Cache PlatformIO packages using Travis CI container-based infrastructure
 sudo: false
+
+branches:
+  except:
+    - gh-pages
+
 cache:
     directories:
         - "~/.platformio"
+
+addons:
+  apt:
+    packages:
+      - doxygen
+      - doxygen-doc
+      - doxygen-latex
+      - doxygen-gui
+      - graphviz
 
 install:
     - pip install -U platformio
@@ -23,8 +37,19 @@ script:
       fi
 
 jobs:
-    include:
-        - name: Flash Arduino
-          env: FLASH=1
-        - name: Lint
-          env: SNIFF=1
+  include:
+    - name: Flash Arduino
+      env: FLASH=1
+    - name: Lint
+      env: SNIFF=1
+    - name: Deploy
+      if: branch = master
+      env:
+        - DEPLOY: 1
+        - GH_REPO_NAME: bottle-buddy-embedded
+        - DOXYFILE: $TRAVIS_BUILD_DIR/Doxyfile
+        - GH_REPO_REF: github.com/BottleBuddy/bottle-buddy-embedded.git
+      after_success:
+        - cd $TRAVIS_BUILD_DIR
+        - chmod +x deployDocumentation.sh
+        - ./deployDocumentation.sh
