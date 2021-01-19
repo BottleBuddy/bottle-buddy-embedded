@@ -12,7 +12,12 @@
  * @brief Serial speed
  */
 constexpr int serialSpeed = 115200;
+
+/**
+ * @brief Delay time
+ */
 constexpr int delayTime = 1000;
+
 constexpr int ledPin = 2;
 
 /**
