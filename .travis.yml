@@ -52,4 +52,4 @@ jobs:
       after_success:
         - cd $TRAVIS_BUILD_DIR
         - chmod +x deployDocumentation.sh
-        - ./deployDocumentation.sh
+        - ./generateDocumentation.sh
