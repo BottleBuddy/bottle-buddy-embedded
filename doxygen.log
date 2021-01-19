@@ -17,8 +17,7 @@ warning: ignoring unsupported tag `XML_NS_MEMB_FILE_SCOPE =' at line 2121, file 
 warning: ignoring unsupported tag `DOT_UML_DETAILS        =' at line 2449, file /home/travis/build/BottleBuddy/bottle-buddy-embedded/Doxyfile
 warning: ignoring unsupported tag `DOT_WRAP_THRESHOLD     =' at line 2458, file /home/travis/build/BottleBuddy/bottle-buddy-embedded/Doxyfile
 warning: ignoring unsupported tag `PLANTUML_CFG_FILE      =' at line 2589, file /home/travis/build/BottleBuddy/bottle-buddy-embedded/Doxyfile
-/home/travis/build/BottleBuddy/bottle-buddy-embedded/src/main.cpp:15: warning: Member delayTime (variable) of file main.cpp is not documented.
-/home/travis/build/BottleBuddy/bottle-buddy-embedded/src/main.cpp:16: warning: Member ledPin (variable) of file main.cpp is not documented.
+/home/travis/build/BottleBuddy/bottle-buddy-embedded/src/main.cpp:21: warning: Member ledPin (variable) of file main.cpp is not documented.
 /home/travis/build/BottleBuddy/bottle-buddy-embedded/include/README.md:8: warning: explicit link request to 'include' could not be resolved
 Searching for include files...
 Searching for example files...

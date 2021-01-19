@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['serialspeed',['serialSpeed',['../main_8cpp.html#afbff995684d75e5a671be4c1afa783e8',1,'main.cpp']]]
+  ['delaytime',['delayTime',['../main_8cpp.html#ae648b3d2230eb5ca63fac8ee24fd6d76',1,'main.cpp']]]
 ];
