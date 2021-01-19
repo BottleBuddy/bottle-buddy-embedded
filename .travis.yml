@@ -51,5 +51,5 @@ jobs:
         - GH_REPO_REF: github.com/BottleBuddy/bottle-buddy-embedded.git
       after_success:
         - cd $TRAVIS_BUILD_DIR
-        - chmod +x deployDocumentation.sh
+        - chmod +x generateDocumentation.sh
         - ./generateDocumentation.sh
