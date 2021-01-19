@@ -8,6 +8,9 @@
 
 #include <Arduino.h>
 
+/**
+ * @brief Serial speed
+ */
 constexpr int serialSpeed = 115200;
 constexpr int delayTime = 1000;
 constexpr int ledPin = 2;
