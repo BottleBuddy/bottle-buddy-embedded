@@ -6,9 +6,8 @@ python:
 sudo: false
 
 branches:
-  only:
-    - master
-    - develop
+  except:
+    - gh-pages
 
 cache:
     directories:
