@@ -12,29 +12,58 @@
 
 /*HEADER FILES FOR SOFTWARE*/
 #include <Arduino.h>
+#include <Wire.h>
+#include <ArduinoBLE.h>
 /**************************/
 
-/*Global Variables*/
-const int GREEN_LED_PIN = 4;
-const int RED_LED_PIN = 3;
-const int BLUE_LED_PIN = 2;
-const int BUTTON_PIN = 5;
-const int BAUD_RATE = 115200;
-/******************/
+/*BLE Service and Characteristic Definitions*/
+BLEService ledService("19B10010-E8F2-537E-4F6C-D104768A1214"); // create service
+// create switch characteristic and allow remote device to read and write
+BLEByteCharacteristic ledCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
+// create button characteristic and allow remote device to get notifications
+BLEByteCharacteristic buttonCharacteristic("19B10012-E8F2-537E-4F6C-D104768A1214", BLERead | BLENotify);
+//
+BLEByteCharacteristic waterCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLERead | BLENotify);
+/*******************************************/
 
-void setup() {
-  /*Pin Initializations*/
-  pinMode(BLUE_LED_PIN, OUTPUT);
-  pinMode(RED_LED_PIN, OUTPUT);
-  pinMode(GREEN_LED_PIN, OUTPUT);
-  pinMode(BUTTON_PIN, INPUT);
-  /*********************/
+void setup()
+{
 
-  /*Serial Initialization for Testing*/
-  Serial.begin(BAUD_RATE);
-  while (! Serial){delay(1);}
-  Serial.println("Bottle Buddy Test Program");
-  /**********************************/
+  /**
+   * @brief Initialization of BLE Sensor
+   * 
+   * This is the basic setup for the BLE module
+   */
+
+  if (!BLE.begin())
+  {
+    Serial.println("Failed to initialize BLE!");
+    while (1)
+      ;
+  }
+
+  // set the local name peripheral advertises
+  BLE.setLocalName("BBUDDY");
+  // set the UUID for the service this peripheral advertises:
+  BLE.setAdvertisedService(ledService);
+  // add the characteristics to the service
+  ledService.addCharacteristic(ledCharacteristic);
+  ledService.addCharacteristic(buttonCharacteristic);
+  ledService.addCharacteristic(waterCharacteristic);
+  // add the service
+  BLE.addService(ledService);
+  //starting values for both charactersistics
+  ledCharacteristic.writeValue(0);
+  buttonCharacteristic.writeValue(0);
+  waterCharacteristic.writeValue(0);
+  // start advertising
+  BLE.advertise();
+  Serial.println("Bluetooth device active, waiting for connections...");
 }
 
-void loop() {}
+void loop()
+{
+  ble_init();
+  BLE.poll();
+  ble_data();
+}
