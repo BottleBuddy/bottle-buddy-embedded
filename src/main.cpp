@@ -7,6 +7,9 @@
  */
 
 #include <Arduino.h>
+#include "Pipeline/pipeFactory.h"
+
+BottleBuddy::Embedded::Pipeline::Pipe* waterLevelPipe;
 
 /**
  * @brief Serial speed
@@ -27,7 +30,10 @@ constexpr int ledPin = 2;
  */
 void setup() {
   pinMode(ledPin, OUTPUT);
-  Serial.begin(serialSpeed, SERIAL_8N1); 
+  Serial.begin(serialSpeed, SERIAL_8N1);
+
+  //Using pipeline api. First step is to use pipeline factory to create pipes around "locations" within the Bottle Buddy
+  waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::WATER_LEVEL);
 }
 
 /** 
@@ -44,4 +50,8 @@ void loop() {
   Serial.print(0);             
   Serial.print("\t");           
   delay(delayTime);                       // wait for a second
+
+  //Using pipeline api. In loop, when you have gotten a new reading from the distance sensor, simply send the payload using the pipe you constructed in setup. In this case, we send a reading of "1" every time.
+  int payload = 1;
+  waterLevelPipe->sendPayload<int>(payload);
 }
