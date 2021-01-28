@@ -8,18 +8,7 @@
 
 #include <Arduino.h>
 #include "Pipeline/pipeFactory.h"
-#include <Adafruit_VL53L0X.h>
-
-/**
- * @brief variable declaration for the ToF Camera Sensor 
- */
-
-Adafruit_VL53L0X lox = Adafruit_VL53L0X();
-/**
- * @brief variable for the Baud Rate 
- */
-
-const int BAUD_RATE = 115200;
+#include "devices/ToF.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 
@@ -29,38 +18,17 @@ BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 constexpr int serialSpeed = 115200;
 
 /**
- * @brief Delay time
- */
-constexpr int delayTime = 1000;
-
-constexpr int ledPin = 2;
-
-int tof_sensor_distance()
-{
-  VL53L0X_RangingMeasurementData_t value;
-  lox.rangingTest(&value, false);
-  if (value.RangeStatus != 4)
-  {
-    return value.RangeMilliMeter;
-  }
-  return 0;
-}
-
-/**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
 
-void setup()
-{
-  pinMode(ledPin, OUTPUT);
+void setup() {
   Serial.begin(serialSpeed, SERIAL_8N1);
 
-  if (!lox.begin(BAUD_RATE))
-  {
+  if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
-    while (1)
+    while(1)
       ;
   }
 
@@ -71,21 +39,10 @@ void setup()
 /** 
  * @brief Main loop.
  * 
- *  This loop blinks an LED for demonstration purposes.
+ *  This loop currently grabs a ToF measurement value and sends it down the water level pipe.
  */
-void loop()
-{
-  digitalWrite(ledPin, HIGH); // turn the LED on (HIGH is the voltage level)
-  Serial.print(1);
-  Serial.print("\t");
-  delay(delayTime);          // wait for a second
-  digitalWrite(ledPin, LOW); // turn the LED off by making the voltage LOW
-  Serial.print(0);
-  Serial.print("\t");
-  delay(delayTime); // wait for a second
-
+void loop() {
   //Using pipeline api. In loop, when you have gotten a new reading from the distance sensor, simply send the payload using the pipe you constructed in setup. In this case, we send a reading of "1" every time.
   int payload = tof_sensor_distance();
-
   waterLevelPipe->sendPayload<int>(payload);
 }
