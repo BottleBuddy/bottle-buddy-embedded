@@ -35,11 +35,23 @@ constexpr int delayTime = 1000;
 
 constexpr int ledPin = 2;
 
+int tof_sensor_distance()
+{
+  VL53L0X_RangingMeasurementData_t value;
+  lox.rangingTest(&value, false);
+  if (value.RangeStatus != 4)
+  {
+    return value.RangeMilliMeter;
+  }
+  return 0;
+}
+
 /**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
+
 void setup()
 {
   pinMode(ledPin, OUTPUT);
@@ -76,15 +88,4 @@ void loop()
   int payload = tof_sensor_distance();
 
   waterLevelPipe->sendPayload<int>(payload);
-}
-
-int tof_sensor_distance()
-{
-  VL53L0X_RangingMeasurementData_t value;
-  lox.rangingTest(&value, false);
-  if (value.RangeStatus != 4)
-  {
-    return value.RangeMilliMeter;
-  }
-  return 0;
 }
