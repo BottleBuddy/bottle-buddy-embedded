@@ -8,9 +8,9 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
 
-    class waterIntakeService: public Service {
+    class WaterIntakeService: public Service {
     public:
-        waterIntakeService(std::string uid);
+        WaterIntakeService(std::string uid);
 
         void receive(Package package);
     private:

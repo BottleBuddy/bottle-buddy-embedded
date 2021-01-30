@@ -8,7 +8,7 @@
 #include "Pipeline/router.h"
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
-
+    
     class Service {
     public:
         virtual void receive(Package package);

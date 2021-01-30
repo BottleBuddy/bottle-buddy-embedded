@@ -7,8 +7,11 @@
 #include <unordered_map>
 #include <vector>
 #include "Pipeline/package.h"
+#include "Pipeline/service.h"
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
+
+    class Service;
 
     class Router {
     public:
@@ -20,11 +23,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
         template<typename T>
         static void route(T payload, Location location);
 
-        static void subscribe(Location location, void (*receive)(Package package));
+        //static void subscribe(Location location, void (*receive)(Package package));
+        static void subscribe(Location location, Service *service);
     private:
         Router();
 
-        static std::unordered_map<Location, std::vector<void (*)(Package package)>> subscriptions;
+        static std::unordered_map<Location, std::vector<Service*>> subscriptions;
     };
 
 }}}

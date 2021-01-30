@@ -7,6 +7,7 @@
  */
 
 #include <Arduino.h>
+#include "Pipeline/Services/waterIntakeService.h"
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 
