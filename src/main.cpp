@@ -33,7 +33,7 @@ void setup() {
   }
 
   //Using pipeline api. First step is to use pipeline factory to create pipes around "locations" within the Bottle Buddy
-  waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::WATER_LEVEL);
+  waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
 }
 
 /** 

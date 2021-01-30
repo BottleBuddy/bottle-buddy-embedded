@@ -7,7 +7,7 @@
 template<typename T>
 void BottleBuddy::Embedded::Pipeline::Router::route(T payload, Location location) {
     switch(location) {
-        case WATER_LEVEL:
+        case ToF:
             break;
         case CLEANING:
             break;
