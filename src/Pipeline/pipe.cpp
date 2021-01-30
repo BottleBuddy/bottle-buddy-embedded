@@ -14,6 +14,6 @@ BottleBuddy::Embedded::Pipeline::Pipe::Pipe(Location location) {
 
 template<typename T>
 void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload(T payload) {
-    Router::route(payload, this->location);
+    Router::route(this->location, payload);
 }
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<int>(int);
