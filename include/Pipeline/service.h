@@ -5,6 +5,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include <ArduinoBLE.h>
 #include "Pipeline/router.h"
 
@@ -12,9 +13,21 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     class Service {
     public:
+        Service(const char* uid);
+
         virtual void receive(Package package);
     protected:
-        std::string uid;
+        const char* uid;
+        BLEService bleService;
+
+        int numCharacteristics;
+        std::unordered_map<std::string, BLECharacteristic> characteristics;
+
+        void createCharacteristic(std::string name, uint8_t properties);
+    private:
+        std::unordered_map<char, int> hexConversions;
+
+        const char* makeCharacteristicUUID();
     };
 
 }}}
