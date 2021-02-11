@@ -27,8 +27,7 @@ install:
     - platformio update
 
 script:
-    - pwd
-    - pio ci --project-conf=platoformio.ini
+    - pio ci --project-conf=/platoformio.ini
     - |
       if [[ "$FLASH" == "1" ]]; then
         platformio run -e esp32dev || exit 1
