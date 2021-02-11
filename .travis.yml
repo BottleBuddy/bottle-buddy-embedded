@@ -9,6 +9,10 @@ branches:
   except:
     - gh-pages
 
+cache:
+    directories:
+        - "~/.platformio"
+
 addons:
   apt:
     packages:
@@ -23,6 +27,7 @@ install:
     - platformio update
 
 script:
+    - pio ci --project-conf=platoformio.ini
     - |
       if [[ "$FLASH" == "1" ]]; then
         platformio run -e esp32dev || exit 1
