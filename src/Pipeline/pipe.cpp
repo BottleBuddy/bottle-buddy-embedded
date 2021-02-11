@@ -5,7 +5,7 @@
 #include "Pipeline/pipe.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe::Pipe() {
-    throw std::runtime_error("Pipe construction must provide a location.");
+    //TODO: Handle Pipe construction with no location.
 }
 
 BottleBuddy::Embedded::Pipeline::Pipe::Pipe(Location location) {
