@@ -8,7 +8,8 @@
 
 #include <Arduino.h>
 #include "Pipeline/pipeFactory.h"
-#include <Arduino_LSM9DS1.h>
+#include "devices/ToF.h"
+
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 
 /**
@@ -17,26 +18,23 @@ BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 constexpr int serialSpeed = 115200;
 
 /**
- * @brief Delay time
- */
-constexpr int delayTime = 1000;
-
-constexpr int ledPin = 2;
-
-/**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
-void setup()
-{
-  pinMode(ledPin, OUTPUT);
+
+void setup() {
   Serial.begin(serialSpeed, SERIAL_8N1);
 
-  if (!IMU.begin())
-  {
+  if (!IMU.begin()) {
     Serial.println("Failed to initialize IMU!");
     while (1)
+    ;
+  }
+
+  if(tof_sensor_setup() == -1) {
+    Serial.println("Failed to initialize VL53L0X!");
+    while(1)
       ;
   }
 
@@ -47,8 +45,9 @@ void setup()
 /** 
  * @brief Main loop.
  * 
- *  This loop blinks an LED for demonstration purposes.
+ *  This loop currently grabs a ToF measurement value and sends it down the water level pipe.
  */
+<<<<<<< HEAD
 void loop()
 {
   digitalWrite(ledPin, HIGH); // turn the LED on (HIGH is the voltage level)
@@ -60,7 +59,10 @@ void loop()
   Serial.print("\t");
   delay(delayTime); // wait for a second
 
+=======
+void loop() {
+>>>>>>> develop
   //Using pipeline api. In loop, when you have gotten a new reading from the distance sensor, simply send the payload using the pipe you constructed in setup. In this case, we send a reading of "1" every time.
-  int payload = 1;
+  int payload = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(payload);
 }
