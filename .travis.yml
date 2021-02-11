@@ -9,10 +9,6 @@ branches:
   except:
     - gh-pages
 
-cache:
-    directories:
-        - "~/.platformio"
-
 addons:
   apt:
     packages:
