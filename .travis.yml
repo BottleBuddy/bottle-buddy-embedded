@@ -27,6 +27,7 @@ install:
     - platformio update
 
 script:
+    - pwd
     - pio ci --project-conf=platoformio.ini
     - |
       if [[ "$FLASH" == "1" ]]; then
