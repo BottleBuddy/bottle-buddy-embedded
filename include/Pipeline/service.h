@@ -18,6 +18,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
     public:
         Service(const char* uid);
 
+        ~Service();
+
         virtual void receive(Package package);
     protected:
         const char* uid;

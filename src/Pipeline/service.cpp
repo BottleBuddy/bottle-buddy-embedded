@@ -24,6 +24,13 @@ BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(
     hexConversions.emplace('F', 15);
 }
 
+BottleBuddy::Embedded::Pipeline::Service::~Service() {
+	for (std::vector<const char*>::iterator uuidIter = uuids.begin(); uuidIter != uuids.end(); uuidIter++) {
+		const char* uuid = *uuidIter;
+		free((void*)uuid);
+	}
+}
+
 void BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string name, uint8_t properties) {
 	if (numCharacteristics >= 16) {
 		return;
