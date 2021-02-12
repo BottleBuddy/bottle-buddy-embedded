@@ -24,7 +24,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * Use this function when a sensor reads new data that will be used across the Bottle Buddy embedded system.
          */
         template<typename T>
-        void sendPayload(T payload);
+        void sendPayload(T data);
+
+        template<typename T>
+        void sendPayload(T dim1, T dim2, T dim3);
     private:
         Pipe();
 

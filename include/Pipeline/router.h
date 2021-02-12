@@ -17,12 +17,11 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
     class Router {
     public:
         /**
-         * @brief Routes data coming from a pipe.
+         * @brief Routes packages coming from a pipe.
          * 
-         * Route's a pipe's data payload to every service subscribed to that location.
+         * Route's a pipe's package to every service subscribed to that location.
          */
-        template<typename T>
-        static void route(Location location, T payload);
+        static void route(Package package);
 
         static void subscribe(Location location, Service *service);
     private:

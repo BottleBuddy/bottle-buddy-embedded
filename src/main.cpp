@@ -13,6 +13,7 @@
 #include "devices/IMU.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 
 /**
  * @brief Serial speed
@@ -40,17 +41,20 @@ void setup() {
       ;
   }
 
-  //Using pipeline api. First step is to use pipeline factory to create pipes around "locations" within the Bottle Buddy
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
+  accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
 }
 
 /** 
  * @brief Main loop.
  * 
- *  This loop currently grabs a ToF measurement value and sends it down the water level pipe.
+ *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
  */
 void loop() {
-  //Using pipeline api. In loop, when you have gotten a new reading from the distance sensor, simply send the payload using the pipe you constructed in setup. In this case, we send a reading of "1" every time.
   int payload = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(payload);
+
+  float x, y, z;
+  read_accelerometer(x, y, z);
+  accelerometerPipe->sendPayload(x, y, z);
 }
