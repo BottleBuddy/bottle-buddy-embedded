@@ -9,6 +9,7 @@
 #include <Arduino.h>
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
+#include "devices/IMU.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 
@@ -28,6 +29,12 @@ void setup() {
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
+    while(1)
+      ;
+  }
+
+  if(imu_sensor_setup() == -1) {
+    Serial.println("Failed to initialize IMU!");
     while(1)
       ;
   }
