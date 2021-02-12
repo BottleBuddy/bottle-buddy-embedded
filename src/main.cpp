@@ -56,5 +56,5 @@ void loop() {
 
   float x, y, z;
   read_accelerometer(x, y, z);
-  accelerometerPipe->sendPayload(x, y, z);
+  accelerometerPipe->sendPayload<float>(x, y, z);
 }

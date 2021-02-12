@@ -12,7 +12,6 @@ void BottleBuddy::Embedded::Pipeline::Router::route(Package package) {
         return;
     }
 
-    //Package package(location, payload);
     std::vector<Service*> subscribedServices = subscriptions.at(origin);
     for(std::vector<Service*>::iterator servicesIter = subscribedServices.begin(); servicesIter != subscribedServices.end(); servicesIter++) {
         Service *service = *servicesIter;
