@@ -13,6 +13,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      */
     enum Location { ToF, ACCELEROMETER };
 
+    /**
+     * @brief Encapsulates low level sensor data traveling through the pipeline.
+     * 
+     * This class provides a clean interface both for low level drives to transport their sensor data as well as
+     * high level services to read data from low level sensors.
+     */
     class Package {
     public:
         Package(Location origin, int data);
@@ -23,8 +29,14 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
         ~Package();
 
+        /**
+         * @brief Returns the location corresponding to which sensor this package is from.
+         */
         Location getOrigin();
     private:
+        /**
+         * @brief Represents the location from which this package is from.
+         */
         Location origin;
     };
 
