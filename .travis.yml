@@ -27,14 +27,13 @@ install:
     - platformio update
 
 script:
-    - pio ci --project-conf=${TRAVIS_BUILD_DIR}/platformio.ini
     - |
       if [[ "$FLASH" == "1" ]]; then
-        platformio run -e esp32dev || exit 1
+        platformio run -e nano33ble || exit 1
       fi
     - |
       if [[ "$SNIFF" == "1" ]]; then
-        platformio check -e esp32dev || exit 1
+        platformio check -e nano33ble || exit 1
       fi
 
 jobs:
