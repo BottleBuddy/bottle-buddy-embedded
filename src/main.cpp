@@ -118,3 +118,14 @@ void loop()
   int payload = 1;
   waterLevelPipe->sendPayload<int>(payload);
 }
+
+const int LED_PIN = 3; //or whatever pin the led is connected to
+void turn_on_led()
+{
+  digitalWrite(LED_PIN, HIGH);
+}
+
+void turn_on_led()
+{
+  digitalWrite(LED_PIN, HIGH);
+}
