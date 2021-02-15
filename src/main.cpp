@@ -11,9 +11,12 @@
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 #include "devices/IMU.h"
+#include "devices/BLE.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
+
+BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *waterIntakeService;
 
 /**
  * @brief Serial speed
@@ -25,8 +28,9 @@ constexpr int serialSpeed = 115200;
  * 
  * Makes necessary initializations for system to be able to run.
  */
-
 void setup() {
+  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
+  
   Serial.begin(serialSpeed, SERIAL_8N1);
 
   if(tof_sensor_setup() == -1) {
@@ -37,6 +41,12 @@ void setup() {
 
   if(imu_sensor_setup() == -1) {
     Serial.println("Failed to initialize IMU!");
+    while(1)
+      ;
+  }
+
+  if(ble_device_setup() == -1) {
+    Serial.println("Failed to initialize BLE!");
     while(1)
       ;
   }
