@@ -6,6 +6,6 @@ int ble_device_setup() {
     }
 
     BLE.setLocalName("BBUDDY");
-    //TODO: Set advertised service.
-    BLE.advertise();
+    int advertiseSuccess = BLE.advertise();
+    return advertiseSuccess - 1;
 }
