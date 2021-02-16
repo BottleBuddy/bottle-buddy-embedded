@@ -14,7 +14,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      * Specifically, the service creates a set of timestamped values corresponding to when and how much water
      * a user drank during the day. Additionally, it streams this dataset to the Bottle Buddy App.
      */
-    class WaterIntakeService: public Service {
+    class WaterIntakeService : public Service {
     public:
         WaterIntakeService(const char* uid);
 

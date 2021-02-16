@@ -8,6 +8,7 @@
 
 #include <Arduino.h>
 #include "Pipeline/Services/waterIntakeService.h"
+#include "Pipeline/Services/cleaningService.h"
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 #include "devices/IMU.h"
@@ -16,7 +17,8 @@
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *waterIntakeService;
+BottleBuddy::Embedded::Pipeline::Service *waterIntakeService;
+BottleBuddy::Embedded::Pipeline::Service *cleaningService;
 
 /**
  * @brief Serial speed
@@ -30,6 +32,7 @@ constexpr int serialSpeed = 115200;
  */
 void setup() {
   waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
+  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214");
   
   Serial.begin(serialSpeed, SERIAL_8N1);
 
