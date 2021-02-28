@@ -14,3 +14,7 @@
  * Call once to set up BLE device.
  */
 int ble_device_setup();
+
+int advertise_ble();
+
+String wait_for_ble_connection();

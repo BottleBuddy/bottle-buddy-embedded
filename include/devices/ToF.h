@@ -11,7 +11,7 @@
 /**
  * @brief Baud rate. 
  */
-const int BAUD_RATE = 115200;
+const int BAUD_RATE = 9600;
 
 /**
  * @brief ToF Camera Sensor object.

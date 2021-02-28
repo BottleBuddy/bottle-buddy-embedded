@@ -7,7 +7,8 @@
  */
 
 #include <Arduino.h>
-#include "Pipeline/Services/waterIntakeService.h"
+#include <ArduinoBLE.h>
+#include "Pipeline/Services/demoService.h"
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 #include "devices/IMU.h"
@@ -16,12 +17,17 @@
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *waterIntakeService;
+BottleBuddy::Embedded::Pipeline::Services::DemoService *demoService;
 
-/**
- * @brief Serial speed
- */
-constexpr int serialSpeed = 115200;
+BLEService bleDemoService("19B10010-E8F2-537E-4F6C-D104768A1214");
+BLECharacteristic bleDemoCharacteristics [3];
+BLEByteCharacteristic tofCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead);
+BLEByteCharacteristic accelerometerCharacteristic("19B10012-E8F2-537E-4F6C-D104768A1214", BLERead);
+BLEByteCharacteristic notificationCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLEWrite);
+
+const int GREEN_LED_PIN = 4;
+const int RED_LED_PIN = 3;
+const int BLUE_LED_PIN = 2;
 
 /**
  * @brief Setup loop.
@@ -29,30 +35,39 @@ constexpr int serialSpeed = 115200;
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
-  
-  Serial.begin(serialSpeed, SERIAL_8N1);
+  pinMode(BLUE_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
+  digitalWrite(RED_LED_PIN, HIGH);
   if(tof_sensor_setup() == -1) {
-    Serial.println("Failed to initialize VL53L0X!");
     while(1)
       ;
   }
+  digitalWrite(RED_LED_PIN, LOW);
+  digitalWrite(BLUE_LED_PIN, HIGH);
 
   if(imu_sensor_setup() == -1) {
-    Serial.println("Failed to initialize IMU!");
     while(1)
       ;
   }
 
   if(ble_device_setup() == -1) {
-    Serial.println("Failed to initialize BLE!");
     while(1)
       ;
   }
+  bleDemoCharacteristics[0] = tofCharacteristic;
+  bleDemoCharacteristics[1] = accelerometerCharacteristic;
+  bleDemoCharacteristics[2] = notificationCharacteristic;
+  demoService = new BottleBuddy::Embedded::Pipeline::Services::DemoService(bleDemoService, bleDemoCharacteristics);
+  int advertising_success = advertise_ble();
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
+  
+  digitalWrite(BLUE_LED_PIN, LOW);
+  digitalWrite(GREEN_LED_PIN, HIGH);
 }
 
 /** 
@@ -61,10 +76,14 @@ void setup() {
  *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
  */
 void loop() {
+  String central_address = wait_for_ble_connection();
+  BLE.poll();
+
   int payload = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(payload);
 
   float x, y, z;
   read_accelerometer(x, y, z);
   accelerometerPipe->sendPayload<float>(x, y, z);
+  delay(100);
 }

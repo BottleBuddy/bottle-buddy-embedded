@@ -8,8 +8,6 @@ BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(
     this->uid = uid;
     this->numCharacteristics = 0;
 
-    BLE.addService(bleService);
-
     hexConversions.emplace('a', 10);
     hexConversions.emplace('A', 10);
     hexConversions.emplace('b', 11);
@@ -22,6 +20,10 @@ BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(
     hexConversions.emplace('E', 14);
     hexConversions.emplace('f', 15);
     hexConversions.emplace('F', 15);
+}
+
+BottleBuddy::Embedded::Pipeline::Service::Service(BLEService bleService, BLECharacteristic* bleCharacteristics) {
+
 }
 
 BottleBuddy::Embedded::Pipeline::Service::~Service() {
