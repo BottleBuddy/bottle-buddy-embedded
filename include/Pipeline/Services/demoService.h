@@ -19,7 +19,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         DemoService(const char* uid);
         DemoService(BLEService bleService, BLECharacteristic* bleCharacteristics);
 
-        void receive(Package package);
+        void receive(Package* package);
     private:
     };
 

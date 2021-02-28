@@ -4,6 +4,8 @@
 
 #pragma once
 
+#include <stdlib.h>
+
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     /**
@@ -33,11 +35,22 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * @brief Returns the location corresponding to which sensor this package is from.
          */
         Location getOrigin();
+
+        bool getData(int& data);
+        bool getData(int& dim1, int& dim2, int& dim3);
+        bool getData(float& data);
+        bool getData(float& dim1, float& dim2, float& dim3);
     private:
+        enum BBDataType { BBInt, BBFloat };
+
         /**
          * @brief Represents the location from which this package is from.
          */
         Location origin;
+
+        BBDataType datatype;
+
+        void* dataptr;
     };
 
 }}}

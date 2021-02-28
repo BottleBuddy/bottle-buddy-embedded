@@ -21,7 +21,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * 
          * Route's a pipe's package to every service subscribed to that location.
          */
-        static void route(Package package);
+        static void route(Package* package);
 
         /**
          * @brief Subscribes a service to a sensor location.

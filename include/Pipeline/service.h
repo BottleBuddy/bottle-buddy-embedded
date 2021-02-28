@@ -36,7 +36,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * 
          * Can be implemented however the derived service needs in order to provide its service.
          */
-        virtual void receive(Package package) = 0;
+        virtual void receive(Package* package) = 0;
     protected:
         /**
          * @brief The service's UID string, which is used for BLE purposes.

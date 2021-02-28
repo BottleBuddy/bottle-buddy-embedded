@@ -15,7 +15,7 @@ BottleBuddy::Embedded::Pipeline::Pipe::Pipe(Location location) {
 template<typename T>
 void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload(T data) {
     Package package(this->location, data);
-    Router::route(package);
+    Router::route(&package);
 }
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<int>(int);
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<float>(float);
@@ -23,7 +23,7 @@ template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<float>(float);
 template<typename T>
 void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload(T dim1, T dim2, T dim3) {
     Package package(this->location, dim1, dim2, dim3);
-    Router::route(package);
+    Router::route(&package);
 }
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<int>(int, int, int);
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<float>(float, float, float);
