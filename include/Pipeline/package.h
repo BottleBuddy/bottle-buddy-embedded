@@ -24,6 +24,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
     class Package {
     public:
         Package(Location origin, int data);
+        Package(Location origin, unsigned short data);
         Package(Location origin, float data);
 
         Package(Location origin, int dim1, int dim2, int dim3);
@@ -37,11 +38,13 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
         Location getOrigin();
 
         bool getData(int& data);
-        bool getData(int& dim1, int& dim2, int& dim3);
+        bool getData(unsigned short& data);
         bool getData(float& data);
+        
+        bool getData(int& dim1, int& dim2, int& dim3);
         bool getData(float& dim1, float& dim2, float& dim3);
     private:
-        enum BBDataType { BBInt, BBFloat };
+        enum BBDataType { BBInt, BBUShort, BBFloat };
 
         /**
          * @brief Represents the location from which this package is from.

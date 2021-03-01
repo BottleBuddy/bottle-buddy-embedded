@@ -21,6 +21,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         void receive(Package* package);
     private:
+        BLECharacteristic* bleCharacteristics;
     };
 
 }}}}

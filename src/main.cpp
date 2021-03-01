@@ -21,9 +21,9 @@ BottleBuddy::Embedded::Pipeline::Services::DemoService *demoService;
 
 BLEService bleDemoService("19B10010-E8F2-537E-4F6C-D104768A1214");
 BLECharacteristic bleDemoCharacteristics [3];
-BLEByteCharacteristic tofCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead);
+BLEUnsignedShortCharacteristic tofCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead);
 BLEByteCharacteristic accelerometerCharacteristic("19B10012-E8F2-537E-4F6C-D104768A1214", BLERead);
-BLEByteCharacteristic notificationCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLEWrite);
+BLEBooleanCharacteristic notificationCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
 
 const int GREEN_LED_PIN = 4;
 const int RED_LED_PIN = 3;
@@ -79,8 +79,8 @@ void loop() {
   String central_address = wait_for_ble_connection();
   BLE.poll();
 
-  int payload = tof_sensor_distance();
-  waterLevelPipe->sendPayload<int>(payload);
+  uint16_t tof_reading = tof_sensor_distance();
+  waterLevelPipe->sendPayload<uint16_t>(tof_reading);
 
   float x, y, z;
   read_accelerometer(x, y, z);

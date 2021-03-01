@@ -14,7 +14,7 @@ int tof_sensor_setup() {
     return 0;
 }
 
-int tof_sensor_distance() {
+uint16_t tof_sensor_distance() {
     VL53L0X_RangingMeasurementData_t value;
     lox.rangingTest(&value, false);
     if (value.RangeStatus != 4) {

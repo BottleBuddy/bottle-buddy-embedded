@@ -17,11 +17,17 @@ BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(BLEService b
     }
 
     BLE.addService(bleService);
+    this->bleCharacteristics = bleCharacteristics;
 
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ToF, this);
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER, this);
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::DemoService::receive(BottleBuddy::Embedded::Pipeline::Package* package) {
-
+    if (package->getOrigin() == BottleBuddy::Embedded::Pipeline::Location::ToF) {
+        unsigned short waterLevel;
+        if (package->getData(waterLevel)) {
+            this->bleCharacteristics[0].writeValue(waterLevel);
+        }
+    }
 }

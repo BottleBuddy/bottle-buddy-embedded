@@ -32,4 +32,4 @@ int tof_sensor_setup();
  * 
  * Can be called continuously to grab the current reading on the ToF sensor.
  */
-int tof_sensor_distance();
+uint16_t tof_sensor_distance();

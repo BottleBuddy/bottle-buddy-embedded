@@ -18,6 +18,7 @@ void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload(T data) {
     Router::route(&package);
 }
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<int>(int);
+template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<uint16_t>(uint16_t);
 template void BottleBuddy::Embedded::Pipeline::Pipe::sendPayload<float>(float);
 
 template<typename T>

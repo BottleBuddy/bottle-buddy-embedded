@@ -14,6 +14,16 @@ BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, int data) {
     *(int*)dataptr = data;
 }
 
+BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, unsigned short data) {
+    this->origin = origin;
+
+    this->datatype = BBUShort;
+
+    int num_bytes = sizeof(unsigned short) * 1;
+    dataptr = malloc(num_bytes);
+    *(unsigned short*)dataptr = data;
+}
+
 BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, float data) {
     this->origin = origin;
 
@@ -76,17 +86,15 @@ bool BottleBuddy::Embedded::Pipeline::Package::getData(int& data) {
     return true;
 }
 
-bool BottleBuddy::Embedded::Pipeline::Package::getData(int& dim1, int& dim2, int& dim3) {
-    if (this->datatype != BBInt) {
+bool BottleBuddy::Embedded::Pipeline::Package::getData(unsigned short& data) {
+    if (this->datatype != BBUShort) {
         return false;
     }
-    if (this->origin == ToF) {
+    if (this->origin == ACCELEROMETER) {
         return false;
     }
 
-    dim1 = *(int*)dataptr;
-    dim2 = *(((int*)dataptr) + 1);
-    dim3 = *(((int*)dataptr) + 2);
+    data = *(unsigned short*)dataptr;
     return true;
 }
 
@@ -99,6 +107,20 @@ bool BottleBuddy::Embedded::Pipeline::Package::getData(float& data) {
     }
 
     data = *(float*)dataptr;
+    return true;
+}
+
+bool BottleBuddy::Embedded::Pipeline::Package::getData(int& dim1, int& dim2, int& dim3) {
+    if (this->datatype != BBInt) {
+        return false;
+    }
+    if (this->origin == ToF) {
+        return false;
+    }
+
+    dim1 = *(int*)dataptr;
+    dim2 = *(((int*)dataptr) + 1);
+    dim3 = *(((int*)dataptr) + 2);
     return true;
 }
 
