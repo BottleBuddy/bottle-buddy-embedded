@@ -79,6 +79,8 @@ void loop() {
   String central_address = wait_for_ble_connection();
   BLE.poll();
 
+  demoService->loop();
+
   uint16_t tof_reading = tof_sensor_distance();
   waterLevelPipe->sendPayload<uint16_t>(tof_reading);
 

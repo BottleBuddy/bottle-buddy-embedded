@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <arduino-timer.h>
 #include "Pipeline/service.h"
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
@@ -19,8 +20,11 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         DemoService(const char* uid);
         DemoService(BLEService bleService, BLECharacteristic* bleCharacteristics);
 
+        void loop();
         void receive(Package* package);
     private:
+        Timer<> timer;
+
         BLECharacteristic* bleCharacteristics;
     };
 
