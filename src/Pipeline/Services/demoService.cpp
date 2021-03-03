@@ -9,15 +9,20 @@ BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(const char* 
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER, this);
 }
 
-BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(BLEService bleService, BLECharacteristic* bleCharacteristics) : Service(bleService, bleCharacteristics) {
+BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(BLEService bleService, BLEUnsignedShortCharacteristic tof, std::vector<BLEStringCharacteristic> accel, BLEBooleanCharacteristic notif) : Service(bleService) {
     BLE.setAdvertisedService(bleService);
 
-    for (int i = 0; i < 3; i++) {
-        bleService.addCharacteristic(bleCharacteristics[i]);
-    }
+    bleService.addCharacteristic(tof);
+    bleService.addCharacteristic(accel.at(0));
+    bleService.addCharacteristic(accel.at(1));
+    bleService.addCharacteristic(accel.at(2));
+    bleService.addCharacteristic(notif);
 
     BLE.addService(bleService);
-    this->bleCharacteristics = bleCharacteristics;
+
+    this->tofCharacteristic = &tof;
+    this->accelerometerCharacteristics = accel;
+    this->notificationCharacteristic = &notif;
 
     this->timer = timer_create_default();
 
@@ -29,12 +34,12 @@ void BottleBuddy::Embedded::Pipeline::Services::DemoService::loop() {
     this->timer.tick();
 
     byte startCleaning;
-    this->bleCharacteristics[2].readValue(startCleaning);
+    this->notificationCharacteristic->readValue(startCleaning);
     if (startCleaning) {
         digitalWrite(2, HIGH);
 
         byte reset = 0x00;
-        this->bleCharacteristics[2].writeValue(reset);
+        this->notificationCharacteristic->writeValue(reset);
         
         this->timer.in(5000, [](void *) -> bool {
             digitalWrite(2, LOW);
@@ -44,11 +49,20 @@ void BottleBuddy::Embedded::Pipeline::Services::DemoService::loop() {
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::DemoService::receive(BottleBuddy::Embedded::Pipeline::Package* package) {
-    this->timer.tick();
-    if (package->getOrigin() == BottleBuddy::Embedded::Pipeline::Location::ToF) {
-        unsigned short waterLevel;
-        if (package->getData(waterLevel)) {
-            this->bleCharacteristics[0].writeValue(waterLevel);
-        }
+    switch (package->getOrigin()) {
+        case BottleBuddy::Embedded::Pipeline::Location::ToF:
+            unsigned short waterLevel;
+            if (package->getData(waterLevel)) {
+                this->tofCharacteristic->writeValue(waterLevel);
+            }
+            break;
+        case BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER:
+            float x, y, z;
+            if (package->getData(x, y, z)) {
+                this->accelerometerCharacteristics.at(0).writeValue(String(x));
+                this->accelerometerCharacteristics.at(1).writeValue(String(y));
+                this->accelerometerCharacteristics.at(2).writeValue(String(z));
+            }
+            break;
     }
 }

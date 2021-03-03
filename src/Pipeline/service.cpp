@@ -22,8 +22,8 @@ BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(
     hexConversions.emplace('F', 15);
 }
 
-BottleBuddy::Embedded::Pipeline::Service::Service(BLEService bleService, BLECharacteristic* bleCharacteristics) {
-
+BottleBuddy::Embedded::Pipeline::Service::Service(BLEService bleService) {
+	this->bleService = bleService;
 }
 
 BottleBuddy::Embedded::Pipeline::Service::~Service() {

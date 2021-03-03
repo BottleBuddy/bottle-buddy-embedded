@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <vector>
 #include <arduino-timer.h>
 #include "Pipeline/service.h"
 
@@ -18,14 +19,16 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     class DemoService: public Service {
     public:
         DemoService(const char* uid);
-        DemoService(BLEService bleService, BLECharacteristic* bleCharacteristics);
+        DemoService(BLEService bleService, BLEUnsignedShortCharacteristic tof, std::vector<BLEStringCharacteristic> accel, BLEBooleanCharacteristic notif);
 
         void loop();
         void receive(Package* package);
     private:
         Timer<> timer;
 
-        BLECharacteristic* bleCharacteristics;
+        BLEUnsignedShortCharacteristic* tofCharacteristic;
+        std::vector<BLEStringCharacteristic> accelerometerCharacteristics;
+        BLEBooleanCharacteristic* notificationCharacteristic;
     };
 
 }}}}

@@ -20,10 +20,12 @@ BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 BottleBuddy::Embedded::Pipeline::Services::DemoService *demoService;
 
 BLEService bleDemoService("19B10010-E8F2-537E-4F6C-D104768A1214");
-BLECharacteristic bleDemoCharacteristics [3];
 BLEUnsignedShortCharacteristic tofCharacteristic("19B10011-E8F2-537E-4F6C-D104768A1214", BLERead);
-BLEByteCharacteristic accelerometerCharacteristic("19B10012-E8F2-537E-4F6C-D104768A1214", BLERead);
-BLEBooleanCharacteristic notificationCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
+std::vector<BLEStringCharacteristic> bleAccelerometerCharacteristics;
+BLEStringCharacteristic accelerometerXCharacteristic("19B10012-E8F2-537E-4F6C-D104768A1214", BLERead, 64);
+BLEStringCharacteristic accelerometerYCharacteristic("19B10013-E8F2-537E-4F6C-D104768A1214", BLERead, 64);
+BLEStringCharacteristic accelerometerZCharacteristic("19B10014-E8F2-537E-4F6C-D104768A1214", BLERead, 64);
+BLEBooleanCharacteristic notificationCharacteristic("19B10015-E8F2-537E-4F6C-D104768A1214", BLERead | BLEWrite);
 
 const int GREEN_LED_PIN = 4;
 const int RED_LED_PIN = 3;
@@ -57,10 +59,10 @@ void setup() {
     while(1)
       ;
   }
-  bleDemoCharacteristics[0] = tofCharacteristic;
-  bleDemoCharacteristics[1] = accelerometerCharacteristic;
-  bleDemoCharacteristics[2] = notificationCharacteristic;
-  demoService = new BottleBuddy::Embedded::Pipeline::Services::DemoService(bleDemoService, bleDemoCharacteristics);
+  bleAccelerometerCharacteristics.push_back(accelerometerXCharacteristic);
+  bleAccelerometerCharacteristics.push_back(accelerometerYCharacteristic);
+  bleAccelerometerCharacteristics.push_back(accelerometerZCharacteristic);
+  demoService = new BottleBuddy::Embedded::Pipeline::Services::DemoService(bleDemoService, tofCharacteristic, bleAccelerometerCharacteristics, notificationCharacteristic);
   int advertising_success = advertise_ble();
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);

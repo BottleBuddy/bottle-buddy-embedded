@@ -27,7 +27,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
     class Service {
     public:
         Service(const char* uid);
-        Service(BLEService bleService, BLECharacteristic *bleCharacteristics);
+        Service(BLEService bleService);
 
         ~Service();
 
