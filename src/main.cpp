@@ -82,6 +82,9 @@ void loop() {
   BLE.poll();
 
   demoService->loop();
+  if (notificationCharacteristic.valueUpdated()) {
+    digitalWrite(3, HIGH);
+  }
 
   uint16_t tof_reading = tof_sensor_distance();
   waterLevelPipe->sendPayload<uint16_t>(tof_reading);

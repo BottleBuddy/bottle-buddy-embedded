@@ -20,9 +20,9 @@ BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(BLEService b
 
     BLE.addService(bleService);
 
-    this->tofCharacteristic = &tof;
+    this->tofCharacteristic = tof;
     this->accelerometerCharacteristics = accel;
-    this->notificationCharacteristic = &notif;
+    this->notificationCharacteristic = notif;
 
     this->timer = timer_create_default();
 
@@ -33,13 +33,13 @@ BottleBuddy::Embedded::Pipeline::Services::DemoService::DemoService(BLEService b
 void BottleBuddy::Embedded::Pipeline::Services::DemoService::loop() {
     this->timer.tick();
 
-    byte startCleaning;
-    this->notificationCharacteristic->readValue(startCleaning);
+    byte startCleaning = 0;
+    this->notificationCharacteristic.readValue(startCleaning);
     if (startCleaning) {
         digitalWrite(2, HIGH);
 
         byte reset = 0x00;
-        this->notificationCharacteristic->writeValue(reset);
+        this->notificationCharacteristic.writeValue(reset);
         
         this->timer.in(5000, [](void *) -> bool {
             digitalWrite(2, LOW);
@@ -53,7 +53,7 @@ void BottleBuddy::Embedded::Pipeline::Services::DemoService::receive(BottleBuddy
         case BottleBuddy::Embedded::Pipeline::Location::ToF:
             unsigned short waterLevel;
             if (package->getData(waterLevel)) {
-                this->tofCharacteristic->writeValue(waterLevel);
+                this->tofCharacteristic.writeValue(waterLevel);
             }
             break;
         case BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER:

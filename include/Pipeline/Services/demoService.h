@@ -26,9 +26,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     private:
         Timer<> timer;
 
-        BLEUnsignedShortCharacteristic* tofCharacteristic;
+        BLECharacteristic tofCharacteristic;
         std::vector<BLEStringCharacteristic> accelerometerCharacteristics;
-        BLEBooleanCharacteristic* notificationCharacteristic;
+        BLECharacteristic notificationCharacteristic;
     };
 
 }}}}
