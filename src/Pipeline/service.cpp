@@ -4,9 +4,11 @@
 
 #include "Pipeline/service.h"
 
-BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(uid) {
+BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) {
     this->uid = uid;
     this->numCharacteristics = 0;
+
+	this->bleService = new BLEService(uid);
 
     hexConversions.emplace('a', 10);
     hexConversions.emplace('A', 10);
@@ -23,7 +25,7 @@ BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) : bleService(
 }
 
 BottleBuddy::Embedded::Pipeline::Service::Service(BLEService bleService) {
-	this->bleService = bleService;
+	this->bleService = &bleService;
 }
 
 BottleBuddy::Embedded::Pipeline::Service::~Service() {
@@ -31,23 +33,45 @@ BottleBuddy::Embedded::Pipeline::Service::~Service() {
 		const char* uuid = *uuidIter;
 		free((void*)uuid);
 	}
+	for (auto it = characteristics.begin(); it != characteristics.end(); it++) {
+		delete it->second;
+	}
+	for (auto it = stringCharacteristics.begin(); it != stringCharacteristics.end(); it++) {
+		delete it->second;
+	}
 }
 
-void BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string name, uint8_t properties) {
+bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string name, uint8_t properties, BottleBuddy::Embedded::Pipeline::BLEType characteristicType) {
 	if (numCharacteristics >= 16) {
-		return;
+		return false;
 	}
 
 	const char* characteristicUUID = makeCharacteristicUUID();
 	if (characteristicUUID == NULL) {
-		return;
+		return false;
 	}
 	uuids.push_back(characteristicUUID);
 	numCharacteristics++;
 
-	BLEByteCharacteristic bleCharacteristic(characteristicUUID, properties);
-	this->bleService.addCharacteristic(bleCharacteristic);
-	characteristics.emplace(name, bleCharacteristic);
+	if (characteristicType == BottleBuddy::Embedded::Pipeline::BLEType::String) {
+		BLEStringCharacteristic* bleCharacteristic = new BLEStringCharacteristic(characteristicUUID, properties, 64);
+		stringCharacteristics.emplace(name, bleCharacteristic);
+		bleService->addCharacteristic(*bleCharacteristic);
+	} else {
+		BLECharacteristic* bleCharacteristic;
+		switch (characteristicType) {
+			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort:
+				bleCharacteristic = new BLEUnsignedShortCharacteristic(characteristicUUID, properties);
+				break;
+			case BottleBuddy::Embedded::Pipeline::BLEType::Boolean:
+				bleCharacteristic = new BLEBooleanCharacteristic(characteristicUUID, properties);
+				break;
+		}
+		characteristics.emplace(name, bleCharacteristic);
+		bleService->addCharacteristic(*bleCharacteristic);
+	}
+
+	return true;
 }
 
 const char* BottleBuddy::Embedded::Pipeline::Service::makeCharacteristicUUID() {
@@ -125,4 +149,18 @@ bool BottleBuddy::Embedded::Pipeline::Service::insertIncrementedUUID(char* str, 
 		endIdx--;
 	}
 	return true;
+}
+
+BLECharacteristic* BottleBuddy::Embedded::Pipeline::Service::getCharacteristic(std::string name) {
+	if (characteristics.find(name) != characteristics.end()) {
+		return characteristics.at(name);
+	}
+	return NULL;
+}
+
+BLEStringCharacteristic* BottleBuddy::Embedded::Pipeline::Service::getStringCharacteristic(std::string name) {
+	if (stringCharacteristics.find(name) != stringCharacteristics.end()) {
+		return stringCharacteristics.at(name);
+	}
+	return NULL;
 }

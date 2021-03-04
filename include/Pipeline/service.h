@@ -14,6 +14,8 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
+    enum BLEType{ UnsignedShort, String, Boolean };
+
     /**
      * @brief Base class for high level services
      * 
@@ -47,7 +49,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
         /**
          * @brief The services BLEService variable, which creates a new service within the BLE module.
          */
-        BLEService bleService;
+        BLEService* bleService;
 
         /**
          * @brief Vector of characteristic uuids.
@@ -55,6 +57,18 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * These are created dynamically when a derived service requests a new BLE characteristic.
          */
         std::vector<const char*> uuids;
+
+        /**
+         * @brief Used to create a new characteristics within the BLE module.
+         * 
+         * A derived service can call this function which handles interfacing with the BLE module.
+         * A max of 16 characteristics can be created per service.
+         */
+        bool createCharacteristic(std::string name, uint8_t properties, BLEType characteristicType);
+
+        BLECharacteristic* getCharacteristic(std::string name);
+        BLEStringCharacteristic* getStringCharacteristic(std::string name);
+    private:
         /**
          * @brief Current number of characteristics this service has created.
          * 
@@ -64,16 +78,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
         /**
          * @brief Map of string to BLE characteristics.
          */
-        std::unordered_map<std::string, BLECharacteristic> characteristics;
+        std::unordered_map<std::string, BLECharacteristic*> characteristics;
 
-        /**
-         * @brief Used to create a new characteristics within the BLE module.
-         * 
-         * A derived service can call this function which handles interfacing with the BLE module.
-         * A max of 16 characteristics can be created per service.
-         */
-        void createCharacteristic(std::string name, uint8_t properties);
-    private:
+        std::unordered_map<std::string, BLEStringCharacteristic*> stringCharacteristics;
+
         /**
          * @brief Used when dynamically creating new characteristic UUIDs.
          */

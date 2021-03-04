@@ -19,16 +19,11 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     class DemoService: public Service {
     public:
         DemoService(const char* uid);
-        DemoService(BLEService bleService, BLEUnsignedShortCharacteristic tof, std::vector<BLEStringCharacteristic> accel, BLEBooleanCharacteristic notif);
-
+        
         void loop();
         void receive(Package* package);
     private:
         Timer<> timer;
-
-        BLECharacteristic tofCharacteristic;
-        std::vector<BLEStringCharacteristic> accelerometerCharacteristics;
-        BLECharacteristic notificationCharacteristic;
     };
 
 }}}}
