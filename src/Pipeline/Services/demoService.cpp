@@ -28,6 +28,7 @@ void BottleBuddy::Embedded::Pipeline::Services::DemoService::loop() {
     BLECharacteristic* notifCharacteristic = getCharacteristic(std::string("notif"));
     notifCharacteristic->readValue(startCleaning);
     if (startCleaning) {
+        digitalWrite(4, LOW);
         digitalWrite(2, HIGH);
 
         byte reset = 0x00;

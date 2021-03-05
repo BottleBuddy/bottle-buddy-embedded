@@ -7,6 +7,9 @@
 #pragma once
 
 #include <ArduinoBLE.h>
+#include <arduino-timer.h>
+
+extern Timer<> ble_timer;
 
 /**
  * @brief Bluetooth Low Energy device setup.
