@@ -29,7 +29,6 @@ constexpr int serialSpeed = 115200;
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
   
   Serial.begin(serialSpeed, SERIAL_8N1);
 
@@ -50,6 +49,9 @@ void setup() {
     while(1)
       ;
   }
+
+  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
+  int advertising_success = advertise_ble();
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
