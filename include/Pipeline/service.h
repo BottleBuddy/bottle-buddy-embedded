@@ -76,7 +76,6 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * @brief Map of string to BLE characteristics.
          */
         std::unordered_map<std::string, BLECharacteristic*> characteristics;
-
         std::unordered_map<std::string, BLEStringCharacteristic*> stringCharacteristics;
 
         /**
