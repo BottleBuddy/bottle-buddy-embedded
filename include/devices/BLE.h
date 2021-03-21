@@ -10,6 +10,7 @@
 #include <arduino-timer.h>
 
 extern Timer<> ble_timer;
+extern bool not_connected;
 
 /**
  * @brief Bluetooth Low Energy device setup.

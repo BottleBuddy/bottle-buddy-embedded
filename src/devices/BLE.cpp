@@ -1,6 +1,7 @@
 #include "devices/BLE.h"
 
 Timer<> ble_timer;
+bool not_connected = true;
 
 int ble_device_setup() {
     if (!BLE.begin()) {
@@ -19,25 +20,30 @@ int advertise_ble() {
 
 String wait_for_ble_connection() {
     while (!BLE.central().connected()) {
-        digitalWrite(4, HIGH);
+        if (not_connected) {
+            digitalWrite(4, HIGH);
+        }
         if (BLE.central()) {
-            digitalWrite(4, LOW);
-            ble_timer.in(500, [](void *) -> bool {
-                digitalWrite(4, HIGH);
+            if (not_connected) {
+                digitalWrite(4, LOW);
                 ble_timer.in(500, [](void *) -> bool {
-                    digitalWrite(4, LOW);
-                    ble_timer.in(500, [](void *) -> bool {
-                        digitalWrite(4, HIGH);
-                        ble_timer.in(500, [](void *) -> bool {
-                            digitalWrite(4, LOW);
-                            return true;
-                        });
-                        return true;
-                    });
+                    digitalWrite(4, HIGH);
                     return true;
                 });
-                return true;
-            });
+                ble_timer.in(1000, [](void *) -> bool {
+                    digitalWrite(4, LOW);
+                    return true;
+                });
+                ble_timer.in(1500, [](void *) -> bool {
+                    digitalWrite(4, HIGH);
+                    return true;
+                });
+                ble_timer.in(2000, [](void *) -> bool {
+                    digitalWrite(4, LOW);
+                    return false;
+                });
+                not_connected = false;
+            }
             return BLE.central().address();
         }
     }
