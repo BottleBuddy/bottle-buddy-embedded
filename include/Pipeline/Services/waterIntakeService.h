@@ -5,8 +5,14 @@
 #pragma once
 
 #include "Pipeline/service.h"
+#include <vector>
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
+
+    struct waterIntakePackage {
+        int timestamp;
+        int volumeDrank;
+    } typedef WaterPackage;
 
     /**
      * @brief This service tracks how much water a Bottle Buddy user drinks throughout the day.
@@ -18,8 +24,24 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     public:
         WaterIntakeService(const char* uid);
 
+        void loop();
         void receive(Package* package);
     private:
+        int WATER_LEVEL_TOLERANCE = 5;
+
+        int currWaterLevel;
+        bool updatedWaterLevel;
+        std::vector<int> waterReadings;
+
+        bool enteredDrinkingPos;
+        bool waitingToStopDrinking;
+        int waterLevelBeforeDrinking;
+
+        std::vector<WaterPackage*> waterPackages;
+
+        void updateWaterLevel(int waterReading);
+
+        void cacheWaterIntake(int volumeDrank);
     };
 
 }}}}

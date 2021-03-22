@@ -18,6 +18,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     public:
         CleaningService(const char* uid);
 
+        void loop();
         void receive(Package* package);
     private:
     };

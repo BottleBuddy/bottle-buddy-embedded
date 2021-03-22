@@ -10,6 +10,10 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
     BLE.addService(*this->bleService);
 }
 
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
+    
+}
+
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package* package) {
 
 }
