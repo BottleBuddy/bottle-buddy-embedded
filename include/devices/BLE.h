@@ -14,3 +14,10 @@
  * Call once to set up BLE device.
  */
 int ble_device_setup();
+
+/**
+ * @brief Advertise the BLE device
+ * 
+ * Used when ready to advertise BLE.
+ */
+int advertise_ble();
