@@ -51,6 +51,10 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterLevel(int waterReading) {
+    if (enteredDrinkingPos) {
+        return;
+    }
+    
     int magicNumber = 10;   //magic number
     if (this->waterReadings.size() < magicNumber) {
         this->waterReadings.push_back(waterReading);
