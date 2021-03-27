@@ -6,6 +6,7 @@
 
 #include "Pipeline/service.h"
 #include <vector>
+#include <MahonyAHRS.h>
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
 
