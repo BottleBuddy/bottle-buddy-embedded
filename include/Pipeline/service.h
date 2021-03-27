@@ -14,7 +14,7 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
-    enum BLEType{ UnsignedShort, String, Boolean };
+    enum BLEType { UnsignedShort, String, Boolean };
 
     /**
      * @brief Base class for high level services
