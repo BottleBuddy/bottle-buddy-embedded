@@ -13,7 +13,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      * 
      * Used to mark the location of a pipe so that the router class can know what to do with the data that comes down that pipe.
      */
-    enum Location { ToF, ACCELEROMETER };
+    enum Location { ToF, ACCELEROMETER, GYRO, MAGNETIC };
 
     /**
      * @brief Encapsulates low level sensor data traveling through the pipeline.
