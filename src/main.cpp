@@ -16,6 +16,8 @@
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *gyroscopePipe;
+BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
 
 BottleBuddy::Embedded::Pipeline::Service *waterIntakeService;
 BottleBuddy::Embedded::Pipeline::Service *cleaningService;
@@ -58,6 +60,8 @@ void setup() {
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
+  gyroscopePipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
+  magnetometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
 }
 
 /** 
@@ -72,4 +76,8 @@ void loop() {
   float x, y, z;
   read_accelerometer(x, y, z);
   accelerometerPipe->sendPayload<float>(x, y, z);
+  read_gyroscope(x, y, z);
+  gyroscopePipe->sendPayload<float>(x, y, z);
+  read_magnetometer(x, y, z);
+  magnetometerPipe->sendPayload<float>(x, y, z);
 }
