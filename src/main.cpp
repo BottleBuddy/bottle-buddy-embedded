@@ -27,12 +27,19 @@ BottleBuddy::Embedded::Pipeline::Service *cleaningService;
  */
 constexpr int serialSpeed = 115200;
 
+const int GREEN_LED_PIN = 4;
+const int RED_LED_PIN = 3;
+const int BLUE_LED_PIN = 2;
+
 /**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
+  pinMode(BLUE_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
   
   Serial.begin(serialSpeed, SERIAL_8N1);
 
@@ -62,6 +69,8 @@ void setup() {
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
   gyroscopePipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
   magnetometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
+
+  digitalWrite(GREEN_LED_PIN, HIGH);
 }
 
 /** 
@@ -80,4 +89,6 @@ void loop() {
   gyroscopePipe->sendPayload<float>(x, y, z);
   read_magnetometer(x, y, z);
   magnetometerPipe->sendPayload<float>(x, y, z);
+
+  waterIntakeService->loop();
 }

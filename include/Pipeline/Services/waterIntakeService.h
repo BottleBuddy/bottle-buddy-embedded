@@ -6,6 +6,7 @@
 
 #include "Pipeline/service.h"
 #include <vector>
+#include <arduino-timer.h>
 #include <MahonyAHRS.h>
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
@@ -28,6 +29,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         void loop();
         void receive(Package* package);
     private:
+        Timer<> timer;
+
+        Mahony *filter;
+
         int WATER_LEVEL_TOLERANCE = 5;
 
         int currWaterLevel;
@@ -38,7 +43,13 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         bool waitingToStopDrinking;
         int waterLevelBeforeDrinking;
 
+        float accelX, accelY, accelZ;
+        float gyroX, gyroY, gyroZ;
+        float magneticX, magneticY, magneticZ;
+
         std::vector<WaterPackage*> waterPackages;
+
+        static bool updateOrientation(void *waterInstance);
 
         void updateWaterLevel(int waterReading);
 

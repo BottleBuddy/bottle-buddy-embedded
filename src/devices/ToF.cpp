@@ -1,9 +1,8 @@
 #include "devices/ToF.h"
 
-Adafruit_VL53L0X lox;
+Adafruit_VL53L0X lox = Adafruit_VL53L0X();
 
 int tof_sensor_setup() {
-    lox = Adafruit_VL53L0X();
     if (!lox.begin(BAUD_RATE)) {
         return -1;
     }

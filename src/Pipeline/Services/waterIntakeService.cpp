@@ -15,6 +15,13 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
 
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ToF, this);
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER, this);
+    BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::GYRO, this);
+    BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC, this);
+
+    this->timer = timer_create_default();
+    this->timer.every(500, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
+    
+    this->filter = new Mahony();
 
     this->updatedWaterLevel = false;
     this->enteredDrinkingPos = false;
@@ -22,6 +29,8 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
+    this->timer.tick();
+
     if (enteredDrinkingPos && !waitingToStopDrinking) {
         this->waterLevelBeforeDrinking = this->currWaterLevel;
         this->waterReadings.clear();
@@ -41,13 +50,50 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(BottleBuddy::Embedded::Pipeline::Package* package) {
     switch (package->getOrigin()) {
-    case BottleBuddy::Embedded::Pipeline::Location::ToF:
-        int waterReading;
-        if (package->getData(waterReading)) {
-            updateWaterLevel(waterReading);
-        }
-        break;
+        case BottleBuddy::Embedded::Pipeline::Location::ToF:
+            int waterReading;
+            if (package->getData(waterReading)) {
+                updateWaterLevel(waterReading);
+            }
+            break;
+        case BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER:
+            float x, y, z;
+            if (package->getData(x, y , z)) {
+                this->accelX = x;
+                this->accelY = y;
+                this->accelZ = z;
+            }
+            break;
+        case BottleBuddy::Embedded::Pipeline::Location::GYRO:
+            if (package->getData(x, y, z)) {
+                this->gyroX = x;
+                this->gyroY = y;
+                this->gyroZ = z;
+            }
+            break;
+        case BottleBuddy::Embedded::Pipeline::Location::MAGNETIC:
+            if (package->getData(x, y, z)) {
+                this->magneticX = x;
+                this->magneticY = y;
+                this->magneticZ = z;
+            }
+            break;
     }
+}
+
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
+    BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
+
+    myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
+    float pitch = myself->filter->getPitch();
+    if ((pitch > 0) && (pitch < 1.57)) {
+        myself->enteredDrinkingPos = true;
+        digitalWrite(2, HIGH);
+    } else {
+        myself->enteredDrinkingPos = false;
+        digitalWrite(2, LOW);
+    }
+    return true;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterLevel(int waterReading) {
