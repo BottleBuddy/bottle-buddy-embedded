@@ -7,6 +7,9 @@
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid) : Service(uid) {
     BLE.setAdvertisedService(*this->bleService);
 
+    createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("water_intake"), BLERead | BLEIndicate, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("time"), BLEWrite | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("received_id"), BLEWrite | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
@@ -19,9 +22,10 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC, this);
 
     this->timer = timer_create_default();
-    this->timer.every(500, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
+    this->timer.every(100, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
     
     this->filter = new Mahony();
+    this->filter->begin(5);
 
     this->updatedWaterLevel = false;
     this->enteredDrinkingPos = false;
@@ -32,6 +36,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     this->timer.tick();
 
     if (enteredDrinkingPos && !waitingToStopDrinking) {
+        digitalWrite(3, HIGH);
         this->waterLevelBeforeDrinking = this->currWaterLevel;
         this->waterReadings.clear();
         this->updatedWaterLevel = false;
@@ -44,6 +49,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
             //TODO: Calculate volume drank from height.
             cacheWaterIntake(heightDrank);
         }
+        digitalWrite(3, LOW);
         this->waitingToStopDrinking = false;
     }
 }
@@ -83,10 +89,16 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
     BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
+    //digitalWrite(3, HIGH);
 
     myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
     float pitch = myself->filter->getPitch();
-    if ((pitch > 0) && (pitch < 1.57)) {
+    float yaw = myself->filter->getYaw();
+    float roll = myself->filter->getRoll();
+    myself->getStringCharacteristic(std::string("pitch"))->writeValue(arduino::String(pitch));
+    myself->getStringCharacteristic(std::string("yaw"))->writeValue(arduino::String(yaw));
+    myself->getStringCharacteristic(std::string("roll"))->writeValue(arduino::String(roll));
+    if ((pitch > 0.0)) {
         myself->enteredDrinkingPos = true;
         digitalWrite(2, HIGH);
     } else {

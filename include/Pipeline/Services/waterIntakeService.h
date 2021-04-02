@@ -12,6 +12,7 @@
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
 
     struct waterIntakePackage {
+        int id;
         int timestamp;
         int volumeDrank;
     } typedef WaterPackage;

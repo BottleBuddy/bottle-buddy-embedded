@@ -76,6 +76,9 @@ void setup() {
  *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
  */
 void loop() {
+  String central_address = wait_for_ble_connection();
+  BLE.poll();
+
   int payload = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(payload);
 
@@ -88,4 +91,6 @@ void loop() {
   magnetometerPipe->sendPayload<float>(x, y, z);
 
   waterIntakeService->loop();
+
+  delay(100);
 }
