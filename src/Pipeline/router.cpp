@@ -6,8 +6,8 @@
 
 std::unordered_map<BottleBuddy::Embedded::Pipeline::Location, std::vector<BottleBuddy::Embedded::Pipeline::Service*>, std::hash<int>> BottleBuddy::Embedded::Pipeline::Router::subscriptions;
 
-void BottleBuddy::Embedded::Pipeline::Router::route(Package package) {
-    Location origin = package.getOrigin();
+void BottleBuddy::Embedded::Pipeline::Router::route(Package* package) {
+    Location origin = package->getOrigin();
     if (subscriptions.find(origin) == subscriptions.end()) {
         return;
     }

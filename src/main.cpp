@@ -15,6 +15,8 @@
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *gyroscopePipe;
+BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
 
 BottleBuddy::Embedded::Pipeline::Service *cleaningService;
 
@@ -28,9 +30,7 @@ constexpr int serialSpeed = 115200;
  * 
  * Makes necessary initializations for system to be able to run.
  */
-void setup() {
-  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214");
-  
+void setup() {  
   Serial.begin(serialSpeed, SERIAL_8N1);
 
   if(tof_sensor_setup() == -1) {
@@ -51,8 +51,13 @@ void setup() {
       ;
   }
 
+  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214");
+  int advertising_success = advertise_ble();
+
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
+  gyroscopePipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
+  magnetometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
 }
 
 /** 
@@ -67,4 +72,8 @@ void loop() {
   float x, y, z;
   read_accelerometer(x, y, z);
   accelerometerPipe->sendPayload<float>(x, y, z);
+  read_gyroscope(x, y, z);
+  gyroscopePipe->sendPayload<float>(x, y, z);
+  read_magnetometer(x, y, z);
+  magnetometerPipe->sendPayload<float>(x, y, z);
 }
