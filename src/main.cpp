@@ -51,7 +51,7 @@ void setup() {
       ;
   }
 
-  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214");
+  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214");
   int advertising_success = advertise_ble();
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
