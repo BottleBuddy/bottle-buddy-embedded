@@ -75,8 +75,8 @@ void setup() {
  *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
  */
 void loop() {
-  int payload = tof_sensor_distance();
-  waterLevelPipe->sendPayload<int>(payload);
+  int tofVal = tof_sensor_distance();
+  waterLevelPipe->sendPayload<int>(tofVal);
 
   float x, y, z;
   read_accelerometer(x, y, z);
@@ -85,4 +85,11 @@ void loop() {
   gyroscopePipe->sendPayload<float>(x, y, z);
   read_magnetometer(x, y, z);
   magnetometerPipe->sendPayload<float>(x, y, z);
+
+  int fsrVal = read_fsr_1();
+  fsr1Pipe->sendPayload<int>(fsrVal);
+  fsrVal = read_fsr_2();
+  fsr2Pipe->sendPayload<int>(fsrVal);
+
+  serviceManager->loopServices();
 }
