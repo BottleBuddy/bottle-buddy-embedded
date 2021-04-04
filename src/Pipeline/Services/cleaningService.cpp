@@ -9,6 +9,9 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
 
     BLE.addService(*this->bleService);
 
+    BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::FSR1, this);
+    BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::FSR2, this);
+
     byte initialVal = 0x00;
     getCharacteristic(std::string("clean"))->writeValue(initialVal);
 
