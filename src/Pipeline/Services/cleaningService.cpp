@@ -16,6 +16,8 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
     getCharacteristic(std::string("clean"))->writeValue(initialVal);
 
     this->needToClean = false;
+    this->fsrReading1 = 0;
+    this->fsrReading2 = 0;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
@@ -32,10 +34,29 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
             this->needToClean = cleanNotif;
         }
     }
+
+    int fsrDiff = fsrReading2 - fsrReading1;
+    if (std::abs(fsrDiff) < FSR_TOLERANCE) {
+        this->fsrReading = (fsrReading1 + fsrReading2) / 2;
+    } else {
+        //Something's wrong
+    }
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package* package) {
-
+    int fsrVal;
+    switch (package->getOrigin()) {
+        case BottleBuddy::Embedded::Pipeline::Location::FSR1:
+            if (package->getData(fsrVal)) {
+                this->fsrReading1 = fsrVal;
+            }
+            break;
+        case BottleBuddy::Embedded::Pipeline::Location::FSR2:
+            if (package->getData(fsrVal)) {
+                this->fsrReading2 = fsrVal;
+            }
+            break;
+    }
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::capIsOn() {

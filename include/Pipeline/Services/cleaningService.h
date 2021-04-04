@@ -23,6 +23,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     private:
         bool needToClean;
 
+        int fsrReading1, fsrReading2;
+        int fsrReading;
+        int FSR_TOLERANCE = 25;
+
+        int FSR_THRESHOLD = 50;
+
         bool capIsOn();
     };
 
