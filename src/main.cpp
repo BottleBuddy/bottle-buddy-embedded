@@ -18,8 +18,7 @@ BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *gyroscopePipe;
 BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
-BottleBuddy::Embedded::Pipeline::Pipe *fsr1Pipe;
-BottleBuddy::Embedded::Pipeline::Pipe *fsr2Pipe;
+BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 
@@ -65,8 +64,7 @@ void setup() {
   accelerometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
   gyroscopePipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
   magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
-  fsr1Pipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR1);
-  fsr2Pipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR2);
+  fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
 }
 
 /** 
@@ -86,10 +84,9 @@ void loop() {
   read_magnetometer(x, y, z);
   magnetometerPipe->sendPayload<float>(x, y, z);
 
-  int fsrVal = read_fsr_1();
-  fsr1Pipe->sendPayload<int>(fsrVal);
-  fsrVal = read_fsr_2();
-  fsr2Pipe->sendPayload<int>(fsrVal);
+  int fsr1Val = read_fsr_1();
+  int fsr2Val = read_fsr_2();
+  fsrPipe->sendPayload<int>(fsr1Val, fsr2Val);
 
   serviceManager->loopServices();
 }
