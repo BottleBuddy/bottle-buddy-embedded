@@ -8,8 +8,8 @@
 
 #include <Arduino.h>
 
-int fsr_pin_1 = A6;
-int fsr_pin_2 = A7;
+extern const int fsr_pin_1;
+extern const int fsr_pin_2;
 
 int read_fsr_1();
 
