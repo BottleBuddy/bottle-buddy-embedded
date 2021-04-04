@@ -12,6 +12,7 @@
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 #include "devices/IMU.h"
+#include "devices/FSR.h"
 #include "devices/BLE.h"
 
 BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
