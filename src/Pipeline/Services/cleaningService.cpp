@@ -35,8 +35,9 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
         }
     }
 
-    int fsrDiff = fsrReading2 - fsrReading1;
-    if (std::abs(fsrDiff) < FSR_TOLERANCE) {
+    int fsrDiff = fsrReading1 - fsrReading2;
+    fsrDiff = ((fsrDiff) > 0 ? (fsrDiff) : -(fsrDiff));
+    if (fsrDiff < FSR_TOLERANCE) {
         this->fsrReading = (fsrReading1 + fsrReading2) / 2;
     } else {
         //Something's wrong
@@ -60,5 +61,6 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::capIsOn() {
-
+    //TODO: More calculations and tuning needed.
+    return fsrReading >> FSR_THRESHOLD;
 }
