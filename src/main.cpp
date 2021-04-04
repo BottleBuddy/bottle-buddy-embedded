@@ -7,8 +7,7 @@
  */
 
 #include <Arduino.h>
-#include "Pipeline/Services/waterIntakeService.h"
-#include "Pipeline/Services/cleaningService.h"
+#include "Pipeline/serviceManager.h"
 #include "Pipeline/pipeFactory.h"
 #include "devices/ToF.h"
 #include "devices/IMU.h"
@@ -18,9 +17,10 @@ BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *gyroscopePipe;
 BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *fsr1Pipe;
+BottleBuddy::Embedded::Pipeline::Pipe *fsr2Pipe;
 
-BottleBuddy::Embedded::Pipeline::Service *waterIntakeService;
-BottleBuddy::Embedded::Pipeline::Service *cleaningService;
+BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 
 /**
  * @brief Serial speed
@@ -54,14 +54,18 @@ void setup() {
       ;
   }
 
-  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214");
-  cleaningService = new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214");
+  serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+
   int advertising_success = advertise_ble();
 
   waterLevelPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
   gyroscopePipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
   magnetometerPipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
+  fsr1Pipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::FSR1);
+  fsr2Pipe = BottleBuddy::Embedded::Pipeline::PipeFactory::producePipe(BottleBuddy::Embedded::Pipeline::Location::FSR2);
 }
 
 /** 
