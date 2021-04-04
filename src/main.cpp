@@ -21,18 +21,11 @@ BottleBuddy::Embedded::Pipeline::Service *waterIntakeService;
 BottleBuddy::Embedded::Pipeline::Service *cleaningService;
 
 /**
- * @brief Serial speed
- */
-constexpr int serialSpeed = 115200;
-
-/**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  
-  Serial.begin(serialSpeed, SERIAL_8N1);
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
@@ -63,7 +56,8 @@ void setup() {
 /** 
  * @brief Main loop.
  * 
- *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
+ * This loop initiates BLE advertisement and reads all sensor data and sends it down their respective pipe.
+ * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
   int payload = tof_sensor_distance();
