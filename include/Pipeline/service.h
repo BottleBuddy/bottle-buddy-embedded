@@ -32,6 +32,11 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
         ~Service();
 
+        virtual void connect() = 0;
+        virtual void disconnect() = 0;
+
+        virtual void loop() = 0;
+
         /**
          * @brief Used by the router class to deliver a package to a service.
          * 
