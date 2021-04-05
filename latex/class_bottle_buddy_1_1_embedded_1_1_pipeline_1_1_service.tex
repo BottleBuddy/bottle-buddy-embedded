@@ -1,0 +1,110 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Service Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}}
+
+
+Base class for high level services.  
+
+
+
+
+{\ttfamily \#include $<$service.\+h$>$}
+
+Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.493333cm]{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aa1d9175f0ae927feec2b0bc9db8b3967}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aa1d9175f0ae927feec2b0bc9db8b3967}
+
+\item 
+virtual void {\bfseries connect} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a815f0eefef7a86e48fa9ddf2a74a36a0}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a815f0eefef7a86e48fa9ddf2a74a36a0}
+
+\item 
+virtual void {\bfseries disconnect} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_abc5f5deb726cf0f4edd4ab3bbdd95106}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_abc5f5deb726cf0f4edd4ab3bbdd95106}
+
+\item 
+virtual void {\bfseries loop} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab2e3087822ea3768ce176b64b43ec706}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab2e3087822ea3768ce176b64b43ec706}
+
+\item 
+virtual void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aaa0ee18450e47f2ad51d9934a2d61992}{receive} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)=0
+\begin{DoxyCompactList}\small\item\em Used by the router class to deliver a package to a service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a7883b3a53fc8e6f9d457d7d164853c37}{create\+Characteristic} (std\+::string name, uint8\+\_\+t properties, B\+L\+E\+Type characteristic\+Type)
+\begin{DoxyCompactList}\small\item\em Used to create a new characteristics within the B\+LE module. \end{DoxyCompactList}\item 
+B\+L\+E\+Characteristic $\ast$ {\bfseries get\+Characteristic} (std\+::string name)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a3dbda00416a45e1e5d0a8652fd126768}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a3dbda00416a45e1e5d0a8652fd126768}
+
+\item 
+B\+L\+E\+String\+Characteristic $\ast$ {\bfseries get\+String\+Characteristic} (std\+::string name)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab5c898cc7b6ebde52a8205579890a105}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab5c898cc7b6ebde52a8205579890a105}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}
+
+\begin{DoxyCompactList}\small\item\em The service\textquotesingle{}s U\+ID string, which is used for B\+LE purposes. \end{DoxyCompactList}\item 
+B\+L\+E\+Service $\ast$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}{ble\+Service}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}
+
+\begin{DoxyCompactList}\small\item\em The services B\+L\+E\+Service variable, which creates a new service within the B\+LE module. \end{DoxyCompactList}\item 
+std\+::vector$<$ const char $\ast$ $>$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a543fc4a07564a076ffc2835510763e5f}{uuids}
+\begin{DoxyCompactList}\small\item\em Vector of characteristic uuids. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Base class for high level services. 
+
+To create a new Bottle Buddy service, simply extend this base class. A derived service must implement the receive function, which is called when the derived service receives a package from any of the locations they are subscribed to.
+
+Additionally, this base class handles interfacing with the B\+LE module once it has reached the G\+A\+TT stage of data transmission. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}!create\+Characteristic@{create\+Characteristic}}
+\index{create\+Characteristic@{create\+Characteristic}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}}
+\subsubsection[{\texorpdfstring{create\+Characteristic(std\+::string name, uint8\+\_\+t properties, B\+L\+E\+Type characteristic\+Type)}{createCharacteristic(std::string name, uint8_t properties, BLEType characteristicType)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+::create\+Characteristic (
+\begin{DoxyParamCaption}
+\item[{std\+::string}]{name, }
+\item[{uint8\+\_\+t}]{properties, }
+\item[{B\+L\+E\+Type}]{characteristic\+Type}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a7883b3a53fc8e6f9d457d7d164853c37}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a7883b3a53fc8e6f9d457d7d164853c37}
+
+
+Used to create a new characteristics within the B\+LE module. 
+
+A derived service can call this function which handles interfacing with the B\+LE module. A max of 16 characteristics can be created per service. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}!receive@{receive}}
+\index{receive@{receive}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}}
+\subsubsection[{\texorpdfstring{receive(\+Package $\ast$package)=0}{receive(Package *package)=0}}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+::receive (
+\begin{DoxyParamCaption}
+\item[{{\bf Package} $\ast$}]{package}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aaa0ee18450e47f2ad51d9934a2d61992}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aaa0ee18450e47f2ad51d9934a2d61992}
+
+
+Used by the router class to deliver a package to a service. 
+
+Can be implemented however the derived service needs in order to provide its service. 
+
+Implemented in \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}, and \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}.
+
+
+
+\subsection{Member Data Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}!uuids@{uuids}}
+\index{uuids@{uuids}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}}
+\subsubsection[{\texorpdfstring{uuids}{uuids}}]{\setlength{\rightskip}{0pt plus 5cm}std\+::vector$<$const char$\ast$$>$ Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+::uuids\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a543fc4a07564a076ffc2835510763e5f}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a543fc4a07564a076ffc2835510763e5f}
+
+
+Vector of characteristic uuids. 
+
+These are created dynamically when a derived service requests a new B\+LE characteristic. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\hyperlink{service_8h}{service.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\hyperlink{service_8cpp}{service.\+cpp}\end{DoxyCompactItemize}

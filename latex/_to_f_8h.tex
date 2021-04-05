@@ -1,0 +1,64 @@
+\hypertarget{_to_f_8h}{}\section{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+ToF.h File Reference}
+\label{_to_f_8h}\index{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+To\+F.\+h@{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+To\+F.\+h}}
+
+
+Functions related to time of flight sensor.  
+
+
+{\ttfamily \#include $<$Adafruit\+\_\+\+V\+L53\+L0\+X.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_to_f_8h_aa3f62fa767072ce3eeb18c5fff68b7d7}{tof\+\_\+sensor\+\_\+setup} ()
+\begin{DoxyCompactList}\small\item\em ToF Camera Sensor setup. \end{DoxyCompactList}\item 
+int \hyperlink{_to_f_8h_af96f71aa77f1839e156f1e0fd3acefee}{tof\+\_\+sensor\+\_\+distance} ()
+\begin{DoxyCompactList}\small\item\em Grab ToF sensor measurement. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const int \hyperlink{_to_f_8h_ae4dbf0330ab067f9cb5f59bcc9caed3e}{B\+A\+U\+D\+\_\+\+R\+A\+TE} = 115200\hypertarget{_to_f_8h_ae4dbf0330ab067f9cb5f59bcc9caed3e}{}\label{_to_f_8h_ae4dbf0330ab067f9cb5f59bcc9caed3e}
+
+\begin{DoxyCompactList}\small\item\em Baud rate. \end{DoxyCompactList}\item 
+Adafruit\+\_\+\+V\+L53\+L0X \hyperlink{_to_f_8h_a2ceb0f757748ea460204e32937332e4b}{lox}
+\begin{DoxyCompactList}\small\item\em ToF Camera Sensor object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions related to time of flight sensor. 
+
+
+
+\subsection{Function Documentation}
+\index{To\+F.\+h@{To\+F.\+h}!tof\+\_\+sensor\+\_\+distance@{tof\+\_\+sensor\+\_\+distance}}
+\index{tof\+\_\+sensor\+\_\+distance@{tof\+\_\+sensor\+\_\+distance}!To\+F.\+h@{To\+F.\+h}}
+\subsubsection[{\texorpdfstring{tof\+\_\+sensor\+\_\+distance()}{tof_sensor_distance()}}]{\setlength{\rightskip}{0pt plus 5cm}int tof\+\_\+sensor\+\_\+distance (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{_to_f_8h_af96f71aa77f1839e156f1e0fd3acefee}{}\label{_to_f_8h_af96f71aa77f1839e156f1e0fd3acefee}
+
+
+Grab ToF sensor measurement. 
+
+Can be called continuously to grab the current reading on the ToF sensor. \index{To\+F.\+h@{To\+F.\+h}!tof\+\_\+sensor\+\_\+setup@{tof\+\_\+sensor\+\_\+setup}}
+\index{tof\+\_\+sensor\+\_\+setup@{tof\+\_\+sensor\+\_\+setup}!To\+F.\+h@{To\+F.\+h}}
+\subsubsection[{\texorpdfstring{tof\+\_\+sensor\+\_\+setup()}{tof_sensor_setup()}}]{\setlength{\rightskip}{0pt plus 5cm}int tof\+\_\+sensor\+\_\+setup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{_to_f_8h_aa3f62fa767072ce3eeb18c5fff68b7d7}{}\label{_to_f_8h_aa3f62fa767072ce3eeb18c5fff68b7d7}
+
+
+ToF Camera Sensor setup. 
+
+Call once to setup the physical sensor. 
+
+\subsection{Variable Documentation}
+\index{To\+F.\+h@{To\+F.\+h}!lox@{lox}}
+\index{lox@{lox}!To\+F.\+h@{To\+F.\+h}}
+\subsubsection[{\texorpdfstring{lox}{lox}}]{\setlength{\rightskip}{0pt plus 5cm}Adafruit\+\_\+\+V\+L53\+L0X lox}\hypertarget{_to_f_8h_a2ceb0f757748ea460204e32937332e4b}{}\label{_to_f_8h_a2ceb0f757748ea460204e32937332e4b}
+
+
+ToF Camera Sensor object. 
+
+Used to interface with the physical sensor. 

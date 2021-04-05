@@ -1,0 +1,53 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Router Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router}}
+
+
+Handles package delivery.  
+
+
+
+
+{\ttfamily \#include $<$router.\+h$>$}
+
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a9a56d0c05698c1ee0ad398fc87832a6c}{route} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)
+\begin{DoxyCompactList}\small\item\em Routes packages coming from a pipe. \end{DoxyCompactList}\item 
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a49274f0fc1baa9823f645bfabbbb137a}{subscribe} (\hyperlink{package_8h_aea2eca0caf9ed97414998f1a2f404682}{Location} location, \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}{Service} $\ast$service)
+\begin{DoxyCompactList}\small\item\em Subscribes a service to a sensor location. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Handles package delivery. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router}!route@{route}}
+\index{route@{route}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router}}
+\subsubsection[{\texorpdfstring{route(\+Package $\ast$package)}{route(Package *package)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router\+::route (
+\begin{DoxyParamCaption}
+\item[{{\bf Package} $\ast$}]{package}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a9a56d0c05698c1ee0ad398fc87832a6c}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a9a56d0c05698c1ee0ad398fc87832a6c}
+
+
+Routes packages coming from a pipe. 
+
+Route\textquotesingle{}s a pipe\textquotesingle{}s package to every service subscribed to that location. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router}!subscribe@{subscribe}}
+\index{subscribe@{subscribe}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router}}
+\subsubsection[{\texorpdfstring{subscribe(\+Location location, Service $\ast$service)}{subscribe(Location location, Service *service)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Router\+::subscribe (
+\begin{DoxyParamCaption}
+\item[{{\bf Location}}]{location, }
+\item[{{\bf Service} $\ast$}]{service}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a49274f0fc1baa9823f645bfabbbb137a}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_router_a49274f0fc1baa9823f645bfabbbb137a}
+
+
+Subscribes a service to a sensor location. 
+
+If a service needs a specific sensor\textquotesingle{}s data to provide its service, then calling this function will allow the service specified to begin receiving data from the location specified. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\hyperlink{router_8h}{router.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\hyperlink{router_8cpp}{router.\+cpp}\end{DoxyCompactItemize}

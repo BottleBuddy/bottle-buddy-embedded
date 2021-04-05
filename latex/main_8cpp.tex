@@ -6,6 +6,12 @@ Main file.
 
 
 {\ttfamily \#include $<$Arduino.\+h$>$}\\*
+{\ttfamily \#include \char`\"{}Pipeline/service\+Manager.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Pipeline/pipe.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}devices/\+To\+F.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}devices/\+I\+M\+U.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}devices/\+F\+S\+R.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}devices/\+B\+L\+E.\+h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -16,13 +22,22 @@ void \hyperlink{main_8cpp_afe461d27b9c48d5921c00d521181f12f}{loop} ()
 \subsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
-constexpr int \hyperlink{main_8cpp_afbff995684d75e5a671be4c1afa783e8}{serial\+Speed} = 115200\hypertarget{main_8cpp_afbff995684d75e5a671be4c1afa783e8}{}\label{main_8cpp_afbff995684d75e5a671be4c1afa783e8}
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe} $\ast$ {\bfseries water\+Level\+Pipe}\hypertarget{main_8cpp_a452519c5d9b3a3fc92714e19686735cd}{}\label{main_8cpp_a452519c5d9b3a3fc92714e19686735cd}
 
-\begin{DoxyCompactList}\small\item\em Serial speed. \end{DoxyCompactList}\item 
-constexpr int \hyperlink{main_8cpp_ae648b3d2230eb5ca63fac8ee24fd6d76}{delay\+Time} = 1000\hypertarget{main_8cpp_ae648b3d2230eb5ca63fac8ee24fd6d76}{}\label{main_8cpp_ae648b3d2230eb5ca63fac8ee24fd6d76}
+\item 
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe} $\ast$ {\bfseries accelerometer\+Pipe}\hypertarget{main_8cpp_a4fe39bd42dbe83838550031742efcd85}{}\label{main_8cpp_a4fe39bd42dbe83838550031742efcd85}
 
-\begin{DoxyCompactList}\small\item\em Delay time. \end{DoxyCompactList}\item 
-constexpr int {\bfseries led\+Pin} = 2\hypertarget{main_8cpp_aec84357ffcb51a347174132f17b8a5f5}{}\label{main_8cpp_aec84357ffcb51a347174132f17b8a5f5}
+\item 
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe} $\ast$ {\bfseries gyroscope\+Pipe}\hypertarget{main_8cpp_aee046677b13cf43e72bb84e284213050}{}\label{main_8cpp_aee046677b13cf43e72bb84e284213050}
+
+\item 
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe} $\ast$ {\bfseries magnetometer\+Pipe}\hypertarget{main_8cpp_a6abfa2df7a4678c3cc4a11ec9f54cb9c}{}\label{main_8cpp_a6abfa2df7a4678c3cc4a11ec9f54cb9c}
+
+\item 
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe} $\ast$ {\bfseries fsr\+Pipe}\hypertarget{main_8cpp_a4b853bf2363028402dde06eb285c1ed7}{}\label{main_8cpp_a4b853bf2363028402dde06eb285c1ed7}
+
+\item 
+\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager} $\ast$ {\bfseries service\+Manager}\hypertarget{main_8cpp_ae49191f6e15499c8239d1f03c6b3aabb}{}\label{main_8cpp_ae49191f6e15499c8239d1f03c6b3aabb}
 
 \end{DoxyCompactItemize}
 
@@ -44,7 +59,7 @@ Entrance point to system.
 
 Main loop. 
 
-This loop blinks an L\+ED for demonstration purposes. \index{main.\+cpp@{main.\+cpp}!setup@{setup}}
+This loop initiates B\+LE advertisement and reads all sensor data and sends it down their respective pipe. Additionally, it uses the service manager to keep all active services up to date. \index{main.\+cpp@{main.\+cpp}!setup@{setup}}
 \index{setup@{setup}!main.\+cpp@{main.\+cpp}}
 \subsubsection[{\texorpdfstring{setup()}{setup()}}]{\setlength{\rightskip}{0pt plus 5cm}void setup (
 \begin{DoxyParamCaption}

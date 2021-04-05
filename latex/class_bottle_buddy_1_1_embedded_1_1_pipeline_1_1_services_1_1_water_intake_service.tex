@@ -1,0 +1,64 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\+:\+:Water\+Intake\+Service Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}}
+
+
+This service tracks how much water a Bottle Buddy user drinks throughout the day.  
+
+
+
+
+{\ttfamily \#include $<$water\+Intake\+Service.\+h$>$}
+
+Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\+:\+:Water\+Intake\+Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Water\+Intake\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a0a7366a3c4ea9c7720a5a18129fac62f}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a0a7366a3c4ea9c7720a5a18129fac62f}
+
+\item 
+void {\bfseries connect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8eb71ebb9cd53e68847fdc67adc54ae9}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8eb71ebb9cd53e68847fdc67adc54ae9}
+
+\item 
+void {\bfseries disconnect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a43c5c1869c79079fcfd8d6b7bdd10821}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a43c5c1869c79079fcfd8d6b7bdd10821}
+
+\item 
+void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_adbc1a38d314fb9d071719ebc69fe1a71}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_adbc1a38d314fb9d071719ebc69fe1a71}
+
+\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{receive} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)
+\begin{DoxyCompactList}\small\item\em Used by the router class to deliver a package to a service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This service tracks how much water a Bottle Buddy user drinks throughout the day. 
+
+Specifically, the service creates a set of timestamped values corresponding to when and how much water a user drank during the day. Additionally, it streams this dataset to the Bottle Buddy App. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}!receive@{receive}}
+\index{receive@{receive}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}}
+\subsubsection[{\texorpdfstring{receive(\+Package $\ast$package)}{receive(Package *package)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service\+::receive (
+\begin{DoxyParamCaption}
+\item[{{\bf Package} $\ast$}]{package}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}
+
+
+Used by the router class to deliver a package to a service. 
+
+Can be implemented however the derived service needs in order to provide its service. 
+
+Implements \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aaa0ee18450e47f2ad51d9934a2d61992}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\+Services/\hyperlink{water_intake_service_8h}{water\+Intake\+Service.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\+Services/\hyperlink{water_intake_service_8cpp}{water\+Intake\+Service.\+cpp}\end{DoxyCompactItemize}

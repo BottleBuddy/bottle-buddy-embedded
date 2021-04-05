@@ -1,0 +1,64 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\+:\+:Cleaning\+Service Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}}
+
+
+This class automatically cleans the users bottle.  
+
+
+
+
+{\ttfamily \#include $<$cleaning\+Service.\+h$>$}
+
+Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\+:\+:Cleaning\+Service\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Cleaning\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ad871d221313237f485759ca603d3c534}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ad871d221313237f485759ca603d3c534}
+
+\item 
+void {\bfseries connect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa4175f4257e7d395ec2d2d0e0debc65f}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa4175f4257e7d395ec2d2d0e0debc65f}
+
+\item 
+void {\bfseries disconnect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a5ff13f92482dda1683a029f70fc84735}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a5ff13f92482dda1683a029f70fc84735}
+
+\item 
+void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a86e7fd7dfa11b12b7d10463a232f105e}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a86e7fd7dfa11b12b7d10463a232f105e}
+
+\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{receive} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)
+\begin{DoxyCompactList}\small\item\em Used by the router class to deliver a package to a service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+This class automatically cleans the users bottle. 
+
+When the Bottle Buddy app determines that the user\textquotesingle{}s bottle is due for a cleaning session, this class will receive that information then initiate cleaning once it has determined it is safe. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}!receive@{receive}}
+\index{receive@{receive}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}}
+\subsubsection[{\texorpdfstring{receive(\+Package $\ast$package)}{receive(Package *package)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service\+::receive (
+\begin{DoxyParamCaption}
+\item[{{\bf Package} $\ast$}]{package}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}
+
+
+Used by the router class to deliver a package to a service. 
+
+Can be implemented however the derived service needs in order to provide its service. 
+
+Implements \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aaa0ee18450e47f2ad51d9934a2d61992}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\+Services/\hyperlink{cleaning_service_8h}{cleaning\+Service.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\+Services/\hyperlink{cleaning_service_8cpp}{cleaning\+Service.\+cpp}\end{DoxyCompactItemize}

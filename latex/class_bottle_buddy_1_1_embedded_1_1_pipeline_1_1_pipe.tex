@@ -1,0 +1,50 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Pipe Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe}}
+
+
+Transports sensor data.  
+
+
+
+
+{\ttfamily \#include $<$pipe.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Pipe} (\hyperlink{package_8h_aea2eca0caf9ed97414998f1a2f404682}{Location} location)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a74724b71f6b5c7860c0111040b548244}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a74724b71f6b5c7860c0111040b548244}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a4f344a817c439a96e28d1a226de4054b}{send\+Payload} (T data)
+\begin{DoxyCompactList}\small\item\em Sends sensor data. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries send\+Payload} (T dim1, T dim2)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a8007c53c651b37348f010c879e8ca42a}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a8007c53c651b37348f010c879e8ca42a}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\void {\bfseries send\+Payload} (T dim1, T dim2, T dim3)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a8f670b3591991a5afbae53d4ab5bc202}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a8f670b3591991a5afbae53d4ab5bc202}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Transports sensor data. 
+
+This is a general class used to bi-\/directionally transport sensor data across the Bottle Buddy embedded system. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe}!send\+Payload@{send\+Payload}}
+\index{send\+Payload@{send\+Payload}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe}}
+\subsubsection[{\texorpdfstring{send\+Payload(\+T data)}{sendPayload(T data)}}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Pipe\+::send\+Payload (
+\begin{DoxyParamCaption}
+\item[{T}]{data}
+\end{DoxyParamCaption}
+)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a4f344a817c439a96e28d1a226de4054b}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe_a4f344a817c439a96e28d1a226de4054b}
+
+
+Sends sensor data. 
+
+Use this function when a sensor reads new data that will be used across the Bottle Buddy embedded system. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\hyperlink{pipe_8h}{pipe.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\hyperlink{pipe_8cpp}{pipe.\+cpp}\end{DoxyCompactItemize}

@@ -1,0 +1,78 @@
+\hypertarget{_i_m_u_8h}{}\section{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+I\+MU.h File Reference}
+\label{_i_m_u_8h}\index{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+I\+M\+U.\+h@{/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/devices/\+I\+M\+U.\+h}}
+
+
+Functions related to the Inertial Measurement Unit.  
+
+
+{\ttfamily \#include $<$Arduino\+\_\+\+L\+S\+M9\+D\+S1.\+h$>$}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{_i_m_u_8h_a542db9544621cf4d35080293ffde18e8}{imu\+\_\+sensor\+\_\+setup} ()
+\begin{DoxyCompactList}\small\item\em Inertial Measurement Unit setup. \end{DoxyCompactList}\item 
+void \hyperlink{_i_m_u_8h_ae98c1cd50a46a950918eccac147d188d}{read\+\_\+accelerometer} (float \&x, float \&y, float \&z)
+\begin{DoxyCompactList}\small\item\em Grab x, y, and z accelerometer values. \end{DoxyCompactList}\item 
+void \hyperlink{_i_m_u_8h_a9c396184b36eea18b681402e2a60f1e5}{read\+\_\+gyroscope} (float \&x, float \&y, float \&z)
+\begin{DoxyCompactList}\small\item\em Grab x, y, and z gyroscope values. \end{DoxyCompactList}\item 
+void \hyperlink{_i_m_u_8h_ab18d4331cda9888921af1c0b7b32f7a9}{read\+\_\+magnetometer} (float \&x, float \&y, float \&z)
+\begin{DoxyCompactList}\small\item\em Grab x, y, and z magnetometer values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions related to the Inertial Measurement Unit. 
+
+
+
+\subsection{Function Documentation}
+\index{I\+M\+U.\+h@{I\+M\+U.\+h}!imu\+\_\+sensor\+\_\+setup@{imu\+\_\+sensor\+\_\+setup}}
+\index{imu\+\_\+sensor\+\_\+setup@{imu\+\_\+sensor\+\_\+setup}!I\+M\+U.\+h@{I\+M\+U.\+h}}
+\subsubsection[{\texorpdfstring{imu\+\_\+sensor\+\_\+setup()}{imu_sensor_setup()}}]{\setlength{\rightskip}{0pt plus 5cm}int imu\+\_\+sensor\+\_\+setup (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{_i_m_u_8h_a542db9544621cf4d35080293ffde18e8}{}\label{_i_m_u_8h_a542db9544621cf4d35080293ffde18e8}
+
+
+Inertial Measurement Unit setup. 
+
+Call once to set up all three facets of the I\+MU. \index{I\+M\+U.\+h@{I\+M\+U.\+h}!read\+\_\+accelerometer@{read\+\_\+accelerometer}}
+\index{read\+\_\+accelerometer@{read\+\_\+accelerometer}!I\+M\+U.\+h@{I\+M\+U.\+h}}
+\subsubsection[{\texorpdfstring{read\+\_\+accelerometer(float \&x, float \&y, float \&z)}{read_accelerometer(float &x, float &y, float &z)}}]{\setlength{\rightskip}{0pt plus 5cm}void read\+\_\+accelerometer (
+\begin{DoxyParamCaption}
+\item[{float \&}]{x, }
+\item[{float \&}]{y, }
+\item[{float \&}]{z}
+\end{DoxyParamCaption}
+)}\hypertarget{_i_m_u_8h_ae98c1cd50a46a950918eccac147d188d}{}\label{_i_m_u_8h_ae98c1cd50a46a950918eccac147d188d}
+
+
+Grab x, y, and z accelerometer values. 
+
+Spins while measurements are not available, then writes accelerometer values to the memory locations specified by parameters. \index{I\+M\+U.\+h@{I\+M\+U.\+h}!read\+\_\+gyroscope@{read\+\_\+gyroscope}}
+\index{read\+\_\+gyroscope@{read\+\_\+gyroscope}!I\+M\+U.\+h@{I\+M\+U.\+h}}
+\subsubsection[{\texorpdfstring{read\+\_\+gyroscope(float \&x, float \&y, float \&z)}{read_gyroscope(float &x, float &y, float &z)}}]{\setlength{\rightskip}{0pt plus 5cm}void read\+\_\+gyroscope (
+\begin{DoxyParamCaption}
+\item[{float \&}]{x, }
+\item[{float \&}]{y, }
+\item[{float \&}]{z}
+\end{DoxyParamCaption}
+)}\hypertarget{_i_m_u_8h_a9c396184b36eea18b681402e2a60f1e5}{}\label{_i_m_u_8h_a9c396184b36eea18b681402e2a60f1e5}
+
+
+Grab x, y, and z gyroscope values. 
+
+Spins while measurements are not available, then writes gyroscope values to the memory locations specified by parameters. \index{I\+M\+U.\+h@{I\+M\+U.\+h}!read\+\_\+magnetometer@{read\+\_\+magnetometer}}
+\index{read\+\_\+magnetometer@{read\+\_\+magnetometer}!I\+M\+U.\+h@{I\+M\+U.\+h}}
+\subsubsection[{\texorpdfstring{read\+\_\+magnetometer(float \&x, float \&y, float \&z)}{read_magnetometer(float &x, float &y, float &z)}}]{\setlength{\rightskip}{0pt plus 5cm}void read\+\_\+magnetometer (
+\begin{DoxyParamCaption}
+\item[{float \&}]{x, }
+\item[{float \&}]{y, }
+\item[{float \&}]{z}
+\end{DoxyParamCaption}
+)}\hypertarget{_i_m_u_8h_ab18d4331cda9888921af1c0b7b32f7a9}{}\label{_i_m_u_8h_ab18d4331cda9888921af1c0b7b32f7a9}
+
+
+Grab x, y, and z magnetometer values. 
+
+Spins while measurements are not available, then writes magnetometer values to the memory locations specified by parameters. 

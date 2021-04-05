@@ -39,6 +39,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
       <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -95,6 +96,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>Main file.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="service_manager_8h_source.html">Pipeline/serviceManager.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="pipe_8h_source.html">Pipeline/pipe.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_to_f_8h_source.html">devices/ToF.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_i_m_u_8h_source.html">devices/IMU.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_f_s_r_8h_source.html">devices/FSR.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_b_l_e_8h_source.html">devices/BLE.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -107,17 +114,24 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:afbff995684d75e5a671be4c1afa783e8"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="afbff995684d75e5a671be4c1afa783e8"></a>
-constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#afbff995684d75e5a671be4c1afa783e8">serialSpeed</a> = 115200</td></tr>
-<tr class="memdesc:afbff995684d75e5a671be4c1afa783e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serial speed. <br /></td></tr>
-<tr class="separator:afbff995684d75e5a671be4c1afa783e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae648b3d2230eb5ca63fac8ee24fd6d76"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae648b3d2230eb5ca63fac8ee24fd6d76"></a>
-constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="main_8cpp.html#ae648b3d2230eb5ca63fac8ee24fd6d76">delayTime</a> = 1000</td></tr>
-<tr class="memdesc:ae648b3d2230eb5ca63fac8ee24fd6d76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delay time. <br /></td></tr>
-<tr class="separator:ae648b3d2230eb5ca63fac8ee24fd6d76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec84357ffcb51a347174132f17b8a5f5"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aec84357ffcb51a347174132f17b8a5f5"></a>
-constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>ledPin</b> = 2</td></tr>
-<tr class="separator:aec84357ffcb51a347174132f17b8a5f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a452519c5d9b3a3fc92714e19686735cd"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a452519c5d9b3a3fc92714e19686735cd"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe.html">BottleBuddy::Embedded::Pipeline::Pipe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>waterLevelPipe</b></td></tr>
+<tr class="separator:a452519c5d9b3a3fc92714e19686735cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fe39bd42dbe83838550031742efcd85"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fe39bd42dbe83838550031742efcd85"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe.html">BottleBuddy::Embedded::Pipeline::Pipe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>accelerometerPipe</b></td></tr>
+<tr class="separator:a4fe39bd42dbe83838550031742efcd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee046677b13cf43e72bb84e284213050"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee046677b13cf43e72bb84e284213050"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe.html">BottleBuddy::Embedded::Pipeline::Pipe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>gyroscopePipe</b></td></tr>
+<tr class="separator:aee046677b13cf43e72bb84e284213050"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6abfa2df7a4678c3cc4a11ec9f54cb9c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6abfa2df7a4678c3cc4a11ec9f54cb9c"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe.html">BottleBuddy::Embedded::Pipeline::Pipe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>magnetometerPipe</b></td></tr>
+<tr class="separator:a6abfa2df7a4678c3cc4a11ec9f54cb9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b853bf2363028402dde06eb285c1ed7"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b853bf2363028402dde06eb285c1ed7"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_pipe.html">BottleBuddy::Embedded::Pipeline::Pipe</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>fsrPipe</b></td></tr>
+<tr class="separator:a4b853bf2363028402dde06eb285c1ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae49191f6e15499c8239d1f03c6b3aabb"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae49191f6e15499c8239d1f03c6b3aabb"></a>
+<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html">BottleBuddy::Embedded::Pipeline::ServiceManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>serviceManager</b></td></tr>
+<tr class="separator:ae49191f6e15499c8239d1f03c6b3aabb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main file. </p>
@@ -137,7 +151,7 @@ constexpr int&#160;</td><td class="memItemRight" valign="bottom"><b>ledPin</b> =
 </div><div class="memdoc">
 
 <p>Main loop. </p>
-<p>This loop blinks an LED for demonstration purposes. </p>
+<p>This loop initiates BLE advertisement and reads all sensor data and sends it down their respective pipe. Additionally, it uses the service manager to keep all active services up to date. </p>
 
 </div>
 </div>

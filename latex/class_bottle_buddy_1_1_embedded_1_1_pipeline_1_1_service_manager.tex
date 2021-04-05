@@ -1,0 +1,80 @@
+\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager}{}\section{Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Service\+Manager Class Reference}
+\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager}\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
+
+
+Manages all instantiated services.  
+
+
+
+
+{\ttfamily \#include $<$service\+Manager.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}{add\+Service} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}{Service} $\ast$service)
+\begin{DoxyCompactList}\small\item\em Adds a service to the list of services the service manager handles. \end{DoxyCompactList}\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}{connected\+B\+LE} ()
+\begin{DoxyCompactList}\small\item\em Calls the virtual connect function on all managed services. \end{DoxyCompactList}\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}{disconnected\+B\+LE} ()
+\begin{DoxyCompactList}\small\item\em Calls the virtual disconnect function on all managed services. \end{DoxyCompactList}\item 
+void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{loop\+Services} ()
+\begin{DoxyCompactList}\small\item\em Calls the virtual loop function on all managed services. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Manages all instantiated services. 
+
+Executes important lifecycle events for services such as looping, connecting, and disconnecting. 
+
+\subsection{Member Function Documentation}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!add\+Service@{add\+Service}}
+\index{add\+Service@{add\+Service}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
+\subsubsection[{\texorpdfstring{add\+Service(\+Service $\ast$service)}{addService(Service *service)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::add\+Service (
+\begin{DoxyParamCaption}
+\item[{{\bf Service} $\ast$}]{service}
+\end{DoxyParamCaption}
+)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}
+
+
+Adds a service to the list of services the service manager handles. 
+
+The provided service will now be connected, disconnected, and looped. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!connected\+B\+LE@{connected\+B\+LE}}
+\index{connected\+B\+LE@{connected\+B\+LE}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
+\subsubsection[{\texorpdfstring{connected\+B\+L\+E()}{connectedBLE()}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::connected\+B\+LE (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}
+
+
+Calls the virtual connect function on all managed services. 
+
+Call this function when the B\+LE device connects to a central device. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!disconnected\+B\+LE@{disconnected\+B\+LE}}
+\index{disconnected\+B\+LE@{disconnected\+B\+LE}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
+\subsubsection[{\texorpdfstring{disconnected\+B\+L\+E()}{disconnectedBLE()}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::disconnected\+B\+LE (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}
+
+
+Calls the virtual disconnect function on all managed services. 
+
+Call this function when the B\+LE device disconnects from a central device. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!loop\+Services@{loop\+Services}}
+\index{loop\+Services@{loop\+Services}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
+\subsubsection[{\texorpdfstring{loop\+Services()}{loopServices()}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::loop\+Services (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}
+
+
+Calls the virtual loop function on all managed services. 
+
+Call this function once per main loop. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/include/\+Pipeline/\hyperlink{service_manager_8h}{service\+Manager.\+h}\item 
+/home/travis/build/\+Bottle\+Buddy/bottle-\/buddy-\/embedded/src/\+Pipeline/\hyperlink{service_manager_8cpp}{service\+Manager.\+cpp}\end{DoxyCompactItemize}
