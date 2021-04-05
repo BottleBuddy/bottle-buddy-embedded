@@ -14,6 +14,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     class Service;
 
+    /**
+     * @brief Handles package delivery.
+     */
     class Router {
     public:
         /**
