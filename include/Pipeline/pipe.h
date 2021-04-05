@@ -27,6 +27,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
         void sendPayload(T data);
 
         template<typename T>
+        void sendPayload(T dim1, T dim2);
+
+        template<typename T>
         void sendPayload(T dim1, T dim2, T dim3);
     private:
         Pipe();

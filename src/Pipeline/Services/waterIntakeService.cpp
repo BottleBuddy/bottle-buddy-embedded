@@ -17,6 +17,18 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER, this);
 }
 
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect() {
+
+}
+
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect() {
+    
+}
+
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
+
+}
+
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(BottleBuddy::Embedded::Pipeline::Package* package) {
 
 }

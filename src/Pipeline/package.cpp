@@ -24,6 +24,34 @@ BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, float data) {
     *(float*)dataptr = data;
 }
 
+BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, int dim1, int dim2) {
+    this->origin = origin;
+
+    this->datatype = BBInt;
+
+    int num_bytes = sizeof(int) * 2;
+    dataptr = malloc(num_bytes);
+    int* tempptr = (int*)dataptr;
+
+    *tempptr = dim1;
+    tempptr++;
+    *tempptr = dim2;
+}
+
+BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, float dim1, float dim2) {
+    this->origin = origin;
+
+    this->datatype = BBFloat;
+
+    int num_bytes = sizeof(float) * 2;
+    dataptr = malloc(num_bytes);
+    float* tempptr = (float*)dataptr;
+
+    *tempptr = dim1;
+    tempptr++;
+    *tempptr = dim2;
+}
+
 BottleBuddy::Embedded::Pipeline::Package::Package(Location origin, int dim1, int dim2, int dim3) {
     this->origin = origin;
 
@@ -76,6 +104,16 @@ bool BottleBuddy::Embedded::Pipeline::Package::getData(int& data) {
     return true;
 }
 
+bool BottleBuddy::Embedded::Pipeline::Package::getData(int& dim1, int& dim2) {
+    if (this->datatype != BBInt) {
+        return false;
+    }
+    
+    dim1 = *(int*)dataptr;
+    dim2 = *(((int*)dataptr) + 1);
+    return true;
+}
+
 bool BottleBuddy::Embedded::Pipeline::Package::getData(int& dim1, int& dim2, int& dim3) {
     if (this->datatype != BBInt) {
         return false;
@@ -99,6 +137,16 @@ bool BottleBuddy::Embedded::Pipeline::Package::getData(float& data) {
     }
 
     data = *(float*)dataptr;
+    return true;
+}
+
+bool BottleBuddy::Embedded::Pipeline::Package::getData(float& dim1, float& dim2) {
+    if (this->datatype != BBFloat) {
+        return false;
+    }
+
+    dim1 = *(float*)dataptr;
+    dim2 = *(((float*)dataptr) + 1);
     return true;
 }
 
