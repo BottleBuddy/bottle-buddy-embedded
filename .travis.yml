@@ -1,6 +1,6 @@
 language: python
 python:
-    - "2.7"
+    - "3.7.7"
 
 # Cache PlatformIO packages using Travis CI container-based infrastructure
 sudo: false
@@ -29,11 +29,11 @@ install:
 script:
     - |
       if [[ "$FLASH" == "1" ]]; then
-        platformio run -e esp32dev || exit 1
+        platformio run -e nano33ble || exit 1
       fi
     - |
       if [[ "$SNIFF" == "1" ]]; then
-        platformio check -e esp32dev || exit 1
+        platformio check -e nano33ble || exit 1
       fi
 
 jobs:

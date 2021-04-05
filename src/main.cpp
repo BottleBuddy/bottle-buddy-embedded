@@ -7,18 +7,20 @@
  */
 
 #include <Arduino.h>
+#include "Pipeline/serviceManager.h"
+#include "Pipeline/pipe.h"
+#include "devices/ToF.h"
+#include "devices/IMU.h"
+#include "devices/FSR.h"
+#include "devices/BLE.h"
 
-/**
- * @brief Serial speed
- */
-constexpr int serialSpeed = 115200;
+BottleBuddy::Embedded::Pipeline::Pipe *waterLevelPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *accelerometerPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *gyroscopePipe;
+BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
+BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
-/**
- * @brief Delay time
- */
-constexpr int delayTime = 1000;
-
-constexpr int ledPin = 2;
+BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 
 /**
  * @brief Setup loop.
@@ -26,22 +28,59 @@ constexpr int ledPin = 2;
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  pinMode(ledPin, OUTPUT);
-  Serial.begin(serialSpeed, SERIAL_8N1); 
+
+  if(tof_sensor_setup() == -1) {
+    Serial.println("Failed to initialize VL53L0X!");
+    while(1)
+      ;
+  }
+
+  if(imu_sensor_setup() == -1) {
+    Serial.println("Failed to initialize IMU!");
+    while(1)
+      ;
+  }
+
+  if(ble_device_setup() == -1) {
+    Serial.println("Failed to initialize BLE!");
+    while(1)
+      ;
+  }
+
+  serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+
+  int advertising_success = advertise_ble();
+
+  waterLevelPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
+  accelerometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
+  gyroscopePipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
+  magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
+  fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
 }
 
 /** 
  * @brief Main loop.
  * 
- *  This loop blinks an LED for demonstration purposes.
+ * This loop initiates BLE advertisement and reads all sensor data and sends it down their respective pipe.
+ * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
-  digitalWrite(ledPin, HIGH);   // turn the LED on (HIGH is the voltage level)
-  Serial.print(1);              
-  Serial.print("\t");
-  delay(delayTime);                       // wait for a second
-  digitalWrite(ledPin, LOW);    // turn the LED off by making the voltage LOW
-  Serial.print(0);             
-  Serial.print("\t");           
-  delay(delayTime);                       // wait for a second
+  int tofVal = tof_sensor_distance();
+  waterLevelPipe->sendPayload<int>(tofVal);
+
+  float x, y, z;
+  read_accelerometer(x, y, z);
+  accelerometerPipe->sendPayload<float>(x, y, z);
+  read_gyroscope(x, y, z);
+  gyroscopePipe->sendPayload<float>(x, y, z);
+  read_magnetometer(x, y, z);
+  magnetometerPipe->sendPayload<float>(x, y, z);
+
+  int fsr1Val = read_fsr_1();
+  int fsr2Val = read_fsr_2();
+  fsrPipe->sendPayload<int>(fsr1Val, fsr2Val);
+
+  serviceManager->loopServices();
 }
