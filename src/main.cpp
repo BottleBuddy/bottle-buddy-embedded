@@ -22,12 +22,20 @@ BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 
+const int GREEN_LED_PIN = 4;
+const int RED_LED_PIN = 3;
+const int BLUE_LED_PIN = 2;
+
 /**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
+  pinMode(BLUE_LED_PIN, OUTPUT);
+  pinMode(RED_LED_PIN, OUTPUT);
+  pinMode(GREEN_LED_PIN, OUTPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
@@ -48,8 +56,9 @@ void setup() {
   }
 
   serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214"));
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::ConfigurationService("19B10010-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214"));
 
   int advertising_success = advertise_ble();
 
@@ -67,6 +76,9 @@ void setup() {
  * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
+  String central_address = wait_for_ble_connection();
+  BLE.poll();
+
   int tofVal = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(tofVal);
 
