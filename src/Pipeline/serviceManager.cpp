@@ -33,6 +33,6 @@ void BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE() {
 void BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices() {
     for (std::vector<Service*>::iterator it = services.begin(); it != services.end(); it++) {
         Service* service = *it;
-        service->connect();
+        service->loop();
     }
 }
