@@ -32,6 +32,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
         ~Service();
 
+        virtual void connect() = 0;
+        virtual void disconnect() = 0;
+
         virtual void loop() = 0;
 
         /**

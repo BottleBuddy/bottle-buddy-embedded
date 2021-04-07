@@ -27,6 +27,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     public:
         WaterIntakeService(const char* uid);
 
+        void connect();
+        void disconnect();
+
         void loop();
         void receive(Package* package);
     private:
