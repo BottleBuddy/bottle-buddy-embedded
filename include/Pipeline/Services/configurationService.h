@@ -17,7 +17,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         void loop();
         void receive(Package* package);
+
+        bool didConfigure();
+        unsigned char getBottleType();
     private:
+        bool configuredBottleBuddy;
+        unsigned char bottleType;
     };
 
 }}}}
