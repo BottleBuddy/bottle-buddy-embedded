@@ -5,6 +5,7 @@
 #pragma once
 
 #include <vector>
+#include "Pipeline/Services/configurationService.h"
 #include "Pipeline/Services/cleaningService.h"
 #include "Pipeline/Services/waterIntakeService.h"
 

@@ -23,18 +23,11 @@ BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 
 /**
- * @brief Serial speed
- */
-constexpr int serialSpeed = 115200;
-
-/**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  
-  Serial.begin(serialSpeed, SERIAL_8N1);
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
@@ -55,8 +48,9 @@ void setup() {
   }
 
   serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214"));
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::ConfigurationService("19B10010-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214"));
 
   int advertising_success = advertise_ble();
 
@@ -70,7 +64,8 @@ void setup() {
 /** 
  * @brief Main loop.
  * 
- *  This loop currently grabs a ToF measurement value and sends it down the water level pipe, as well as a 3-dimensional accelerometer reading.
+ * This loop initiates BLE advertisement and reads all sensor data and sends it down their respective pipe.
+ * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
   int tofVal = tof_sensor_distance();
