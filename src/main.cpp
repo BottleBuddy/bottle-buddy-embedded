@@ -68,9 +68,6 @@ void setup() {
  * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
-  String central_address = wait_for_ble_connection();
-  BLE.poll();
-
   int tofVal = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(tofVal);
 

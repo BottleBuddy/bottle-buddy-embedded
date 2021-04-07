@@ -21,5 +21,3 @@ int ble_device_setup();
  * Used when ready to advertise BLE.
  */
 int advertise_ble();
-
-String wait_for_ble_connection();
