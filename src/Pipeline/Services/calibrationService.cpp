@@ -1,10 +1,10 @@
 /**
- * @file configurationService.cpp
+ * @file calibrationService.cpp
  */
 
-#include "Pipeline/Services/configurationService.h"
+#include "Pipeline/Services/calibrationService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::ConfigurationService(const char* uid) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::CalibrationService::CalibrationService(const char* uid) : Service(uid) {
     BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("bottle_type"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedChar);
@@ -24,11 +24,11 @@ BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::ConfigurationSe
     changeBottleCharacteristic->writeValue(noChange);
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::connect() {}
+void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::connect() {}
 
-void BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::disconnect() {}
+void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::disconnect() {}
 
-void BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::loop() {
+void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::loop() {
     if (!configuredBottleBuddy) {
         unsigned char bottleType = 0;
         BLECharacteristic* bottleTypeCharacteristic = getCharacteristic(std::string("bottle_type"));
@@ -40,12 +40,12 @@ void BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::loop() {
     }
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::receive(Package* package) {}
+void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::receive(Package* package) {}
 
-bool BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::didConfigure() {
+bool BottleBuddy::Embedded::Pipeline::Services::CalibrationService::didConfigure() {
     return this->configuredBottleBuddy;
 }
 
-unsigned char BottleBuddy::Embedded::Pipeline::Services::ConfigurationService::getBottleType() {
+unsigned char BottleBuddy::Embedded::Pipeline::Services::CalibrationService::getBottleType() {
     return this->bottleType;
 }

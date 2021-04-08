@@ -1,5 +1,5 @@
 /**
- * @file configurationService.h
+ * @file calibrationService.h
  */
 
 #pragma once
@@ -14,9 +14,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      * This service is the only advertised service until the Bottle Buddy App configures the embedded system
      * by sending a bottle type. Then, the rest of the services will be added to the BLE device.
      */
-    class ConfigurationService : public Service {
+    class CalibrationService : public Service {
     public:
-        ConfigurationService(const char* uid);
+        CalibrationService(const char* uid);
 
         void connect();
         void disconnect();
