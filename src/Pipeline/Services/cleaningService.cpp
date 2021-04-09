@@ -17,7 +17,6 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
     getCharacteristic(std::string("cleaning"))->writeValue(initialVal);
 
     this->timer = timer_create_default();
-    //this->timer.every(500, BottleBuddy::Embedded::Pipeline::Services::CleaningService::toggleLight, this);
 
     this->needToClean = false;
     this->cleaning = false;
