@@ -5,11 +5,11 @@
 #pragma once
 
 #include <vector>
-#include "Pipeline/Services/configurationService.h"
+#include <ArduinoBLE.h>
 #include "Pipeline/Services/cleaningService.h"
 #include "Pipeline/Services/waterIntakeService.h"
 
-namespace BottleBuddy { namespace Embedded { namespace Pipeline { 
+namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     /**
      * @brief Manages all instantiated services.
@@ -18,42 +18,38 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      */
     class ServiceManager {
     public:
-        ServiceManager();
-
-        ~ServiceManager();
-
         /**
          * @brief Adds a service to the list of services the service manager handles.
          * 
          * The provided service will now be connected, disconnected, and looped.
          */
-        void addService(Service* service);
+        static void addService(Service* service);
 
         /**
          * @brief Calls the virtual connect function on all managed services.
          * 
          * Call this function when the BLE device connects to a central device.
          */
-        void connectedBLE();
+        static void connectedBLE(BLEDevice central);
 
         /**
          * @brief Calls the virtual disconnect function on all managed services.
          * 
          * Call this function when the BLE device disconnects from a central device.
          */
-        void disconnectedBLE();
+        static void disconnectedBLE(BLEDevice central);
 
         /**
          * @brief Calls the virtual loop function on all managed services.
          * 
          * Call this function once per main loop.
          */
-        void loopServices();
+        static void loopServices();
     private:
         /**
          * @brief The list of managed services.
          */
-        std::vector<Service*> services;
+        static std::vector<Service*> services;
     };
 
 }}}

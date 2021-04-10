@@ -14,6 +14,8 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
+    enum BottleType { ZANE_YETI };
+
     enum BLEType { UnsignedShort, UnsignedChar, String, Boolean };
 
     /**
@@ -32,8 +34,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
         ~Service();
 
-        virtual void connect() = 0;
-        virtual void disconnect() = 0;
+        virtual void connect(BLEDevice central) = 0;
+        virtual void disconnect(BLEDevice central) = 0;
 
         virtual void loop() = 0;
 
