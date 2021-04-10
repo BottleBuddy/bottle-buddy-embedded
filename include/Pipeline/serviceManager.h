@@ -5,18 +5,10 @@
 #pragma once
 
 #include <vector>
-#include "Pipeline/Services/configurationService.h"
 #include "Pipeline/Services/cleaningService.h"
 #include "Pipeline/Services/waterIntakeService.h"
 
-namespace BottleBuddy { namespace Embedded { namespace Pipeline { 
-
-    enum ServiceType { WATER_INTAKE, CLEANING };
-
-    struct pendingService {
-        ServiceType serviceType;
-        const char* uid;
-    } typedef PendingService;
+namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     /**
      * @brief Manages all instantiated services.
@@ -34,7 +26,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * 
          * The provided service will now be connected, disconnected, and looped.
          */
-        void addService(ServiceType serviceType, const char* uid);
+        void addService(Service* service);
 
         /**
          * @brief Calls the virtual connect function on all managed services.
@@ -57,18 +49,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          */
         void loopServices();
     private:
-        BottleBuddy::Embedded::Pipeline::Services::ConfigurationService* configurationService;
-
-        BottleBuddy::Embedded::Pipeline::BottleType bottleType;
-
-        std::vector<PendingService*> pendingServices;
-    
         /**
          * @brief The list of managed services.
          */
         std::vector<Service*> services;
-
-        bool configuredBottleBuddy;
     };
 
 }}}

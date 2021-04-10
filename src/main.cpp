@@ -48,8 +48,8 @@ void setup() {
   }
 
   serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
-  serviceManager->addService(BottleBuddy::Embedded::Pipeline::ServiceType::WATER_INTAKE, "19B10020-E8F2-537E-4F6C-D104768A1214");
-  serviceManager->addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214"));
 
   int advertising_success = advertise_ble();
 
