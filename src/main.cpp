@@ -47,11 +47,12 @@ void setup() {
       ;
   }
 
-  serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10020-E8F2-537E-4F6C-D104768A1214"));
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214"));
+  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10030-E8F2-537E-4F6C-D104768A1214"));
 
   int advertising_success = advertise_ble();
+  BLE.setEventHandler(BLEConnected, BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE);
+  BLE.setEventHandler(BLEConnected, BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE);
 
   waterLevelPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
@@ -82,5 +83,5 @@ void loop() {
   int fsr2Val = read_fsr_2();
   fsrPipe->sendPayload<int>(fsr1Val, fsr2Val);
 
-  serviceManager->loopServices();
+  BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices();
 }
