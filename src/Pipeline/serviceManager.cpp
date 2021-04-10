@@ -13,14 +13,14 @@ void BottleBuddy::Embedded::Pipeline::ServiceManager::addService(Service* servic
 void BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE(BLEDevice central) {
     for (std::vector<Service*>::iterator it = services.begin(); it != services.end(); it++) {
         Service* service = *it;
-        service->connect();
+        service->connect(central);
     }
 }
 
 void BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE(BLEDevice central) {
     for (std::vector<Service*>::iterator it = services.begin(); it != services.end(); it++) {
         Service* service = *it;
-        service->disconnect();
+        service->disconnect(central);
     }
 }
 

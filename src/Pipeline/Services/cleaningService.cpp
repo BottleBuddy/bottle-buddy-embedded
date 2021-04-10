@@ -10,11 +10,11 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
     BLE.addService(*this->bleService);
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::CleaningService::connect() {
-
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::connect(BLEDevice central) {
+    
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::CleaningService::disconnect() {
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::disconnect(BLEDevice central) {
     
 }
 
