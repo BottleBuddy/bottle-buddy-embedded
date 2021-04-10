@@ -12,9 +12,3 @@ int ble_device_setup() {
 int advertise_ble() {
     return BLE.advertise() - 1;
 }
-
-String wait_for_ble_connection() {
-    while (!BLE.central().connected()) {
-        return BLE.central().address();
-    }
-}

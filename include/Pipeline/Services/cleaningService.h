@@ -18,8 +18,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     public:
         CleaningService(const char* uid);
 
-        void connect();
-        void disconnect();
+        void connect(BLEDevice central);
+        void disconnect(BLEDevice central);
 
         void loop();
         void receive(Package* package);

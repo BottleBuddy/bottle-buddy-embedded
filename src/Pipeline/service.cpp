@@ -38,7 +38,7 @@ BottleBuddy::Embedded::Pipeline::Service::~Service() {
 }
 
 bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string name, uint8_t properties, BottleBuddy::Embedded::Pipeline::BLEType characteristicType) {
-	if (numCharacteristics >= 16) {
+	if (numCharacteristics >= 15) {
 		return false;
 	}
 
@@ -58,6 +58,9 @@ bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string 
 		switch (characteristicType) {
 			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort:
 				bleCharacteristic = new BLEUnsignedShortCharacteristic(characteristicUUID, properties);
+				break;
+			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedChar:
+				bleCharacteristic = new BLEUnsignedCharCharacteristic(characteristicUUID, properties);
 				break;
 			case BottleBuddy::Embedded::Pipeline::BLEType::Boolean:
 				bleCharacteristic = new BLEBooleanCharacteristic(characteristicUUID, properties);

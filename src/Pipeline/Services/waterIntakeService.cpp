@@ -32,11 +32,11 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->waitingToStopDrinking = false;
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect() {
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect(BLEDevice central) {
 
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect() {
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect(BLEDevice central) {
     
 }
 
