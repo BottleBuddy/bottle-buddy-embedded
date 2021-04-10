@@ -25,7 +25,7 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->timer.every(100, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
     
     this->filter = new Mahony();
-    this->filter->begin(5);
+    this->filter->begin(10);
 
     this->updatedWaterLevel = false;
     this->enteredDrinkingPos = false;
