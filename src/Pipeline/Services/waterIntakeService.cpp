@@ -7,6 +7,8 @@
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid) : Service(uid) {
     BLE.setAdvertisedService(*this->bleService);
 
+    createCharacteristic(std::string("water_package_time"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("water_package_heights"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
@@ -24,6 +26,8 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->timer = timer_create_default();
     this->timer.every(100, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
     
+    this->connected = false;
+
     this->filter = new Mahony();
     this->filter->begin(10);
 
@@ -33,11 +37,11 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect(BLEDevice central) {
-
+    this->connected = true;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect(BLEDevice central) {
-    
+    this->connected = false;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
@@ -54,11 +58,14 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     if (waitingToStopDrinking && updatedWaterLevel) {
         if (currWaterLevel < (waterLevelBeforeDrinking - WATER_LEVEL_TOLERANCE)) {
             int heightDrank = waterLevelBeforeDrinking - currWaterLevel;
-            //TODO: Calculate volume drank from height.
-            cacheWaterIntake(heightDrank);
+            cacheWaterPackage(waterLevelBeforeDrinking, currWaterLevel);
         }
         digitalWrite(3, LOW);
         this->waitingToStopDrinking = false;
+    }
+
+    if (connected) {
+        sendWaterPackage();
     }
 }
 
@@ -97,7 +104,6 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
     BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
-    //digitalWrite(3, HIGH);
 
     myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
     float pitch = myself->filter->getPitch();
@@ -136,10 +142,29 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterL
     }
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterIntake(int volumeDrank) {
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPackage(int oldHeight, int newHeight) {
     WaterPackage* waterPackage = (WaterPackage*)malloc(sizeof(WaterPackage));
-    waterPackage->volumeDrank = volumeDrank;
-    //TODO: Figure out time.
+    waterPackage->oldHeight = oldHeight;
+    waterPackage->newHeight = newHeight;
+    //TODO: Figure out time and id.
 
     this->waterPackages.push_back(waterPackage);
+}
+
+void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPackage() {
+    if (this->waterPackages.size() == 0) {
+        return;
+    }
+    if (!connected) {
+        return;
+    }
+
+    WaterPackage* package = this->waterPackages.at(0);
+    //TODO: convert time
+
+    arduino::String oldHeightString = arduino::String(package->oldHeight);
+    arduino::String newHeightString = arduino::String(package->newHeight);
+    arduino::String heightsString = arduino::String(oldHeightString + "~" + newHeightString + "~");
+    BLEStringCharacteristic* heightsCharacteristic = getStringCharacteristic(std::string("water_package_heights"));
+    heightsCharacteristic->writeValue(heightsString);
 }

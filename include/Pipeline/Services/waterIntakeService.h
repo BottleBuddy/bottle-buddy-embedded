@@ -14,7 +14,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
     struct waterIntakePackage {
         int id;
         int timestamp;
-        int volumeDrank;
+        int oldHeight;
+        int newHeight;
     } typedef WaterPackage;
 
     /**
@@ -34,6 +35,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         void receive(Package* package);
     private:
         Timer<> timer;
+
+        bool connected;
 
         Mahony *filter;
 
@@ -57,7 +60,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         void updateWaterLevel(int waterReading);
 
-        void cacheWaterIntake(int volumeDrank);
+        void cacheWaterPackage(int oldHeight, int newHeight);
+        void sendWaterPackage();
     };
 
 }}}}
