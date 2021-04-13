@@ -16,7 +16,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
     enum BottleType { ZANE_YETI };
 
-    enum BLEType { UnsignedLong, UnsignedShort, UnsignedChar, String, Boolean };
+    enum BLEType { UnsignedInt, UnsignedShort, UnsignedChar, String, Boolean };
 
     /**
      * @brief Base class for high level services

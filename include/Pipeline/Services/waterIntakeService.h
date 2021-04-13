@@ -11,11 +11,20 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
 
+    struct time {
+        unsigned char year;
+        unsigned char month;
+        unsigned char day;
+        unsigned char hour;
+        unsigned char minute;
+        unsigned char second;
+    } typedef Time;
+
     struct waterIntakePackage {
-        int id;
-        int timestamp;
-        int oldHeight;
-        int newHeight;
+        unsigned short id;
+        Time* timestamp;
+        unsigned short oldHeight;
+        unsigned short newHeight;
     } typedef WaterPackage;
 
     /**
@@ -26,7 +35,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class WaterIntakeService: public Service {
     public:
-        WaterIntakeService(const char* uid);
+        WaterIntakeService(const char* uid, Time initTimestamp);
 
         void connect(BLEDevice central);
         void disconnect(BLEDevice central);
@@ -37,6 +46,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         Timer<> timer;
 
         bool connected;
+
+        bool waitingForAck;
+        unsigned short deliveredId;
+        unsigned short nextId;
+
+        Time* time;
 
         Mahony *filter;
 
@@ -55,6 +70,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         float magneticX, magneticY, magneticZ;
 
         std::vector<WaterPackage*> waterPackages;
+
+        static bool updateTime(void *waterInstance);
 
         static bool updateOrientation(void *waterInstance);
 

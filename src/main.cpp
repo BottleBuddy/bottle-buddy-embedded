@@ -27,15 +27,6 @@ const int RED_LED_PIN = 3;
 const int BLUE_LED_PIN = 2;
 
 /**
- * @brief Serial speed
- */
-constexpr int serialSpeed = 115200;
-
-const int GREEN_LED_PIN = 4;
-const int RED_LED_PIN = 3;
-const int BLUE_LED_PIN = 2;
-
-/**
  * @brief Setup loop.
  * 
  * Makes necessary initializations for system to be able to run.

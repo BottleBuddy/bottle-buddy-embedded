@@ -4,17 +4,21 @@
 
 #include "Pipeline/Services/waterIntakeService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time initTimestamp) : Service(uid) {
     BLE.setAdvertisedService(*this->bleService);
 
-    createCharacteristic(std::string("water_package_time"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("water_package_heights"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("water_package_id"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
+    createCharacteristic(std::string("water_package_timestamp_date"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("water_package_timestamp_time"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("water_package_heights"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("acknowledgment"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
+    createCharacteristic(std::string("timestamp_date"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("timestamp_time"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("wrote_time"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
+    createCharacteristic(std::string("drink_water"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
     createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("water_intake"), BLERead | BLEIndicate, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("time"), BLEWrite | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("received_id"), BLEWrite | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
 
     BLE.addService(*this->bleService);
 
@@ -27,6 +31,20 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->timer.every(100, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
     
     this->connected = false;
+
+    this->waitingForAck = false;
+    this->deliveredId = 0;
+    this->nextId = 1;
+    getCharacteristic(std::string("acknowledgment"))->writeValue(this->deliveredId);
+
+    this->time = new Time();
+    this->time->year = initTimestamp.year;
+    this->time->month = initTimestamp.month;
+    this->time->day = initTimestamp.day;
+    this->time->hour = initTimestamp.hour;
+    this->time->minute = initTimestamp.minute;
+    this->time->second = initTimestamp.second;
+    this->timer.every(1000, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime, this);
 
     this->filter = new Mahony();
     this->filter->begin(10);
@@ -100,6 +118,14 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
             }
             break;
     }
+}
+
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(void *waterInstance) {
+    BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
+
+    // TODO: Update time by one second.
+
+    return true;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
