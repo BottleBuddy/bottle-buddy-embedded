@@ -4,7 +4,7 @@
 
 #include "Pipeline/Services/waterIntakeService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time initTimestamp) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp) : Service(uid) {
     BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("water_package_id"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
@@ -37,13 +37,7 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->nextId = 1;
     getCharacteristic(std::string("acknowledgment"))->writeValue(this->deliveredId);
 
-    this->time = new Time();
-    this->time->year = initTimestamp.year;
-    this->time->month = initTimestamp.month;
-    this->time->day = initTimestamp.day;
-    this->time->hour = initTimestamp.hour;
-    this->time->minute = initTimestamp.minute;
-    this->time->second = initTimestamp.second;
+    this->currTime = initTimestamp;
     this->timer.every(1000, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime, this);
 
     this->filter = new Mahony();
@@ -82,8 +76,28 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         this->waitingToStopDrinking = false;
     }
 
-    if (connected) {
+    if (waitingForAck) {
+        BLECharacteristic* ackCharacteristic = getCharacteristic(std::string("acknowledgment"));
+        unsigned short ackId = 0;
+        ackCharacteristic->readValue(ackId);
+        this->waitingForAck = ackId != this->deliveredId;
+    } else {
         sendWaterPackage();
+    }
+
+    byte wroteTime = 0;
+    BLECharacteristic* wroteTimeCharacteristic = getCharacteristic(std::string("wrote_time"));
+    wroteTimeCharacteristic->readValue(wroteTime);
+    if (wroteTime) {
+        unsigned int date = 0;
+        BLECharacteristic* dateCharacteristic = getCharacteristic(std::string("timestamp_date"));
+        dateCharacteristic->readValue((uint8_t*)&date, sizeof(date));
+
+        unsigned int time = 0;
+        BLECharacteristic* timeCharacteristic = getCharacteristic(std::string("timestamp_time"));
+        timeCharacteristic->readValue((uint8_t*)&time, sizeof(time));
+
+        WaterIntakeService::createTimestamp(date, time, this->currTime);
     }
 }
 
@@ -122,10 +136,32 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(void *waterInstance) {
     BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
+    Time* theTime = myself->currTime;
 
-    // TODO: Update time by one second.
+    theTime->second = (theTime->second + 1) % 60;
+    if (theTime->second == 0) theTime->minute = (theTime->minute + 1) % 60;
+    if (theTime->minute == 0) theTime->hour = (theTime->hour + 1) % 24;
+    if (theTime->hour == 0) {
+        int numDays;
+        if (theTime->month == 1) numDays = 28;
+        else (theTime->month % 2) == 0 ? numDays = 31 : numDays = 30;
+        theTime->day = (theTime->day + 1) % numDays;
+    }
+    if (theTime->day == 0) theTime->month = (theTime->month + 1) % 12;
+    if (theTime->month == 0) theTime->year = theTime->year + 1;
 
     return true;
+}
+
+BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::createTimestamp(unsigned int date, unsigned int time, Time* timestamp) {
+    timestamp->year = (unsigned char)((date & 0x00FF0000) >> 16);
+    timestamp->month = (unsigned char)((date & 0x0000FF00) >> 8);
+    timestamp->day = (unsigned char)(date & 0x000000FF);
+    timestamp->hour = (unsigned char)((time & 0x00FF0000) >> 16);
+    timestamp->minute = (unsigned char)((time & 0x0000FF00) >> 8);
+    timestamp->second = (unsigned char)(date & 0x000000FF);
+
+    return timestamp;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
@@ -169,28 +205,58 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterL
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPackage(int oldHeight, int newHeight) {
-    WaterPackage* waterPackage = (WaterPackage*)malloc(sizeof(WaterPackage));
+    WaterPackage* waterPackage = new WaterPackage();
+    waterPackage->timestamp = new Time();
+
+    waterPackage->id = this->nextId;
+    this->nextId = (this->nextId + 1) % SHRT_MAX;
+
+    waterPackage->timestamp->year = this->currTime->year;
+    waterPackage->timestamp->month = this->currTime->month;
+    waterPackage->timestamp->day = this->currTime->day;
+    waterPackage->timestamp->hour = this->currTime->hour;
+    waterPackage->timestamp->minute = this->currTime->minute;
+    waterPackage->timestamp->second = this->currTime->second;
+
     waterPackage->oldHeight = oldHeight;
     waterPackage->newHeight = newHeight;
-    //TODO: Figure out time and id.
 
     this->waterPackages.push_back(waterPackage);
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPackage() {
-    if (this->waterPackages.size() == 0) {
+    if (!connected) {
         return;
     }
-    if (!connected) {
+    if (this->waterPackages.size() == 0) {
         return;
     }
 
     WaterPackage* package = this->waterPackages.at(0);
-    //TODO: convert time
 
-    arduino::String oldHeightString = arduino::String(package->oldHeight);
-    arduino::String newHeightString = arduino::String(package->newHeight);
-    arduino::String heightsString = arduino::String(oldHeightString + "~" + newHeightString + "~");
-    BLEStringCharacteristic* heightsCharacteristic = getStringCharacteristic(std::string("water_package_heights"));
-    heightsCharacteristic->writeValue(heightsString);
+    BLECharacteristic* dateCharacteristic = getCharacteristic(std::string("water_package_timestamp_date"));
+    unsigned int yearChunk = (((unsigned int)package->timestamp->year) << 16) & 0x00FF0000;
+    unsigned int monthChunk = (((unsigned int)package->timestamp->month) << 8) & 0x0000FF00;
+    unsigned int dayChunk = ((unsigned int)package->timestamp->day) & 0x000000FF;
+    unsigned int date = 0x00000000 | yearChunk | monthChunk | dayChunk;
+    dateCharacteristic->writeValue((uint8_t*)&date, sizeof(date));
+
+    BLECharacteristic* timeCharacteristic = getCharacteristic(std::string("water_package_timestamp_time"));
+    unsigned int hourChunk = (((unsigned int)package->timestamp->hour) << 16) & 0x00FF0000;
+    unsigned int minuteChunk = (((unsigned int)package->timestamp->minute) << 8) & 0x0000FF00;
+    unsigned int secondChunk = ((unsigned int)package->timestamp->second) & 0x000000FF;
+    unsigned int time = 0x00000000 | hourChunk | minuteChunk | secondChunk;
+    timeCharacteristic->writeValue((uint8_t*)&time, sizeof(time));
+
+    BLECharacteristic* heightsCharacteristic = getCharacteristic(std::string("water_package_heights"));
+    unsigned int oldHeightChunk = (((unsigned int)package->oldHeight) << 16) & 0xFFFF0000;
+    unsigned int newHeightChunk = ((unsigned int)package->newHeight) & 0x0000FFFF;
+    unsigned int heights = 0x00000000 | oldHeightChunk | newHeightChunk;
+    heightsCharacteristic->writeValue((uint8_t*)&heights, sizeof(heights));
+
+    BLECharacteristic* idCharacteristic = getCharacteristic(std::string("water_package_id"));
+    idCharacteristic->writeValue(package->id);
+
+    this->waitingForAck = true;
+    this->deliveredId = package->id;
 }

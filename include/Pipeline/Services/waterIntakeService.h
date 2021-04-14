@@ -35,7 +35,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class WaterIntakeService: public Service {
     public:
-        WaterIntakeService(const char* uid, Time initTimestamp);
+        WaterIntakeService(const char* uid, Time* initTimestamp);
 
         void connect(BLEDevice central);
         void disconnect(BLEDevice central);
@@ -51,7 +51,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         unsigned short deliveredId;
         unsigned short nextId;
 
-        Time* time;
+        Time* currTime;
 
         Mahony *filter;
 
@@ -72,6 +72,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         std::vector<WaterPackage*> waterPackages;
 
         static bool updateTime(void *waterInstance);
+        static Time* createTimestamp(unsigned int date, unsigned int time, Time* timestamp);
 
         static bool updateOrientation(void *waterInstance);
 
