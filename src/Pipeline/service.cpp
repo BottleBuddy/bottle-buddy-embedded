@@ -56,6 +56,9 @@ bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string 
 	} else {
 		BLECharacteristic* bleCharacteristic;
 		switch (characteristicType) {
+			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt:
+				bleCharacteristic = new BLEUnsignedIntCharacteristic(characteristicUUID, properties);
+				break;
 			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort:
 				bleCharacteristic = new BLEUnsignedShortCharacteristic(characteristicUUID, properties);
 				break;
