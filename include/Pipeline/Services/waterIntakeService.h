@@ -35,13 +35,15 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class WaterIntakeService: public Service {
     public:
-        WaterIntakeService(const char* uid, Time* initTimestamp);
+        WaterIntakeService(const char* uid, Time* initTimestamp, bool connected = false);
 
         void connect(BLEDevice central);
         void disconnect(BLEDevice central);
 
         void loop();
         void receive(Package* package);
+
+        static Time* createTimestamp(unsigned int date, unsigned int time, Time* timestamp);
     private:
         Timer<> timer;
 
@@ -72,7 +74,6 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         std::vector<WaterPackage*> waterPackages;
 
         static bool updateTime(void *waterInstance);
-        static Time* createTimestamp(unsigned int date, unsigned int time, Time* timestamp);
 
         static bool updateOrientation(void *waterInstance);
 
@@ -80,6 +81,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         void cacheWaterPackage(int oldHeight, int newHeight);
         void sendWaterPackage();
+        bool removeWaterPackage(unsigned short id);
     };
 
 }}}}

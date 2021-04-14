@@ -4,9 +4,11 @@
 
 #include "Pipeline/service.h"
 
-BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) {
+BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid, bool connected) {
     this->uid = uid;
     this->numCharacteristics = 0;
+
+	this->connected = connected;
 
     this->bleService = new BLEService(uid);
 

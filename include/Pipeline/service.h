@@ -30,7 +30,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      */
     class Service {
     public:
-        Service(const char* uid);
+        Service(const char* uid, bool connected = false);
 
         ~Service();
 
@@ -54,6 +54,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * @brief The services BLEService variable, which creates a new service within the BLE module.
          */
         BLEService* bleService;
+
+        bool connected;
 
         /**
          * @brief Vector of characteristic uuids.

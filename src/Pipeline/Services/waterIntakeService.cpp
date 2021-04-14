@@ -4,7 +4,7 @@
 
 #include "Pipeline/Services/waterIntakeService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp, bool connected) : Service(uid, connected) {
     BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("water_package_id"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
@@ -81,6 +81,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         unsigned short ackId = 0;
         ackCharacteristic->readValue(ackId);
         this->waitingForAck = ackId != this->deliveredId;
+        if (ackId == this->deliveredId) removeWaterPackage(ackId);
     } else {
         sendWaterPackage();
     }
@@ -134,6 +135,17 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
     }
 }
 
+BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::createTimestamp(unsigned int date, unsigned int time, Time* timestamp) {
+    timestamp->year = (unsigned char)((date & 0x00FF0000) >> 16);
+    timestamp->month = (unsigned char)((date & 0x0000FF00) >> 8);
+    timestamp->day = (unsigned char)(date & 0x000000FF);
+    timestamp->hour = (unsigned char)((time & 0x00FF0000) >> 16);
+    timestamp->minute = (unsigned char)((time & 0x0000FF00) >> 8);
+    timestamp->second = (unsigned char)(date & 0x000000FF);
+
+    return timestamp;
+}
+
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(void *waterInstance) {
     BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
     Time* theTime = myself->currTime;
@@ -151,17 +163,6 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(v
     if (theTime->month == 0) theTime->year = theTime->year + 1;
 
     return true;
-}
-
-BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::createTimestamp(unsigned int date, unsigned int time, Time* timestamp) {
-    timestamp->year = (unsigned char)((date & 0x00FF0000) >> 16);
-    timestamp->month = (unsigned char)((date & 0x0000FF00) >> 8);
-    timestamp->day = (unsigned char)(date & 0x000000FF);
-    timestamp->hour = (unsigned char)((time & 0x00FF0000) >> 16);
-    timestamp->minute = (unsigned char)((time & 0x0000FF00) >> 8);
-    timestamp->second = (unsigned char)(date & 0x000000FF);
-
-    return timestamp;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
@@ -259,4 +260,17 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPac
 
     this->waitingForAck = true;
     this->deliveredId = package->id;
+}
+
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::removeWaterPackage(unsigned short id) {
+    for (std::vector<WaterPackage*>::iterator it = waterPackages.begin(); it != waterPackages.end(); it++) {
+        WaterPackage* waterPackage = *it;
+        if (waterPackage->id == id) {
+            waterPackages.erase(it);
+            delete(waterPackage->timestamp);
+            delete(waterPackage);
+            return true;
+        }
+    }
+    return false;
 }
