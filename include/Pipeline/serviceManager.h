@@ -11,6 +11,13 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
+    enum ServiceType { WATER_INTAKE, CLEANING };
+
+    struct pendingService {
+        ServiceType serviceType;
+        const char* uid;
+    } typedef PendingService;
+
     /**
      * @brief Manages all instantiated services.
      * 
@@ -23,7 +30,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * 
          * The provided service will now be connected, disconnected, and looped.
          */
-        static void addService(Service* service);
+        static void addService(ServiceType serviceType, const char* uid);
 
         /**
          * @brief Calls the virtual connect function on all managed services.
@@ -46,6 +53,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          */
         static void loopServices();
     private:
+        static bool calibratedBottleBuddy;
+
+        static std::vector<PendingService*> pendingServices;
+
         /**
          * @brief The list of managed services.
          */
