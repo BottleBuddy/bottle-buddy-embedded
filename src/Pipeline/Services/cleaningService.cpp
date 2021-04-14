@@ -4,7 +4,7 @@
 
 #include "Pipeline/Services/cleaningService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid, bool connected) : Service(uid, connected) {
     createCharacteristic(std::string("clean_notif"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::String);
 
     BLE.addService(*this->bleService);

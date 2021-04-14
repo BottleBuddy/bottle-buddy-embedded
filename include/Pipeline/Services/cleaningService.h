@@ -16,7 +16,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class CleaningService: public Service {
     public:
-        CleaningService(const char* uid);
+        CleaningService(const char* uid, bool connected = false);
 
         void connect(BLEDevice central);
         void disconnect(BLEDevice central);

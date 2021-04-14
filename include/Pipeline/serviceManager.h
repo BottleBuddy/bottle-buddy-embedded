@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <ArduinoBLE.h>
+#include "Pipeline/Services/calibrationService.h"
 #include "Pipeline/Services/cleaningService.h"
 #include "Pipeline/Services/waterIntakeService.h"
 
@@ -53,7 +54,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          */
         static void loopServices();
     private:
+        static bool connected;
         static bool calibratedBottleBuddy;
+
+        static BottleBuddy::Embedded::Pipeline::Services::CalibrationService* calibrationService;
 
         static std::vector<PendingService*> pendingServices;
 

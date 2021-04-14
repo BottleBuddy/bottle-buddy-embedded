@@ -13,6 +13,10 @@ BottleBuddy::Embedded::Pipeline::Services::CalibrationService::CalibrationServic
 
     BLE.addService(*this->bleService);
 
+    byte noTime = 0;
+    BLECharacteristic* wroteTimeCharacteristic = getCharacteristic(std::string("calibration_wrote_time"));
+    wroteTimeCharacteristic->writeValue(noTime);
+
     this->connected = false;
     this->calibrated = false;
 }
