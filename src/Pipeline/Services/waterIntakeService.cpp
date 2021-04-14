@@ -4,7 +4,7 @@
 
 #include "Pipeline/Services/waterIntakeService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, bool connected) : Service(uid, connected) {
     BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("water_intake"), BLERead | BLEIndicate, BottleBuddy::Embedded::Pipeline::BLEType::String);
