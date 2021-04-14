@@ -54,11 +54,22 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          */
         static void loopServices();
     private:
+        /**
+         * @brief Determines whether the system is connected to a central device or not.
+         * 
+         * Since services will have a delayed instantiation, it is very possible they will not receive
+         * a connected notification, so this initialization is necessary.
+         */
         static bool connected;
         static bool calibratedBottleBuddy;
 
         static BottleBuddy::Embedded::Pipeline::Services::CalibrationService* calibrationService;
 
+        /**
+         * @brief The list of pending services
+         * 
+         * These services are not instantiated until the calibration session is completed.
+         */
         static std::vector<PendingService*> pendingServices;
 
         /**
