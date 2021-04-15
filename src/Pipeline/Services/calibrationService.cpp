@@ -9,7 +9,7 @@ BottleBuddy::Embedded::Pipeline::Services::CalibrationService::CalibrationServic
 
     createCharacteristic(std::string("calibration_date"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
     createCharacteristic(std::string("calibration_time"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
-    createCharacteristic(std::string("calibration_wrote_time"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
+    createCharacteristic(std::string("calibration_wrote_time"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
 
     BLE.addService(*this->bleService);
 
@@ -30,8 +30,6 @@ void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::disconnect(B
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::loop() {
-    if (!connected) return;
-
     byte wroteTime = 0;
     BLECharacteristic* wroteTimeCharacteristic = getCharacteristic(std::string("calibration_wrote_time"));
     wroteTimeCharacteristic->readValue(wroteTime);
@@ -46,6 +44,7 @@ void BottleBuddy::Embedded::Pipeline::Services::CalibrationService::loop() {
 
         this->initDate = date;
         this->initTime = time;
+        this->calibrated = true;
     }
 }
 

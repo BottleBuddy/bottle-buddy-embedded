@@ -5,8 +5,12 @@
 #include "Pipeline/Services/waterIntakeService.h"
 
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp, bool connected) : Service(uid, connected) {
+    digitalWrite(2, HIGH);
     BLE.setAdvertisedService(*this->bleService);
 
+    createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
+    createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("water_package_id"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
     createCharacteristic(std::string("water_package_timestamp_date"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
     createCharacteristic(std::string("water_package_timestamp_time"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
@@ -16,9 +20,6 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     createCharacteristic(std::string("timestamp_time"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
     createCharacteristic(std::string("wrote_time"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
     createCharacteristic(std::string("drink_water"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
-    createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
 
     BLE.addService(*this->bleService);
 
@@ -168,7 +169,8 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(v
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation(void *waterInstance) {
     BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService *myself = (BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService*)waterInstance;
 
-    myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
+    //myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
+    myself->filter->updateIMU(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ);
     float pitch = myself->filter->getPitch();
     float yaw = myself->filter->getYaw();
     float roll = myself->filter->getRoll();

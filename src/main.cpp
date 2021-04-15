@@ -55,6 +55,7 @@ void setup() {
       ;
   }
 
+  BottleBuddy::Embedded::Pipeline::ServiceManager::setup();
   BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::WATER_INTAKE, "19B10020-E8F2-537E-4F6C-D104768A1214");
   BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");
 

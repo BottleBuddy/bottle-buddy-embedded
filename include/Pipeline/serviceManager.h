@@ -26,6 +26,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      */
     class ServiceManager {
     public:
+        static void setup();
+
         /**
          * @brief Adds a service to the list of services the service manager handles.
          * 

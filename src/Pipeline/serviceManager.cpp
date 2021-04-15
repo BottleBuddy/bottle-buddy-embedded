@@ -4,12 +4,19 @@
 
 #include "Pipeline/serviceManager.h"
 
-bool BottleBuddy::Embedded::Pipeline::ServiceManager::connected = false;
-bool BottleBuddy::Embedded::Pipeline::ServiceManager::calibratedBottleBuddy = false;
-BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::ServiceManager::initTimestamp = new BottleBuddy::Embedded::Pipeline::Services::Time();
-BottleBuddy::Embedded::Pipeline::Services::CalibrationService* BottleBuddy::Embedded::Pipeline::ServiceManager::calibrationService = new BottleBuddy::Embedded::Pipeline::Services::CalibrationService("19B10010-E8F2-537E-4F6C-D104768A1214");
+bool BottleBuddy::Embedded::Pipeline::ServiceManager::connected;
+bool BottleBuddy::Embedded::Pipeline::ServiceManager::calibratedBottleBuddy;
+BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::ServiceManager::initTimestamp;
+BottleBuddy::Embedded::Pipeline::Services::CalibrationService* BottleBuddy::Embedded::Pipeline::ServiceManager::calibrationService;
 std::vector<BottleBuddy::Embedded::Pipeline::PendingService*> BottleBuddy::Embedded::Pipeline::ServiceManager::pendingServices;
 std::vector<BottleBuddy::Embedded::Pipeline::Service*> BottleBuddy::Embedded::Pipeline::ServiceManager::services;
+
+void BottleBuddy::Embedded::Pipeline::ServiceManager::setup() {
+    connected = false;
+    calibratedBottleBuddy = false;
+    initTimestamp = new Services::Time();
+    calibrationService = new Services::CalibrationService("19B10010-E8F2-537E-4F6C-D104768A1214");
+}
 
 void BottleBuddy::Embedded::Pipeline::ServiceManager::addService(ServiceType serviceType, const char* uid) {
     PendingService* pendingService = new PendingService();
