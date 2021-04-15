@@ -79,15 +79,17 @@ bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::stopCleaning(vo
 
     analogWrite(myself->LIGHT_PIN, 0);
     myself->cleaning = false;
+    myself->needToClean = false;
 
     return true;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::capIsOn() {
-    int fsrDiff = fsrReading1 - fsrReading2;
+    /*int fsrDiff = fsrReading1 - fsrReading2;
     fsrDiff = ((fsrDiff) > 0 ? (fsrDiff) : -(fsrDiff));
 
     int fsrReading = (fsrReading1 + fsrReading2) / 2;
 
-    return (fsrDiff < FSR_TOLERANCE) && (fsrReading > FSR_THRESHOLD);
+    return (fsrDiff < FSR_TOLERANCE) && (fsrReading > FSR_THRESHOLD);*/
+    return fsrReading2 > FSR_THRESHOLD;
 }
