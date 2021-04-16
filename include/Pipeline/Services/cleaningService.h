@@ -39,7 +39,6 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         uintptr_t cleaningTask;
 
         int fsrReading1, fsrReading2;
-        const int FSR_TOLERANCE = 100;
         const int FSR_THRESHOLD = 250;
 
         bool capIsOn();

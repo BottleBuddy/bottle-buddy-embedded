@@ -5,8 +5,8 @@
 #include "Pipeline/Services/cleaningService.h"
 
 BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid) : Service(uid) {
-    createCharacteristic(std::string("clean"), BLERead | BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
-    createCharacteristic(std::string("cleaning"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
+    createCharacteristic(std::string("clean"), BLEWrite, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
+    createCharacteristic(std::string("finished_cleaning"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::Boolean);
 
     BLE.addService(*this->bleService);
 
@@ -14,7 +14,6 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
 
     byte initialVal = 0x00;
     getCharacteristic(std::string("clean"))->writeValue(initialVal);
-    getCharacteristic(std::string("cleaning"))->writeValue(initialVal);
 
     this->timer = timer_create_default();
 
@@ -52,14 +51,6 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
             this->needToClean = cleanNotif;
         }
     }
-
-    byte areCleaning;
-    if (cleaning) {
-        areCleaning = 0x01;
-    } else {
-        areCleaning = 0x00;
-    }
-    getCharacteristic(std::string("cleaning"))->writeValue(areCleaning);
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package* package) {
@@ -85,11 +76,5 @@ bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::stopCleaning(vo
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::capIsOn() {
-    /*int fsrDiff = fsrReading1 - fsrReading2;
-    fsrDiff = ((fsrDiff) > 0 ? (fsrDiff) : -(fsrDiff));
-
-    int fsrReading = (fsrReading1 + fsrReading2) / 2;
-
-    return (fsrDiff < FSR_TOLERANCE) && (fsrReading > FSR_THRESHOLD);*/
-    return fsrReading2 > FSR_THRESHOLD;
+    return fsrReading1 > FSR_THRESHOLD || fsrReading2 > FSR_THRESHOLD;
 }
