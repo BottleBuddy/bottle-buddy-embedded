@@ -41,16 +41,21 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
             this->cleaning = true;
 
             analogWrite(this->LIGHT_PIN, this->LIGHT_WRITE);
-            this->timer.in(this->CLEANING_TIME, BottleBuddy::Embedded::Pipeline::Services::CleaningService::stopCleaning, this);
+            this->cleaningTask = this->timer.in(this->CLEANING_TIME, finishCleaning, this);
         }
     } else {
-        BLECharacteristic* characteristic = getCharacteristic(std::string("clean"));
-        if (characteristic != NULL) {
+        BLECharacteristic* cleanCharacteristic = getCharacteristic(std::string("clean"));
+        if (cleanCharacteristic != NULL) {
             byte cleanNotif = 0;
-            characteristic->readValue(cleanNotif);
+            cleanCharacteristic->readValue(cleanNotif);
             this->needToClean = cleanNotif;
+
+            byte reset = 0x00;
+            cleanCharacteristic->writeValue(reset);
         }
     }
+
+    if (cleaning && !capIsOn()) restartCleaning();
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package* package) {
@@ -65,16 +70,31 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package
     }
 }
 
-bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::stopCleaning(void *cleaningInstance) {
+bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::finishCleaning(void *cleaningInstance) {
     BottleBuddy::Embedded::Pipeline::Services::CleaningService* myself = (BottleBuddy::Embedded::Pipeline::Services::CleaningService*)cleaningInstance;
 
     analogWrite(myself->LIGHT_PIN, 0);
     myself->cleaning = false;
     myself->needToClean = false;
 
+    BLECharacteristic* finishedCharacteristic = myself->getCharacteristic(std::string("finished_cleaning"));
+    if (finishedCharacteristic != NULL) {
+        byte finished = 0x01;
+        finishedCharacteristic->writeValue(finished);
+    }
+
     return true;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::capIsOn() {
     return fsrReading1 > FSR_THRESHOLD || fsrReading2 > FSR_THRESHOLD;
+}
+
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::restartCleaning() {
+    if (!cleaning) return;
+
+    analogWrite(LIGHT_PIN, 0);
+    this->cleaning = false;
+    this->needToClean = true;
+    this->timer.cancel(this->cleaningTask);
 }

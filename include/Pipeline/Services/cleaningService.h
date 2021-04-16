@@ -25,7 +25,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         void loop();
         void receive(Package* package);
 
-        bool static stopCleaning(void *cleaningInstance);
+        bool static finishCleaning(void *cleaningInstance);
     private:
         Timer<> timer;
 
@@ -42,6 +42,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         const int FSR_THRESHOLD = 250;
 
         bool capIsOn();
+        void restartCleaning();
     };
 
 }}}}
