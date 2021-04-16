@@ -5,7 +5,6 @@
 #include "Pipeline/Services/waterIntakeService.h"
 
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp, bool connected) : Service(uid, connected) {
-    digitalWrite(2, HIGH);
     BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
@@ -44,9 +43,13 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->filter = new Mahony();
     this->filter->begin(10);
 
+    this->initializedWaterLevel = false;
     this->updatedWaterLevel = false;
     this->enteredDrinkingPos = false;
     this->waitingToStopDrinking = false;
+    this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
+
+    this->connected = true;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect(BLEDevice central) {
@@ -60,17 +63,21 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect(B
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     this->timer.tick();
 
-    if (enteredDrinkingPos && !waitingToStopDrinking) {
-        digitalWrite(3, HIGH);
+    if (enteredDrinkingPos) {
         this->waterLevelBeforeDrinking = this->currWaterLevel;
         this->waterReadings.clear();
         this->updatedWaterLevel = false;
         this->waitingToStopDrinking = true;
     }
 
-    if (waitingToStopDrinking && updatedWaterLevel) {
-        if (currWaterLevel < (waterLevelBeforeDrinking - WATER_LEVEL_TOLERANCE)) {
-            int heightDrank = waterLevelBeforeDrinking - currWaterLevel;
+    if (!enteredDrinkingPos && waitingToStopDrinking) {
+        digitalWrite(3, HIGH);
+        this->waitingToStopDrinking = false;
+        this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
+    }
+
+    if (updatedWaterLevel) {
+        if ((currWaterLevel - waterLevelBeforeDrinking) > WATER_LEVEL_TOLERANCE) {
             cacheWaterPackage(waterLevelBeforeDrinking, currWaterLevel);
         }
         digitalWrite(3, LOW);
@@ -108,7 +115,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
         case BottleBuddy::Embedded::Pipeline::Location::ToF:
             int waterReading;
             if (package->getData(waterReading)) {
-                updateWaterLevel(waterReading);
+                this->tofReading = waterReading;
             }
             break;
         case BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER:
@@ -177,7 +184,7 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrient
     myself->getStringCharacteristic(std::string("pitch"))->writeValue(arduino::String(pitch));
     myself->getStringCharacteristic(std::string("yaw"))->writeValue(arduino::String(yaw));
     myself->getStringCharacteristic(std::string("roll"))->writeValue(arduino::String(roll));
-    if ((pitch > 0.0)) {
+    if ((pitch > 6.0)) {
         myself->enteredDrinkingPos = true;
         digitalWrite(2, HIGH);
     } else {
@@ -187,24 +194,32 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrient
     return true;
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterLevel(int waterReading) {
-    if (enteredDrinkingPos) {
-        return;
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterLevel(void* waterInstance) {
+    WaterIntakeService* myself = (WaterIntakeService*)waterInstance;
+
+    if (myself->enteredDrinkingPos) {
+        return true;
     }
     
     int magicNumber = 10;   //magic number
-    if (this->waterReadings.size() < magicNumber) {
-        this->waterReadings.push_back(waterReading);
+    if (myself->waterReadings.size() < magicNumber) {
+        myself->waterReadings.push_back(myself->tofReading);
     } else {
         int averageWaterReading = 0;
-        for (std::vector<int>::iterator it = this->waterReadings.begin(); it != this->waterReadings.end(); it++) {
+        for (std::vector<int>::iterator it = myself->waterReadings.begin(); it != myself->waterReadings.end(); it++) {
             averageWaterReading += *it;
         }
         averageWaterReading = averageWaterReading / magicNumber;
-        this->currWaterLevel = averageWaterReading;
-        this->waterReadings.clear();
-        this->updatedWaterLevel = true;
+        myself->currWaterLevel = averageWaterReading;
+        myself->waterReadings.clear();
+        if (!myself->initializedWaterLevel) {
+            myself->initializedWaterLevel = true;
+        } else {
+            myself->updatedWaterLevel = true;
+        }
+        myself->timer.cancel(myself->updateWaterTask);
     }
+    return true;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPackage(int oldHeight, int newHeight) {

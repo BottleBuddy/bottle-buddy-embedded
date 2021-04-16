@@ -21,6 +21,7 @@ BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
+BottleBuddy::Embedded::Pipeline::Service* waterIntakeService;
 
 const int GREEN_LED_PIN = 4;
 const int RED_LED_PIN = 3;
@@ -55,13 +56,14 @@ void setup() {
       ;
   }
 
-  BottleBuddy::Embedded::Pipeline::ServiceManager::setup();
+  /*BottleBuddy::Embedded::Pipeline::ServiceManager::setup();
   BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::WATER_INTAKE, "19B10020-E8F2-537E-4F6C-D104768A1214");
-  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");
+  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");*/
+  waterIntakeService = new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214", new BottleBuddy::Embedded::Pipeline::Services::Time());
 
   int advertising_success = advertise_ble();
-  BLE.setEventHandler(BLEConnected, BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE);
-  BLE.setEventHandler(BLEDisconnected, BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE);
+  /*BLE.setEventHandler(BLEConnected, BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE);
+  BLE.setEventHandler(BLEDisconnected, BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE);*/
 
   waterLevelPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
@@ -96,5 +98,6 @@ void loop() {
   int fsr2Val = read_fsr_2();
   fsrPipe->sendPayload<int>(fsr1Val, fsr2Val);
 
-  BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices();
+  //BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices();
+  waterIntakeService->loop();
 }

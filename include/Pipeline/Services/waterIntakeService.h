@@ -59,9 +59,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         int WATER_LEVEL_TOLERANCE = 5;
 
+        int tofReading;
         int currWaterLevel;
+        bool initializedWaterLevel;
         bool updatedWaterLevel;
         std::vector<int> waterReadings;
+        uintptr_t updateWaterTask;
 
         bool enteredDrinkingPos;
         bool waitingToStopDrinking;
@@ -77,7 +80,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         static bool updateOrientation(void *waterInstance);
 
-        void updateWaterLevel(int waterReading);
+        static bool updateWaterLevel(void* waterInstance);
 
         void cacheWaterPackage(int oldHeight, int newHeight);
         void sendWaterPackage();
