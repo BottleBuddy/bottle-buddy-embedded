@@ -5,7 +5,7 @@
 #include "Pipeline/Services/waterIntakeService.h"
 
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp, bool connected) : Service(uid, connected) {
-    BLE.setAdvertisedService(*this->bleService);
+    //BLE.setAdvertisedService(*this->bleService);
 
     createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
@@ -48,8 +48,6 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->enteredDrinkingPos = false;
     this->waitingToStopDrinking = false;
     this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
-
-    this->connected = true;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect(BLEDevice central) {
