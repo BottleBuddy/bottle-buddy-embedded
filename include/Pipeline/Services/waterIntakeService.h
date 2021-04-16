@@ -69,6 +69,7 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         bool enteredDrinkingPos;
         bool waitingToStopDrinking;
         int waterLevelBeforeDrinking;
+        Time* timeWhenDrank;
 
         float accelX, accelY, accelZ;
         float gyroX, gyroY, gyroZ;

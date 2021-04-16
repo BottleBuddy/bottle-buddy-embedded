@@ -47,6 +47,7 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->updatedWaterLevel = false;
     this->enteredDrinkingPos = false;
     this->waitingToStopDrinking = false;
+    this->timeWhenDrank = new Time();
     this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
 }
 
@@ -71,6 +72,14 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     if (!enteredDrinkingPos && waitingToStopDrinking) {
         digitalWrite(3, HIGH);
         this->waitingToStopDrinking = false;
+
+        this->timeWhenDrank->year = this->currTime->year;
+        this->timeWhenDrank->month = this->currTime->month;
+        this->timeWhenDrank->day = this->currTime->day;
+        this->timeWhenDrank->hour = this->currTime->hour;
+        this->timeWhenDrank->minute = this->currTime->minute;
+        this->timeWhenDrank->second = this->currTime->second;
+        
         this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
     }
 
@@ -227,12 +236,12 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPa
     waterPackage->id = this->nextId;
     this->nextId = (this->nextId + 1) % SHRT_MAX;
 
-    waterPackage->timestamp->year = this->currTime->year;
-    waterPackage->timestamp->month = this->currTime->month;
-    waterPackage->timestamp->day = this->currTime->day;
-    waterPackage->timestamp->hour = this->currTime->hour;
-    waterPackage->timestamp->minute = this->currTime->minute;
-    waterPackage->timestamp->second = this->currTime->second;
+    waterPackage->timestamp->year = this->timeWhenDrank->year;
+    waterPackage->timestamp->month = this->timeWhenDrank->month;
+    waterPackage->timestamp->day = this->timeWhenDrank->day;
+    waterPackage->timestamp->hour = this->timeWhenDrank->hour;
+    waterPackage->timestamp->minute = this->timeWhenDrank->minute;
+    waterPackage->timestamp->second = this->timeWhenDrank->second;
 
     waterPackage->oldHeight = oldHeight;
     waterPackage->newHeight = newHeight;
