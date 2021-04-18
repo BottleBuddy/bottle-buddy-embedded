@@ -121,6 +121,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
         case BottleBuddy::Embedded::Pipeline::Location::ToF:
             int waterReading;
             if (package->getData(waterReading)) {
+                if (waterReading < 20) waterReading = 20;
                 this->tofReading = waterReading;
             }
             break;
@@ -202,7 +203,7 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterL
         return true;
     }
     
-    int magicNumber = 3;   //magic number
+    int magicNumber = 10;   //magic number
     if (myself->waterReadings.size() < magicNumber) {
         myself->waterReadings.push_back(myself->tofReading);
     } else {
