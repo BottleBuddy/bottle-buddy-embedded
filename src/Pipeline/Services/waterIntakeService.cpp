@@ -71,7 +71,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     }
 
     if (!enteredDrinkingPos && waitingToStopDrinking) {
-        digitalWrite(23, HIGH);
+        digitalWrite(this->RED_LED, LOW);
         this->waitingToStopDrinking = false;
 
         this->timeWhenDrank->year = this->currTime->year;
@@ -88,7 +88,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         if ((currWaterLevel - waterLevelBeforeDrinking) > WATER_LEVEL_TOLERANCE) {
             cacheWaterPackage(waterLevelBeforeDrinking, currWaterLevel);
         }
-        digitalWrite(23, LOW);
+        digitalWrite(this->RED_LED, HIGH);
         this->waitingToStopDrinking = false;
         this->updatedWaterLevel = false;
     }
@@ -122,9 +122,12 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     BLECharacteristic* drinkWaterCharacteristic = getCharacteristic(std::string("drink_water"));
     drinkWaterCharacteristic->readValue(drinkWater);
     if (drinkWater) {
-        digitalWrite(this->LED_ONE, LOW);
-        digitalWrite(this->LED_TWO, LOW);
-        digitalWrite(this->LED_THREE, LOW);
+        byte turnOff = 0x00;
+        drinkWaterCharacteristic->writeValue(turnOff);
+
+        digitalWrite(this->BLUE_LED, LOW);
+        digitalWrite(this->RED_LED, LOW);
+        digitalWrite(this->GREEN_LED, LOW);
         this->timer.in(5000, turnLEDOff, this);
     }
 }
@@ -201,10 +204,10 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrient
     float pitch = myself->filter->getPitch();
     if ((pitch > 6.0)) {
         myself->enteredDrinkingPos = true;
-        digitalWrite(22, HIGH);
+        digitalWrite(myself->BLUE_LED, LOW);
     } else {
         myself->enteredDrinkingPos = false;
-        digitalWrite(22, LOW);
+        digitalWrite(myself->BLUE_LED, HIGH);
     }
     return true;
 }
@@ -310,9 +313,9 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::removeWaterP
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::turnLEDOff(void* waterInstance) {
     WaterIntakeService* myself = (WaterIntakeService*)waterInstance;
 
-    digitalWrite(myself->LED_ONE, HIGH);
-    digitalWrite(myself->LED_TWO, HIGH);
-    digitalWrite(myself->LED_THREE, HIGH);
+    digitalWrite(myself->BLUE_LED, HIGH);
+    digitalWrite(myself->RED_LED, HIGH);
+    digitalWrite(myself->GREEN_LED, HIGH);
 
     return true;
 }

@@ -49,9 +49,9 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         bool connected;
 
-        const int LED_ONE = 22;
-        const int LED_TWO = 23;
-        const int LED_THREE = 24;
+        const int BLUE_LED = LEDB;
+        const int RED_LED = LEDR;
+        const int GREEN_LED = LEDG;
 
         bool waitingForAck;
         unsigned short deliveredId;
