@@ -4,7 +4,7 @@
 
 #include "Pipeline/Services/cleaningService.h"
 
-BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid) : Service(uid) {
+BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid, bool connected) : Service(uid) {
     createCharacteristic(std::string("clean"), BLEWrite, BLEType::Boolean);
     createCharacteristic(std::string("finished_cleaning"), BLERead | BLENotify, BLEType::Boolean);
     createCharacteristic(std::string("cleaning"), BLERead | BLENotify, BLEType::Boolean);
@@ -18,6 +18,8 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
 
     this->timer = timer_create_default();
 
+    this->connected = connected;
+
     this->needToClean = false;
     this->cleaning = false;
     this->cleaningTimeLeft = 0;
@@ -26,12 +28,12 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
     this->fsrReading2 = 0;
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::CleaningService::connect() {
-
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::connect(BLEDevice central) {
+    this->connected = true;
 }
 
-void BottleBuddy::Embedded::Pipeline::Services::CleaningService::disconnect() {
-    
+void BottleBuddy::Embedded::Pipeline::Services::CleaningService::disconnect(BLEDevice central) {
+    this->connected = false;
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
