@@ -46,6 +46,9 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     this->waitingToStopDrinking = false;
     this->timeWhenDrank = new Time();
     this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
+
+    byte nothing = 0x00;
+    getCharacteristic(std::string("drink_water"))->writeValue(nothing);
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::connect(BLEDevice central) {
@@ -113,6 +116,16 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         timeCharacteristic->readValue((uint8_t*)&time, sizeof(time));
 
         WaterIntakeService::createTimestamp(date, time, this->currTime);
+    }
+
+    byte drinkWater = 0;
+    BLECharacteristic* drinkWaterCharacteristic = getCharacteristic(std::string("drink_water"));
+    drinkWaterCharacteristic->readValue(drinkWater);
+    if (drinkWater) {
+        digitalWrite(this->LED_ONE, LOW);
+        digitalWrite(this->LED_TWO, LOW);
+        digitalWrite(this->LED_THREE, LOW);
+        this->timer.in(5000, turnLEDOff, this);
     }
 }
 
@@ -292,4 +305,14 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::removeWaterP
         }
     }
     return false;
+}
+
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::turnLEDOff(void* waterInstance) {
+    WaterIntakeService* myself = (WaterIntakeService*)waterInstance;
+
+    digitalWrite(myself->LED_ONE, HIGH);
+    digitalWrite(myself->LED_TWO, HIGH);
+    digitalWrite(myself->LED_THREE, HIGH);
+
+    return true;
 }

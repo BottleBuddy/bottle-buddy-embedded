@@ -49,6 +49,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
 
         bool connected;
 
+        const int LED_ONE = 22;
+        const int LED_TWO = 23;
+        const int LED_THREE = 24;
+
         bool waitingForAck;
         unsigned short deliveredId;
         unsigned short nextId;
@@ -86,6 +90,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         void cacheWaterPackage(int oldHeight, int newHeight);
         void sendWaterPackage();
         bool removeWaterPackage(unsigned short id);
+
+        static bool turnLEDOff(void* waterInstance);
     };
 
 }}}}
