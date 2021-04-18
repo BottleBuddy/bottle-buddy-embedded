@@ -70,7 +70,7 @@ void setup() {
   magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
   fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
 
-  digitalWrite(GREEN_LED_PIN, HIGH);
+  //digitalWrite(GREEN_LED_PIN, HIGH);
 }
 
 /** 

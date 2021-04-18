@@ -12,7 +12,7 @@
 namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Services {
 
     struct time {
-        unsigned char year;
+        unsigned short year;
         unsigned char month;
         unsigned char day;
         unsigned char hour;

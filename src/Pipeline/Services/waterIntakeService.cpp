@@ -7,9 +7,6 @@
 BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeService(const char* uid, Time* initTimestamp, bool connected) : Service(uid, connected) {
     //BLE.setAdvertisedService(*this->bleService);
 
-    createCharacteristic(std::string("pitch"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("roll"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
-    createCharacteristic(std::string("yaw"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::String);
     createCharacteristic(std::string("water_package_id"), BLERead | BLENotify, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort);
     createCharacteristic(std::string("water_package_timestamp_date"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
     createCharacteristic(std::string("water_package_timestamp_time"), BLERead, BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt);
@@ -67,6 +64,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         this->waterReadings.clear();
         this->updatedWaterLevel = false;
         this->waitingToStopDrinking = true;
+        this->timer.cancel(this->updateWaterTask);
     }
 
     if (!enteredDrinkingPos && waitingToStopDrinking) {
@@ -79,7 +77,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         this->timeWhenDrank->hour = this->currTime->hour;
         this->timeWhenDrank->minute = this->currTime->minute;
         this->timeWhenDrank->second = this->currTime->second;
-        
+
         this->updateWaterTask = this->timer.every(1000, updateWaterLevel, this);
     }
 
@@ -89,6 +87,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         }
         digitalWrite(3, LOW);
         this->waitingToStopDrinking = false;
+        this->updatedWaterLevel = false;
     }
 
     if (waitingForAck) {
@@ -151,12 +150,12 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
 }
 
 BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::createTimestamp(unsigned int date, unsigned int time, Time* timestamp) {
-    timestamp->year = (unsigned char)((date & 0x00FF0000) >> 16);
+    timestamp->year = (unsigned short)((date & 0xFFFF0000) >> 16);
     timestamp->month = (unsigned char)((date & 0x0000FF00) >> 8);
     timestamp->day = (unsigned char)(date & 0x000000FF);
     timestamp->hour = (unsigned char)((time & 0x00FF0000) >> 16);
     timestamp->minute = (unsigned char)((time & 0x0000FF00) >> 8);
-    timestamp->second = (unsigned char)(date & 0x000000FF);
+    timestamp->second = (unsigned char)(time & 0x000000FF);
 
     return timestamp;
 }
@@ -186,11 +185,6 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrient
     //myself->filter->update(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ, myself->magneticX, myself->magneticY, myself->magneticZ);
     myself->filter->updateIMU(myself->gyroX, myself->gyroY, myself->gyroZ, myself->accelX, myself->accelY, myself->accelZ);
     float pitch = myself->filter->getPitch();
-    float yaw = myself->filter->getYaw();
-    float roll = myself->filter->getRoll();
-    myself->getStringCharacteristic(std::string("pitch"))->writeValue(arduino::String(pitch));
-    myself->getStringCharacteristic(std::string("yaw"))->writeValue(arduino::String(yaw));
-    myself->getStringCharacteristic(std::string("roll"))->writeValue(arduino::String(roll));
     if ((pitch > 6.0)) {
         myself->enteredDrinkingPos = true;
         digitalWrite(2, HIGH);
@@ -208,7 +202,7 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateWaterL
         return true;
     }
     
-    int magicNumber = 10;   //magic number
+    int magicNumber = 3;   //magic number
     if (myself->waterReadings.size() < magicNumber) {
         myself->waterReadings.push_back(myself->tofReading);
     } else {
@@ -251,8 +245,10 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPa
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPackage() {
     if (!connected) {
+        digitalWrite(4, HIGH);
         return;
     }
+    digitalWrite(4, LOW);
     if (this->waterPackages.size() == 0) {
         return;
     }
@@ -260,7 +256,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPac
     WaterPackage* package = this->waterPackages.at(0);
 
     BLECharacteristic* dateCharacteristic = getCharacteristic(std::string("water_package_timestamp_date"));
-    unsigned int yearChunk = (((unsigned int)package->timestamp->year) << 16) & 0x00FF0000;
+    unsigned int yearChunk = (((unsigned int)package->timestamp->year) << 16) & 0xFFFF0000;
     unsigned int monthChunk = (((unsigned int)package->timestamp->month) << 8) & 0x0000FF00;
     unsigned int dayChunk = ((unsigned int)package->timestamp->day) & 0x000000FF;
     unsigned int date = 0x00000000 | yearChunk | monthChunk | dayChunk;
@@ -280,7 +276,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPac
     heightsCharacteristic->writeValue((uint8_t*)&heights, sizeof(heights));
 
     BLECharacteristic* idCharacteristic = getCharacteristic(std::string("water_package_id"));
-    idCharacteristic->writeValue(package->id);
+    idCharacteristic->writeValue((uint8_t*)&package->id, sizeof(package->id));
 
     this->waitingForAck = true;
     this->deliveredId = package->id;
