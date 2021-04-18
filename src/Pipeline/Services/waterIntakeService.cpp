@@ -68,7 +68,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     }
 
     if (!enteredDrinkingPos && waitingToStopDrinking) {
-        digitalWrite(3, HIGH);
+        digitalWrite(23, HIGH);
         this->waitingToStopDrinking = false;
 
         this->timeWhenDrank->year = this->currTime->year;
@@ -85,7 +85,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         if ((currWaterLevel - waterLevelBeforeDrinking) > WATER_LEVEL_TOLERANCE) {
             cacheWaterPackage(waterLevelBeforeDrinking, currWaterLevel);
         }
-        digitalWrite(3, LOW);
+        digitalWrite(23, LOW);
         this->waitingToStopDrinking = false;
         this->updatedWaterLevel = false;
     }
@@ -188,10 +188,10 @@ bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrient
     float pitch = myself->filter->getPitch();
     if ((pitch > 6.0)) {
         myself->enteredDrinkingPos = true;
-        digitalWrite(2, HIGH);
+        digitalWrite(22, HIGH);
     } else {
         myself->enteredDrinkingPos = false;
-        digitalWrite(2, LOW);
+        digitalWrite(22, LOW);
     }
     return true;
 }
@@ -246,10 +246,8 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::cacheWaterPa
 
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::sendWaterPackage() {
     if (!connected) {
-        digitalWrite(4, HIGH);
         return;
     }
-    digitalWrite(4, LOW);
     if (this->waterPackages.size() == 0) {
         return;
     }

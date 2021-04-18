@@ -24,8 +24,8 @@ BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
 BottleBuddy::Embedded::Pipeline::Service* waterIntakeService;
 
 const int GREEN_LED_PIN = 4;
-const int RED_LED_PIN = 3;
-const int BLUE_LED_PIN = 2;
+const int RED_LED_PIN = 23;
+const int BLUE_LED_PIN = 22;
 
 /**
  * @brief Setup loop.
@@ -70,7 +70,7 @@ void setup() {
   magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
   fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
 
-  //digitalWrite(GREEN_LED_PIN, HIGH);
+  //digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
 /** 
