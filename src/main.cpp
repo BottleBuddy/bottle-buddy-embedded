@@ -21,6 +21,11 @@ BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
+BottleBuddy::Embedded::Pipeline::Service* waterIntakeService;
+
+const int GREEN_LED_PIN = LEDG;
+const int RED_LED_PIN = LEDR;
+const int BLUE_LED_PIN = LEDB;
 
 /**
  * @brief Setup loop.
@@ -28,6 +33,10 @@ BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(BLUE_LED_PIN, HIGH);
+  digitalWrite(RED_LED_PIN, HIGH);
+  digitalWrite(GREEN_LED_PIN, HIGH);
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
@@ -47,17 +56,21 @@ void setup() {
       ;
   }
 
-  serviceManager = new BottleBuddy::Embedded::Pipeline::ServiceManager();
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService("19B10010-E8F2-537E-4F6C-D104768A1214"));
-  serviceManager->addService(new BottleBuddy::Embedded::Pipeline::Services::CleaningService("19B10020-E8F2-537E-4F6C-D104768A1214"));
+  BottleBuddy::Embedded::Pipeline::ServiceManager::setup();
+  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::WATER_INTAKE, "19B10020-E8F2-537E-4F6C-D104768A1214");
+  BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");
 
   int advertising_success = advertise_ble();
+  BLE.setEventHandler(BLEConnected, BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE);
+  BLE.setEventHandler(BLEDisconnected, BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE);
 
   waterLevelPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ToF);
   accelerometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER);
   gyroscopePipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::GYRO);
   magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
   fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
+
+  //digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
 /** 
@@ -67,6 +80,8 @@ void setup() {
  * Additionally, it uses the service manager to keep all active services up to date.
  */
 void loop() {
+  BLE.poll();
+
   int tofVal = tof_sensor_distance();
   waterLevelPipe->sendPayload<int>(tofVal);
 
@@ -82,5 +97,5 @@ void loop() {
   int fsr2Val = read_fsr_2();
   fsrPipe->sendPayload<int>(fsr1Val, fsr2Val);
 
-  serviceManager->loopServices();
+  BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices();
 }

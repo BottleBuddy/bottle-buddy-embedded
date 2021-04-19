@@ -4,9 +4,11 @@
 
 #include "Pipeline/service.h"
 
-BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid) {
+BottleBuddy::Embedded::Pipeline::Service::Service(const char* uid, bool connected) {
     this->uid = uid;
     this->numCharacteristics = 0;
+
+	this->connected = connected;
 
     this->bleService = new BLEService(uid);
 
@@ -38,7 +40,7 @@ BottleBuddy::Embedded::Pipeline::Service::~Service() {
 }
 
 bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string name, uint8_t properties, BottleBuddy::Embedded::Pipeline::BLEType characteristicType) {
-	if (numCharacteristics >= 16) {
+	if (numCharacteristics >= 15) {
 		return false;
 	}
 
@@ -56,8 +58,14 @@ bool BottleBuddy::Embedded::Pipeline::Service::createCharacteristic(std::string 
 	} else {
 		BLECharacteristic* bleCharacteristic;
 		switch (characteristicType) {
+			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedInt:
+				bleCharacteristic = new BLEUnsignedIntCharacteristic(characteristicUUID, properties);
+				break;
 			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedShort:
 				bleCharacteristic = new BLEUnsignedShortCharacteristic(characteristicUUID, properties);
+				break;
+			case BottleBuddy::Embedded::Pipeline::BLEType::UnsignedChar:
+				bleCharacteristic = new BLEUnsignedCharCharacteristic(characteristicUUID, properties);
 				break;
 			case BottleBuddy::Embedded::Pipeline::BLEType::Boolean:
 				bleCharacteristic = new BLEBooleanCharacteristic(characteristicUUID, properties);
