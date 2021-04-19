@@ -112,6 +112,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         float gyroX, gyroY, gyroZ;
         float magneticX, magneticY, magneticZ;
 
+        int fsrReading1, fsrReading2;
+        const int FSR_THRESHOLD = 250;
+        bool capIsOn();
+
         std::vector<WaterPackage*> waterPackages;
 
         /**

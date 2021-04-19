@@ -23,6 +23,7 @@ BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::WaterIntakeServic
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::ACCELEROMETER, this);
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::GYRO, this);
     BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC, this);
+    BottleBuddy::Embedded::Pipeline::Router::subscribe(BottleBuddy::Embedded::Pipeline::Location::FSR, this);
 
     this->timer = timer_create_default();
     this->timer.every(100, BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateOrientation, this);
@@ -62,7 +63,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::disconnect(B
 void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
     this->timer.tick();
 
-    if (enteredDrinkingPos) {
+    if (enteredDrinkingPos && capIsOn()) {
         this->waterLevelBeforeDrinking = this->currWaterLevel;
         this->waterReadings.clear();
         this->updatedWaterLevel = false;
@@ -70,7 +71,7 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::loop() {
         this->timer.cancel(this->updateWaterTask);
     }
 
-    if (!enteredDrinkingPos && waitingToStopDrinking) {
+    if (!enteredDrinkingPos && waitingToStopDrinking && capIsOn()) {
         digitalWrite(this->RED_LED, LOW);
         this->waitingToStopDrinking = false;
 
@@ -163,6 +164,13 @@ void BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::receive(Bott
                 this->magneticZ = z;
             }
             break;
+        case BottleBuddy::Embedded::Pipeline::Location::FSR:
+            int fsrVal1, fsrVal2;
+            if (package->getData(fsrVal1, fsrVal2)) {
+                this->fsrReading1 = fsrVal1;
+                this->fsrReading2 = fsrVal2;
+            }
+            break;
     }
 }
 
@@ -175,6 +183,10 @@ BottleBuddy::Embedded::Pipeline::Services::Time* BottleBuddy::Embedded::Pipeline
     timestamp->second = (unsigned char)(time & 0x000000FF);
 
     return timestamp;
+}
+
+bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::capIsOn() {
+    return fsrReading1 > FSR_THRESHOLD || fsrReading2 > FSR_THRESHOLD;
 }
 
 bool BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::updateTime(void *waterInstance) {
