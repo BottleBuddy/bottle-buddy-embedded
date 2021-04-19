@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService Class Reference</div>  </div>
@@ -111,15 +112,15 @@ Inheritance diagram for BottleBuddy::Embedded::Pipeline::Services::WaterIntakeSe
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0a7366a3c4ea9c7720a5a18129fac62f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0a7366a3c4ea9c7720a5a18129fac62f"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>WaterIntakeService</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>)</td></tr>
-<tr class="separator:a0a7366a3c4ea9c7720a5a18129fac62f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8eb71ebb9cd53e68847fdc67adc54ae9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8eb71ebb9cd53e68847fdc67adc54ae9"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> ()</td></tr>
-<tr class="separator:a8eb71ebb9cd53e68847fdc67adc54ae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43c5c1869c79079fcfd8d6b7bdd10821"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a43c5c1869c79079fcfd8d6b7bdd10821"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnect</b> ()</td></tr>
-<tr class="separator:a43c5c1869c79079fcfd8d6b7bdd10821"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee30f6a2fc93816ea0a9049ca486c455"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee30f6a2fc93816ea0a9049ca486c455"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>WaterIntakeService</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>, <a class="el" href="struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time.html">Time</a> *initTimestamp, bool connected=false)</td></tr>
+<tr class="separator:aee30f6a2fc93816ea0a9049ca486c455"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13a3eab54c6954571558cd39248d8a4c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a13a3eab54c6954571558cd39248d8a4c"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> (BLEDevice central)</td></tr>
+<tr class="separator:a13a3eab54c6954571558cd39248d8a4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa47b5101bdf6b439f79496d1e68c4a4"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aaa47b5101bdf6b439f79496d1e68c4a4"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnect</b> (BLEDevice central)</td></tr>
+<tr class="separator:aaa47b5101bdf6b439f79496d1e68c4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adbc1a38d314fb9d071719ebc69fe1a71"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adbc1a38d314fb9d071719ebc69fe1a71"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="separator:adbc1a38d314fb9d071719ebc69fe1a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +128,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="memdesc:abfa1b38af16fae314c3ba3f80b2bf785"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the router class to deliver a package to a service.  <a href="#abfa1b38af16fae314c3ba3f80b2bf785">More...</a><br /></td></tr>
 <tr class="separator:abfa1b38af16fae314c3ba3f80b2bf785"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html">BottleBuddy::Embedded::Pipeline::Service</a></td></tr>
-<tr class="memitem:aa1d9175f0ae927feec2b0bc9db8b3967 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1d9175f0ae927feec2b0bc9db8b3967"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Service</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>)</td></tr>
-<tr class="separator:aa1d9175f0ae927feec2b0bc9db8b3967 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8381de83d01e2c167746b1c8bc698552 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8381de83d01e2c167746b1c8bc698552"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Service</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>, bool connected=false)</td></tr>
+<tr class="separator:a8381de83d01e2c167746b1c8bc698552 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a8a757c8863ea08320b3c894252138deb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time.html">Time</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service.html#a8a757c8863ea08320b3c894252138deb">createTimestamp</a> (unsigned int date, unsigned int time, <a class="el" href="struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time.html">Time</a> *timestamp)</td></tr>
+<tr class="memdesc:a8a757c8863ea08320b3c894252138deb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a timestamp object.  <a href="#a8a757c8863ea08320b3c894252138deb">More...</a><br /></td></tr>
+<tr class="separator:a8a757c8863ea08320b3c894252138deb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -152,6 +159,9 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 BLEService *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#a630b006fa103113e214455827c5f0b9b">bleService</a></td></tr>
 <tr class="memdesc:a630b006fa103113e214455827c5f0b9b inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">The services BLEService variable, which creates a new service within the BLE module. <br /></td></tr>
 <tr class="separator:a630b006fa103113e214455827c5f0b9b inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04c95502999a9d66577a016ba2bf39c7 inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04c95502999a9d66577a016ba2bf39c7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>connected</b></td></tr>
+<tr class="separator:a04c95502999a9d66577a016ba2bf39c7 inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top">std::vector&lt; const char * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#a543fc4a07564a076ffc2835510763e5f">uuids</a></td></tr>
 <tr class="memdesc:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of characteristic uuids.  <a href="#a543fc4a07564a076ffc2835510763e5f">More...</a><br /></td></tr>
 <tr class="separator:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +170,49 @@ BLEService *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div class="textblock"><p>This service tracks how much water a Bottle Buddy user drinks throughout the day. </p>
 <p>Specifically, the service creates a set of timestamped values corresponding to when and how much water a user drank during the day. Additionally, it streams this dataset to the Bottle Buddy App. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a8a757c8863ea08320b3c894252138deb"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time.html">BottleBuddy::Embedded::Pipeline::Services::Time</a> * BottleBuddy::Embedded::Pipeline::Services::WaterIntakeService::createTimestamp </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>date</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>time</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time.html">Time</a> *&#160;</td>
+          <td class="paramname"><em>timestamp</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a timestamp object. </p>
+<p>Given a date and time value as specified during the GATT phase, populates the given timestamp pointer accordingly. </p>
+
+</div>
+</div>
 <a class="anchor" id="abfa1b38af16fae314c3ba3f80b2bf785"></a>
 <div class="memitem">
 <div class="memproto">

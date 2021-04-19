@@ -89,6 +89,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BottleBuddy::Embedded::Pipeline::Services::CleaningService Class Reference</div>  </div>
@@ -111,15 +112,15 @@ Inheritance diagram for BottleBuddy::Embedded::Pipeline::Services::CleaningServi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad871d221313237f485759ca603d3c534"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad871d221313237f485759ca603d3c534"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>CleaningService</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>)</td></tr>
-<tr class="separator:ad871d221313237f485759ca603d3c534"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4175f4257e7d395ec2d2d0e0debc65f"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa4175f4257e7d395ec2d2d0e0debc65f"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> ()</td></tr>
-<tr class="separator:aa4175f4257e7d395ec2d2d0e0debc65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5ff13f92482dda1683a029f70fc84735"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a5ff13f92482dda1683a029f70fc84735"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnect</b> ()</td></tr>
-<tr class="separator:a5ff13f92482dda1683a029f70fc84735"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9c3e69b06b31505540b274e8f00cf9d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae9c3e69b06b31505540b274e8f00cf9d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>CleaningService</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>, bool connected=false)</td></tr>
+<tr class="separator:ae9c3e69b06b31505540b274e8f00cf9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed7ca1580dbfadaa0f009283df62cd5d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed7ca1580dbfadaa0f009283df62cd5d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> (BLEDevice central)</td></tr>
+<tr class="separator:aed7ca1580dbfadaa0f009283df62cd5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3588e480fd6aa5d19e0cb78826798d9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa3588e480fd6aa5d19e0cb78826798d9"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>disconnect</b> (BLEDevice central)</td></tr>
+<tr class="separator:aa3588e480fd6aa5d19e0cb78826798d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86e7fd7dfa11b12b7d10463a232f105e"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a86e7fd7dfa11b12b7d10463a232f105e"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="separator:a86e7fd7dfa11b12b7d10463a232f105e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -127,9 +128,15 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>loop</b> ()</td></tr>
 <tr class="memdesc:a6d3dee7ca6387c00cec3478821b1ea23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the router class to deliver a package to a service.  <a href="#a6d3dee7ca6387c00cec3478821b1ea23">More...</a><br /></td></tr>
 <tr class="separator:a6d3dee7ca6387c00cec3478821b1ea23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html">BottleBuddy::Embedded::Pipeline::Service</a></td></tr>
-<tr class="memitem:aa1d9175f0ae927feec2b0bc9db8b3967 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa1d9175f0ae927feec2b0bc9db8b3967"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Service</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>)</td></tr>
-<tr class="separator:aa1d9175f0ae927feec2b0bc9db8b3967 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8381de83d01e2c167746b1c8bc698552 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8381de83d01e2c167746b1c8bc698552"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Service</b> (const char *<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#af290f9aa0a6dca36e802e615fab19f78">uid</a>, bool connected=false)</td></tr>
+<tr class="separator:a8381de83d01e2c167746b1c8bc698552 inherit pub_methods_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a122a4f47c702c950ed601050e5be9242"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service.html#a122a4f47c702c950ed601050e5be9242">finishCleaning</a> (void *cleaningInstance)</td></tr>
+<tr class="memdesc:a122a4f47c702c950ed601050e5be9242"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when cleaning successfully completes.  <a href="#a122a4f47c702c950ed601050e5be9242">More...</a><br /></td></tr>
+<tr class="separator:a122a4f47c702c950ed601050e5be9242"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -152,6 +159,9 @@ const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 BLEService *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#a630b006fa103113e214455827c5f0b9b">bleService</a></td></tr>
 <tr class="memdesc:a630b006fa103113e214455827c5f0b9b inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">The services BLEService variable, which creates a new service within the BLE module. <br /></td></tr>
 <tr class="separator:a630b006fa103113e214455827c5f0b9b inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04c95502999a9d66577a016ba2bf39c7 inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04c95502999a9d66577a016ba2bf39c7"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>connected</b></td></tr>
+<tr class="separator:a04c95502999a9d66577a016ba2bf39c7 inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memItemLeft" align="right" valign="top">std::vector&lt; const char * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html#a543fc4a07564a076ffc2835510763e5f">uuids</a></td></tr>
 <tr class="memdesc:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector of characteristic uuids.  <a href="#a543fc4a07564a076ffc2835510763e5f">More...</a><br /></td></tr>
 <tr class="separator:a543fc4a07564a076ffc2835510763e5f inherit pro_attribs_class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,6 +170,33 @@ BLEService *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" hr
 <div class="textblock"><p>This class automatically cleans the users bottle. </p>
 <p>When the Bottle Buddy app determines that the user's bottle is due for a cleaning session, this class will receive that information then initiate cleaning once it has determined it is safe. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a122a4f47c702c950ed601050e5be9242"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::finishCleaning </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>cleaningInstance</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when cleaning successfully completes. </p>
+<p>Once the cap is on for at least 10 seconds after the app initiates cleaning, this function turns the UVC light off and notifies the app. </p>
+
+</div>
+</div>
 <a class="anchor" id="a6d3dee7ca6387c00cec3478821b1ea23"></a>
 <div class="memitem">
 <div class="memproto">

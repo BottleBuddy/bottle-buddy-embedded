@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['imu_5fsensor_5fsetup',['imu_sensor_setup',['../_i_m_u_8h.html#a542db9544621cf4d35080293ffde18e8',1,'IMU.cpp']]]
+  ['getorigin',['getOrigin',['../class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package.html#a66721d7273ffb4535d3a98e24ea26099',1,'BottleBuddy::Embedded::Pipeline::Package']]]
 ];

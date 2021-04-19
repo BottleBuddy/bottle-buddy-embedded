@@ -12,19 +12,19 @@ Base class for high level services.
 Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Service\+:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.493333cm]{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}
+\includegraphics[height=0.995556cm]{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aa1d9175f0ae927feec2b0bc9db8b3967}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_aa1d9175f0ae927feec2b0bc9db8b3967}
+{\bfseries Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid}, bool connected=false)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a8381de83d01e2c167746b1c8bc698552}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a8381de83d01e2c167746b1c8bc698552}
 
 \item 
-virtual void {\bfseries connect} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a815f0eefef7a86e48fa9ddf2a74a36a0}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a815f0eefef7a86e48fa9ddf2a74a36a0}
+virtual void {\bfseries connect} (B\+L\+E\+Device central)=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a9255768adea0f606df15d4e991bc88cf}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a9255768adea0f606df15d4e991bc88cf}
 
 \item 
-virtual void {\bfseries disconnect} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_abc5f5deb726cf0f4edd4ab3bbdd95106}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_abc5f5deb726cf0f4edd4ab3bbdd95106}
+virtual void {\bfseries disconnect} (B\+L\+E\+Device central)=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a151d906c9cbbac783c74fb6c8f17ffcc}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a151d906c9cbbac783c74fb6c8f17ffcc}
 
 \item 
 virtual void {\bfseries loop} ()=0\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab2e3087822ea3768ce176b64b43ec706}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_ab2e3087822ea3768ce176b64b43ec706}
@@ -52,6 +52,9 @@ const char $\ast$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_se
 B\+L\+E\+Service $\ast$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}{ble\+Service}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a630b006fa103113e214455827c5f0b9b}
 
 \begin{DoxyCompactList}\small\item\em The services B\+L\+E\+Service variable, which creates a new service within the B\+LE module. \end{DoxyCompactList}\item 
+bool {\bfseries connected}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a04c95502999a9d66577a016ba2bf39c7}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a04c95502999a9d66577a016ba2bf39c7}
+
+\item 
 std\+::vector$<$ const char $\ast$ $>$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_a543fc4a07564a076ffc2835510763e5f}{uuids}
 \begin{DoxyCompactList}\small\item\em Vector of characteristic uuids. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
@@ -90,7 +93,7 @@ Used by the router class to deliver a package to a service.
 
 Can be implemented however the derived service needs in order to provide its service. 
 
-Implemented in \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}, and \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}.
+Implemented in \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}, \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}, and \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_calibration_service_aa1eef705812548b2251bbe08e1a07933}{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Calibration\+Service}.
 
 
 

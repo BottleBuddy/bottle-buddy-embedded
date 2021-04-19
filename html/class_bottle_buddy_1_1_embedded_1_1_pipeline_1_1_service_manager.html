@@ -88,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">BottleBuddy::Embedded::Pipeline::ServiceManager Class Reference</div>  </div>
@@ -100,18 +100,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 <p><code>#include &lt;<a class="el" href="service_manager_8h_source.html">serviceManager.h</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:afcad5a2c7fd9461b746f1bf82a3c0ca3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#afcad5a2c7fd9461b746f1bf82a3c0ca3">addService</a> (<a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html">Service</a> *service)</td></tr>
-<tr class="memdesc:afcad5a2c7fd9461b746f1bf82a3c0ca3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a service to the list of services the service manager handles.  <a href="#afcad5a2c7fd9461b746f1bf82a3c0ca3">More...</a><br /></td></tr>
-<tr class="separator:afcad5a2c7fd9461b746f1bf82a3c0ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10d2ecdfbadf420302f3980cfd3e2d8c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#a10d2ecdfbadf420302f3980cfd3e2d8c">connectedBLE</a> ()</td></tr>
-<tr class="memdesc:a10d2ecdfbadf420302f3980cfd3e2d8c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the virtual connect function on all managed services.  <a href="#a10d2ecdfbadf420302f3980cfd3e2d8c">More...</a><br /></td></tr>
-<tr class="separator:a10d2ecdfbadf420302f3980cfd3e2d8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacdfd5bc340d8cb07146a067e8914215"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#aacdfd5bc340d8cb07146a067e8914215">disconnectedBLE</a> ()</td></tr>
-<tr class="memdesc:aacdfd5bc340d8cb07146a067e8914215"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the virtual disconnect function on all managed services.  <a href="#aacdfd5bc340d8cb07146a067e8914215">More...</a><br /></td></tr>
-<tr class="separator:aacdfd5bc340d8cb07146a067e8914215"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c701a58eaba061104576c0cfc25f3fb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#a3c701a58eaba061104576c0cfc25f3fb">loopServices</a> ()</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a3645b32be1b97361141982150c8dc318"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3645b32be1b97361141982150c8dc318"></a>
+static void&#160;</td><td class="memItemRight" valign="bottom"><b>setup</b> ()</td></tr>
+<tr class="separator:a3645b32be1b97361141982150c8dc318"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade2a555e0af07001d80107db31ec2333"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#ade2a555e0af07001d80107db31ec2333">addService</a> (ServiceType serviceType, const char *uid)</td></tr>
+<tr class="memdesc:ade2a555e0af07001d80107db31ec2333"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a service to the list of services the service manager handles.  <a href="#ade2a555e0af07001d80107db31ec2333">More...</a><br /></td></tr>
+<tr class="separator:ade2a555e0af07001d80107db31ec2333"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6218a21b71a8d30218474bef751bb07e"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#a6218a21b71a8d30218474bef751bb07e">connectedBLE</a> (BLEDevice central)</td></tr>
+<tr class="memdesc:a6218a21b71a8d30218474bef751bb07e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the virtual connect function on all managed services.  <a href="#a6218a21b71a8d30218474bef751bb07e">More...</a><br /></td></tr>
+<tr class="separator:a6218a21b71a8d30218474bef751bb07e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa245de1607ce16228ecd14aad2edc72"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#afa245de1607ce16228ecd14aad2edc72">disconnectedBLE</a> (BLEDevice central)</td></tr>
+<tr class="memdesc:afa245de1607ce16228ecd14aad2edc72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the virtual disconnect function on all managed services.  <a href="#afa245de1607ce16228ecd14aad2edc72">More...</a><br /></td></tr>
+<tr class="separator:afa245de1607ce16228ecd14aad2edc72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c701a58eaba061104576c0cfc25f3fb"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager.html#a3c701a58eaba061104576c0cfc25f3fb">loopServices</a> ()</td></tr>
 <tr class="memdesc:a3c701a58eaba061104576c0cfc25f3fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the virtual loop function on all managed services.  <a href="#a3c701a58eaba061104576c0cfc25f3fb">More...</a><br /></td></tr>
 <tr class="separator:a3c701a58eaba061104576c0cfc25f3fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -119,18 +122,36 @@ Public Member Functions</h2></td></tr>
 <div class="textblock"><p>Manages all instantiated services. </p>
 <p>Executes important lifecycle events for services such as looping, connecting, and disconnecting. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a class="anchor" id="afcad5a2c7fd9461b746f1bf82a3c0ca3"></a>
+<a class="anchor" id="ade2a555e0af07001d80107db31ec2333"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void BottleBuddy::Embedded::Pipeline::ServiceManager::addService </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service.html">Service</a> *&#160;</td>
-          <td class="paramname"><em>service</em></td><td>)</td>
+          <td class="paramtype">ServiceType&#160;</td>
+          <td class="paramname"><em>serviceType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>uid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Adds a service to the list of services the service manager handles. </p>
@@ -138,17 +159,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a10d2ecdfbadf420302f3980cfd3e2d8c"></a>
+<a class="anchor" id="a6218a21b71a8d30218474bef751bb07e"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void BottleBuddy::Embedded::Pipeline::ServiceManager::connectedBLE </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">BLEDevice&#160;</td>
+          <td class="paramname"><em>central</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calls the virtual connect function on all managed services. </p>
@@ -156,17 +186,26 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aacdfd5bc340d8cb07146a067e8914215"></a>
+<a class="anchor" id="afa245de1607ce16228ecd14aad2edc72"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void BottleBuddy::Embedded::Pipeline::ServiceManager::disconnectedBLE </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">BLEDevice&#160;</td>
+          <td class="paramname"><em>central</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calls the virtual disconnect function on all managed services. </p>
@@ -177,6 +216,9 @@ Public Member Functions</h2></td></tr>
 <a class="anchor" id="a3c701a58eaba061104576c0cfc25f3fb"></a>
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void BottleBuddy::Embedded::Pipeline::ServiceManager::loopServices </td>
@@ -185,6 +227,11 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Calls the virtual loop function on all managed services. </p>

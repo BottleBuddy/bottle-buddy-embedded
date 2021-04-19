@@ -18,13 +18,13 @@ Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Cleaning\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ad871d221313237f485759ca603d3c534}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ad871d221313237f485759ca603d3c534}
+{\bfseries Cleaning\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid}, bool connected=false)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ae9c3e69b06b31505540b274e8f00cf9d}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_ae9c3e69b06b31505540b274e8f00cf9d}
 
 \item 
-void {\bfseries connect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa4175f4257e7d395ec2d2d0e0debc65f}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa4175f4257e7d395ec2d2d0e0debc65f}
+void {\bfseries connect} (B\+L\+E\+Device central)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aed7ca1580dbfadaa0f009283df62cd5d}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aed7ca1580dbfadaa0f009283df62cd5d}
 
 \item 
-void {\bfseries disconnect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a5ff13f92482dda1683a029f70fc84735}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a5ff13f92482dda1683a029f70fc84735}
+void {\bfseries disconnect} (B\+L\+E\+Device central)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa3588e480fd6aa5d19e0cb78826798d9}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_aa3588e480fd6aa5d19e0cb78826798d9}
 
 \item 
 void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a86e7fd7dfa11b12b7d10463a232f105e}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a86e7fd7dfa11b12b7d10463a232f105e}
@@ -32,6 +32,11 @@ void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipelin
 \item 
 void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a6d3dee7ca6387c00cec3478821b1ea23}{receive} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)
 \begin{DoxyCompactList}\small\item\em Used by the router class to deliver a package to a service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a122a4f47c702c950ed601050e5be9242}{finish\+Cleaning} (void $\ast$cleaning\+Instance)
+\begin{DoxyCompactList}\small\item\em Called when cleaning successfully completes. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
@@ -41,7 +46,18 @@ This class automatically cleans the users bottle.
 When the Bottle Buddy app determines that the user\textquotesingle{}s bottle is due for a cleaning session, this class will receive that information then initiate cleaning once it has determined it is safe. 
 
 \subsection{Member Function Documentation}
-\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}!receive@{receive}}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}!finish\+Cleaning@{finish\+Cleaning}}
+\index{finish\+Cleaning@{finish\+Cleaning}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}}
+\subsubsection[{\texorpdfstring{finish\+Cleaning(void $\ast$cleaning\+Instance)}{finishCleaning(void *cleaningInstance)}}]{\setlength{\rightskip}{0pt plus 5cm}bool Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service\+::finish\+Cleaning (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{cleaning\+Instance}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a122a4f47c702c950ed601050e5be9242}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_cleaning_service_a122a4f47c702c950ed601050e5be9242}
+
+
+Called when cleaning successfully completes. 
+
+Once the cap is on for at least 10 seconds after the app initiates cleaning, this function turns the U\+VC light off and notifies the app. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}!receive@{receive}}
 \index{receive@{receive}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service}}
 \subsubsection[{\texorpdfstring{receive(\+Package $\ast$package)}{receive(Package *package)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Cleaning\+Service\+::receive (
 \begin{DoxyParamCaption}

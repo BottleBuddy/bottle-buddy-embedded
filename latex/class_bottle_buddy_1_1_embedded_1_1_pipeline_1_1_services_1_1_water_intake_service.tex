@@ -18,13 +18,13 @@ Inheritance diagram for Bottle\+Buddy\+:\+:Embedded\+:\+:Pipeline\+:\+:Services\
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bfseries Water\+Intake\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid})\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a0a7366a3c4ea9c7720a5a18129fac62f}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a0a7366a3c4ea9c7720a5a18129fac62f}
+{\bfseries Water\+Intake\+Service} (const char $\ast$\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_af290f9aa0a6dca36e802e615fab19f78}{uid}, \hyperlink{struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time}{Time} $\ast$init\+Timestamp, bool connected=false)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_aee30f6a2fc93816ea0a9049ca486c455}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_aee30f6a2fc93816ea0a9049ca486c455}
 
 \item 
-void {\bfseries connect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8eb71ebb9cd53e68847fdc67adc54ae9}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8eb71ebb9cd53e68847fdc67adc54ae9}
+void {\bfseries connect} (B\+L\+E\+Device central)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a13a3eab54c6954571558cd39248d8a4c}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a13a3eab54c6954571558cd39248d8a4c}
 
 \item 
-void {\bfseries disconnect} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a43c5c1869c79079fcfd8d6b7bdd10821}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a43c5c1869c79079fcfd8d6b7bdd10821}
+void {\bfseries disconnect} (B\+L\+E\+Device central)\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_aaa47b5101bdf6b439f79496d1e68c4a4}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_aaa47b5101bdf6b439f79496d1e68c4a4}
 
 \item 
 void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_adbc1a38d314fb9d071719ebc69fe1a71}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_adbc1a38d314fb9d071719ebc69fe1a71}
@@ -32,6 +32,11 @@ void {\bfseries loop} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipelin
 \item 
 void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_abfa1b38af16fae314c3ba3f80b2bf785}{receive} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_package}{Package} $\ast$package)
 \begin{DoxyCompactList}\small\item\em Used by the router class to deliver a package to a service. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time}{Time} $\ast$ \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8a757c8863ea08320b3c894252138deb}{create\+Timestamp} (unsigned int date, unsigned int time, \hyperlink{struct_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_time}{Time} $\ast$timestamp)
+\begin{DoxyCompactList}\small\item\em Creates a timestamp object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsection*{Additional Inherited Members}
 
 
@@ -41,7 +46,20 @@ This service tracks how much water a Bottle Buddy user drinks throughout the day
 Specifically, the service creates a set of timestamped values corresponding to when and how much water a user drank during the day. Additionally, it streams this dataset to the Bottle Buddy App. 
 
 \subsection{Member Function Documentation}
-\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}!receive@{receive}}
+\index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}!create\+Timestamp@{create\+Timestamp}}
+\index{create\+Timestamp@{create\+Timestamp}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}}
+\subsubsection[{\texorpdfstring{create\+Timestamp(unsigned int date, unsigned int time, Time $\ast$timestamp)}{createTimestamp(unsigned int date, unsigned int time, Time *timestamp)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Time} $\ast$ Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service\+::create\+Timestamp (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{date, }
+\item[{unsigned int}]{time, }
+\item[{{\bf Time} $\ast$}]{timestamp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8a757c8863ea08320b3c894252138deb}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_services_1_1_water_intake_service_a8a757c8863ea08320b3c894252138deb}
+
+
+Creates a timestamp object. 
+
+Given a date and time value as specified during the G\+A\+TT phase, populates the given timestamp pointer accordingly. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}!receive@{receive}}
 \index{receive@{receive}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service}}
 \subsubsection[{\texorpdfstring{receive(\+Package $\ast$package)}{receive(Package *package)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Services\+::\+Water\+Intake\+Service\+::receive (
 \begin{DoxyParamCaption}

@@ -9,16 +9,19 @@ Manages all instantiated services.
 
 {\ttfamily \#include $<$service\+Manager.\+h$>$}
 
-\subsection*{Public Member Functions}
+\subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}{add\+Service} (\hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service}{Service} $\ast$service)
+static void {\bfseries setup} ()\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3645b32be1b97361141982150c8dc318}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3645b32be1b97361141982150c8dc318}
+
+\item 
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_ade2a555e0af07001d80107db31ec2333}{add\+Service} (Service\+Type service\+Type, const char $\ast$uid)
 \begin{DoxyCompactList}\small\item\em Adds a service to the list of services the service manager handles. \end{DoxyCompactList}\item 
-void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}{connected\+B\+LE} ()
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a6218a21b71a8d30218474bef751bb07e}{connected\+B\+LE} (B\+L\+E\+Device central)
 \begin{DoxyCompactList}\small\item\em Calls the virtual connect function on all managed services. \end{DoxyCompactList}\item 
-void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}{disconnected\+B\+LE} ()
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afa245de1607ce16228ecd14aad2edc72}{disconnected\+B\+LE} (B\+L\+E\+Device central)
 \begin{DoxyCompactList}\small\item\em Calls the virtual disconnect function on all managed services. \end{DoxyCompactList}\item 
-void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{loop\+Services} ()
+static void \hyperlink{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{loop\+Services} ()
 \begin{DoxyCompactList}\small\item\em Calls the virtual loop function on all managed services. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -30,33 +33,34 @@ Executes important lifecycle events for services such as looping, connecting, an
 \subsection{Member Function Documentation}
 \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!add\+Service@{add\+Service}}
 \index{add\+Service@{add\+Service}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
-\subsubsection[{\texorpdfstring{add\+Service(\+Service $\ast$service)}{addService(Service *service)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::add\+Service (
+\subsubsection[{\texorpdfstring{add\+Service(\+Service\+Type service\+Type, const char $\ast$uid)}{addService(ServiceType serviceType, const char *uid)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::add\+Service (
 \begin{DoxyParamCaption}
-\item[{{\bf Service} $\ast$}]{service}
+\item[{Service\+Type}]{service\+Type, }
+\item[{const char $\ast$}]{uid}
 \end{DoxyParamCaption}
-)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afcad5a2c7fd9461b746f1bf82a3c0ca3}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_ade2a555e0af07001d80107db31ec2333}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_ade2a555e0af07001d80107db31ec2333}
 
 
 Adds a service to the list of services the service manager handles. 
 
 The provided service will now be connected, disconnected, and looped. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!connected\+B\+LE@{connected\+B\+LE}}
 \index{connected\+B\+LE@{connected\+B\+LE}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
-\subsubsection[{\texorpdfstring{connected\+B\+L\+E()}{connectedBLE()}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::connected\+B\+LE (
+\subsubsection[{\texorpdfstring{connected\+B\+L\+E(\+B\+L\+E\+Device central)}{connectedBLE(BLEDevice central)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::connected\+B\+LE (
 \begin{DoxyParamCaption}
-{}
+\item[{B\+L\+E\+Device}]{central}
 \end{DoxyParamCaption}
-)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a10d2ecdfbadf420302f3980cfd3e2d8c}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a6218a21b71a8d30218474bef751bb07e}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a6218a21b71a8d30218474bef751bb07e}
 
 
 Calls the virtual connect function on all managed services. 
 
 Call this function when the B\+LE device connects to a central device. \index{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}!disconnected\+B\+LE@{disconnected\+B\+LE}}
 \index{disconnected\+B\+LE@{disconnected\+B\+LE}!Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager@{Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager}}
-\subsubsection[{\texorpdfstring{disconnected\+B\+L\+E()}{disconnectedBLE()}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::disconnected\+B\+LE (
+\subsubsection[{\texorpdfstring{disconnected\+B\+L\+E(\+B\+L\+E\+Device central)}{disconnectedBLE(BLEDevice central)}}]{\setlength{\rightskip}{0pt plus 5cm}void Bottle\+Buddy\+::\+Embedded\+::\+Pipeline\+::\+Service\+Manager\+::disconnected\+B\+LE (
 \begin{DoxyParamCaption}
-{}
+\item[{B\+L\+E\+Device}]{central}
 \end{DoxyParamCaption}
-)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_aacdfd5bc340d8cb07146a067e8914215}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afa245de1607ce16228ecd14aad2edc72}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_afa245de1607ce16228ecd14aad2edc72}
 
 
 Calls the virtual disconnect function on all managed services. 
@@ -67,7 +71,7 @@ Call this function when the B\+LE device disconnects from a central device. \ind
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}{}\label{class_bottle_buddy_1_1_embedded_1_1_pipeline_1_1_service_manager_a3c701a58eaba061104576c0cfc25f3fb}
 
 
 Calls the virtual loop function on all managed services. 
