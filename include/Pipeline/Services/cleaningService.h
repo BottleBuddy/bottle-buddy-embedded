@@ -17,10 +17,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class CleaningService: public Service {
     public:
-        CleaningService(const char* uid);
+        CleaningService(const char* uid, bool connected = false);
 
-        void connect();
-        void disconnect();
+        void connect(BLEDevice central);
+        void disconnect(BLEDevice central);
 
         void loop();
         void receive(Package* package);
@@ -28,6 +28,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
         bool static finishCleaning(void *cleaningInstance);
     private:
         Timer<> timer;
+
+        bool connected;
 
         const int LIGHT_PIN = A0;
         const int LIGHT_WRITE = 255;

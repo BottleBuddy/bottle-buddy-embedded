@@ -14,7 +14,9 @@
 
 namespace BottleBuddy { namespace Embedded { namespace Pipeline {
 
-    enum BLEType { UnsignedShort, UnsignedChar, String, Boolean };
+    enum BottleType { ZANE_YETI };
+
+    enum BLEType { UnsignedInt, UnsignedShort, UnsignedChar, String, Boolean };
 
     /**
      * @brief Base class for high level services
@@ -28,12 +30,12 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
      */
     class Service {
     public:
-        Service(const char* uid);
+        Service(const char* uid, bool connected = false);
 
         ~Service();
 
-        virtual void connect() = 0;
-        virtual void disconnect() = 0;
+        virtual void connect(BLEDevice central) = 0;
+        virtual void disconnect(BLEDevice central) = 0;
 
         virtual void loop() = 0;
 
@@ -52,6 +54,8 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline {
          * @brief The services BLEService variable, which creates a new service within the BLE module.
          */
         BLEService* bleService;
+
+        bool connected;
 
         /**
          * @brief Vector of characteristic uuids.

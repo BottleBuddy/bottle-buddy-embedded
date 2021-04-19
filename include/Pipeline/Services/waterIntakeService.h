@@ -16,10 +16,10 @@ namespace BottleBuddy { namespace Embedded { namespace Pipeline { namespace Serv
      */
     class WaterIntakeService: public Service {
     public:
-        WaterIntakeService(const char* uid);
+        WaterIntakeService(const char* uid, bool connected = false);
 
-        void connect();
-        void disconnect();
+        void connect(BLEDevice central);
+        void disconnect(BLEDevice central);
 
         void loop();
         void receive(Package* package);
