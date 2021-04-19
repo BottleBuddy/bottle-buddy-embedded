@@ -7,7 +7,6 @@
 BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(const char* uid, bool connected) : Service(uid) {
     createCharacteristic(std::string("clean"), BLEWrite, BLEType::Boolean);
     createCharacteristic(std::string("finished_cleaning"), BLERead | BLENotify, BLEType::Boolean);
-    createCharacteristic(std::string("cleaning"), BLERead | BLENotify, BLEType::Boolean);
 
     BLE.addService(*this->bleService);
 
@@ -22,7 +21,6 @@ BottleBuddy::Embedded::Pipeline::Services::CleaningService::CleaningService(cons
 
     this->needToClean = false;
     this->cleaning = false;
-    this->cleaningTimeLeft = 0;
 
     this->fsrReading1 = 0;
     this->fsrReading2 = 0;
@@ -61,14 +59,6 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
     }
 
     if (cleaning && !capIsOn()) restartCleaning();
-    
-    byte areCleaning;
-    if (cleaning) {
-        areCleaning = 0x01;
-    } else {
-        areCleaning = 0x00;
-    }
-    getCharacteristic(std::string("cleaning"))->writeValue(areCleaning);
 }
 
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::receive(Package* package) {
