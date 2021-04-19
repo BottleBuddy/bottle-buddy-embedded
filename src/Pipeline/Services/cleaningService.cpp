@@ -37,11 +37,13 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::disconnect() {
 void BottleBuddy::Embedded::Pipeline::Services::CleaningService::loop() {
     this->timer.tick();
     if (needToClean) {
+        //digitalWrite(LEDB, LOW);
         if (capIsOn()) {
             this->needToClean = false;
             this->cleaning = true;
 
             analogWrite(this->LIGHT_PIN, this->LIGHT_WRITE);
+            digitalWrite(LEDB, LOW);
             this->cleaningTask = this->timer.in(this->CLEANING_TIME, finishCleaning, this);
         }
     } else {
@@ -83,6 +85,7 @@ bool BottleBuddy::Embedded::Pipeline::Services::CleaningService::finishCleaning(
     BottleBuddy::Embedded::Pipeline::Services::CleaningService* myself = (BottleBuddy::Embedded::Pipeline::Services::CleaningService*)cleaningInstance;
 
     analogWrite(myself->LIGHT_PIN, 0);
+    digitalWrite(LEDB, HIGH);
     myself->cleaning = false;
     myself->needToClean = false;
 
@@ -103,6 +106,7 @@ void BottleBuddy::Embedded::Pipeline::Services::CleaningService::restartCleaning
     if (!cleaning) return;
 
     analogWrite(LIGHT_PIN, 0);
+    digitalWrite(LEDB, HIGH);
     this->cleaning = false;
     this->needToClean = true;
     this->timer.cancel(this->cleaningTask);
