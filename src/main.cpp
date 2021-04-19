@@ -21,10 +21,11 @@ BottleBuddy::Embedded::Pipeline::Pipe *magnetometerPipe;
 BottleBuddy::Embedded::Pipeline::Pipe *fsrPipe;
 
 BottleBuddy::Embedded::Pipeline::ServiceManager *serviceManager;
+BottleBuddy::Embedded::Pipeline::Service* waterIntakeService;
 
-const int GREEN_LED_PIN = 4;
-const int RED_LED_PIN = 3;
-const int BLUE_LED_PIN = 2;
+const int GREEN_LED_PIN = LEDG;
+const int RED_LED_PIN = LEDR;
+const int BLUE_LED_PIN = LEDB;
 
 /**
  * @brief Setup loop.
@@ -32,10 +33,10 @@ const int BLUE_LED_PIN = 2;
  * Makes necessary initializations for system to be able to run.
  */
 void setup() {
-  pinMode(BLUE_LED_PIN, OUTPUT);
-  pinMode(RED_LED_PIN, OUTPUT);
-  pinMode(GREEN_LED_PIN, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(BLUE_LED_PIN, HIGH);
+  digitalWrite(RED_LED_PIN, HIGH);
+  digitalWrite(GREEN_LED_PIN, HIGH);
 
   if(tof_sensor_setup() == -1) {
     Serial.println("Failed to initialize VL53L0X!");
@@ -55,6 +56,7 @@ void setup() {
       ;
   }
 
+  BottleBuddy::Embedded::Pipeline::ServiceManager::setup();
   BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::WATER_INTAKE, "19B10020-E8F2-537E-4F6C-D104768A1214");
   BottleBuddy::Embedded::Pipeline::ServiceManager::addService(BottleBuddy::Embedded::Pipeline::ServiceType::CLEANING, "19B10030-E8F2-537E-4F6C-D104768A1214");
 
@@ -68,7 +70,7 @@ void setup() {
   magnetometerPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::MAGNETIC);
   fsrPipe = new BottleBuddy::Embedded::Pipeline::Pipe(BottleBuddy::Embedded::Pipeline::Location::FSR);
 
-  digitalWrite(GREEN_LED_PIN, HIGH);
+  //digitalWrite(BLUE_LED_PIN, HIGH);
 }
 
 /** 
